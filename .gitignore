@@ -2,3 +2,5 @@
 lib/
 x64/
 Release/
+bin/
+obj/

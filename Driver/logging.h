@@ -4,7 +4,11 @@
 #include <stdarg.h>
 
 #define LOG_TAG_LEN 16
-#define LOG_LEVEL 0
+#define LOG_LEVEL 1
+
+#ifdef DEBUG
+#define LOG_LEVEL 1
+#endif
 
 #define str(a) #a
 #define xstr(a) str(a)

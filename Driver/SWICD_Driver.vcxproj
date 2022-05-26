@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{12419a19-db25-4610-831b-c02f333531b1}</ProjectGuid>
-    <RootNamespace>SteamDeckControllerWindowsDriver</RootNamespace>
+    <RootNamespace>SWICD_Driver</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -54,6 +54,6 @@ void _log(const char* tag, LogLevel lvl, const char* fmt, ...) {
 	va_start(args, fmt);
 	vprintf(fmt, args);
 	va_end(args);
-	printf("\n");
+	printf("\r\n");
 	set_console_color(15);
 }
