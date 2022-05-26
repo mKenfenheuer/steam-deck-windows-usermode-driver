@@ -5,6 +5,7 @@ The layout is similar to an XBox One Elite controller (Grip Buttons R4,L4,R5,L5 
 
 ## How to try? 
 
+1. Install ViGEm Bus driver from [here](https://github.com/ViGEm/ViGEmBus/releases).
 1. Download the latest release from the releases section or build it yourself (see below).
 2. Make sure Steam is closed. Steam doesnt like us messing with their controller.
 3. Run the .exe file inside the zip.
