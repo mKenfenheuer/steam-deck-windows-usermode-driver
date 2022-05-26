@@ -1,0 +1,113 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SteamDeckControllerWindowsDriver", "SteamDeckControllerWindowsDriver\SteamDeckControllerWindowsDriver.vcxproj", "{12419A19-DB25-4610-831B-C02F333531B1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ViGEmClient", "Libraries\ViGEmBus\sdk\src\ViGEmClient.vcxproj", "{7DB06674-1F4F-464B-8E1C-172E9587F9DC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hidapi", "Libraries\hidapi\windows\hidapi.vcxproj", "{A107C21C-418A-4697-BB10-20C3AA60E2E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{ED036DFA-49CF-4C10-887D-7FAAEDB58B60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_DLL|x64 = Debug_DLL|x64
+		Debug_DLL|x86 = Debug_DLL|x86
+		Debug_LIB|x64 = Debug_LIB|x64
+		Debug_LIB|x86 = Debug_LIB|x86
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release_DLL|x64 = Release_DLL|x64
+		Release_DLL|x86 = Release_DLL|x86
+		Release_LIB|x64 = Release_LIB|x64
+		Release_LIB|x86 = Release_LIB|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_DLL|x64.ActiveCfg = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_DLL|x64.Build.0 = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_DLL|x86.ActiveCfg = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_DLL|x86.Build.0 = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_LIB|x64.ActiveCfg = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_LIB|x64.Build.0 = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_LIB|x86.ActiveCfg = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug_LIB|x86.Build.0 = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug|x64.ActiveCfg = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug|x64.Build.0 = Debug|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug|x86.ActiveCfg = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Debug|x86.Build.0 = Debug|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_DLL|x64.ActiveCfg = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_DLL|x64.Build.0 = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_DLL|x86.ActiveCfg = Release|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_DLL|x86.Build.0 = Release|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_LIB|x64.ActiveCfg = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_LIB|x64.Build.0 = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_LIB|x86.ActiveCfg = Release|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release_LIB|x86.Build.0 = Release|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release|x64.ActiveCfg = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release|x64.Build.0 = Release|x64
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release|x86.ActiveCfg = Release|Win32
+		{12419A19-DB25-4610-831B-C02F333531B1}.Release|x86.Build.0 = Release|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_DLL|x64.ActiveCfg = Debug_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_DLL|x64.Build.0 = Debug_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_DLL|x86.ActiveCfg = Debug_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_DLL|x86.Build.0 = Debug_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_LIB|x64.ActiveCfg = Debug_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_LIB|x64.Build.0 = Debug_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_LIB|x86.ActiveCfg = Debug_LIB|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug_LIB|x86.Build.0 = Debug_LIB|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug|x64.ActiveCfg = Debug_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug|x64.Build.0 = Debug_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug|x86.ActiveCfg = Debug_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Debug|x86.Build.0 = Debug_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_DLL|x64.ActiveCfg = Release_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_DLL|x64.Build.0 = Release_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_DLL|x86.ActiveCfg = Release_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_DLL|x86.Build.0 = Release_DLL|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_LIB|x64.ActiveCfg = Release_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_LIB|x64.Build.0 = Release_LIB|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_LIB|x86.ActiveCfg = Release_LIB|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release_LIB|x86.Build.0 = Release_LIB|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release|x64.ActiveCfg = Release_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release|x64.Build.0 = Release_DLL|x64
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release|x86.ActiveCfg = Release_LIB|Win32
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC}.Release|x86.Build.0 = Release_LIB|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_DLL|x64.ActiveCfg = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_DLL|x64.Build.0 = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_DLL|x86.ActiveCfg = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_DLL|x86.Build.0 = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_LIB|x64.ActiveCfg = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_LIB|x64.Build.0 = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_LIB|x86.ActiveCfg = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug_LIB|x86.Build.0 = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug|x64.ActiveCfg = Debug|x64
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug|x64.Build.0 = Debug|x64
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug|x86.ActiveCfg = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Debug|x86.Build.0 = Debug|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_DLL|x64.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_DLL|x64.Build.0 = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_DLL|x86.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_DLL|x86.Build.0 = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_LIB|x64.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_LIB|x64.Build.0 = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_LIB|x86.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release_LIB|x86.Build.0 = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release|x64.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release|x64.Build.0 = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release|x86.ActiveCfg = Release|Win32
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7DB06674-1F4F-464B-8E1C-172E9587F9DC} = {ED036DFA-49CF-4C10-887D-7FAAEDB58B60}
+		{A107C21C-418A-4697-BB10-20C3AA60E2E4} = {ED036DFA-49CF-4C10-887D-7FAAEDB58B60}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FD80937-695E-496B-A589-7AA45917AE83}
+	EndGlobalSection
+EndGlobal

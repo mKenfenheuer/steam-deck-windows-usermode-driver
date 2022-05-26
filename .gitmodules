@@ -1,0 +1,6 @@
+[submodule "Libraries/ViGEmBus"]
+	path = Libraries/ViGEmBus
+	url = https://github.com/ViGEm/ViGEmBus.git
+[submodule "Libraries/hidapi"]
+	path = Libraries/hidapi
+	url = https://github.com/signal11/hidapi.git
