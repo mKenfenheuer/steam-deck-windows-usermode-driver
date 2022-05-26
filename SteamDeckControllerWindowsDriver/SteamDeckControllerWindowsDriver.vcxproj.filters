@@ -13,54 +13,113 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\hid">
+      <UniqueIdentifier>{a5527a9c-2223-4cce-b492-97adcd64e29d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\driver">
+      <UniqueIdentifier>{a8e56f24-b300-4659-beb9-81141ebdccea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\vdev">
+      <UniqueIdentifier>{ba0fc625-2ffe-464d-a2ad-8a7339fef50d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\utils">
+      <UniqueIdentifier>{932d640d-7b53-4e2c-8f17-5b12efd30b30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\devices">
+      <UniqueIdentifier>{0e019080-fb83-43ec-9ce7-ac47bdf2c69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\driver">
+      <UniqueIdentifier>{f19a9b36-2a71-45ea-8bc0-ae9a3ae9b8a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\hid">
+      <UniqueIdentifier>{8d468869-ee53-4f61-8c03-72dea7d35e7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\devices">
+      <UniqueIdentifier>{acb4844f-4322-4cc3-bbc2-c53f5e03c9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\devices\valve">
+      <UniqueIdentifier>{d73e3e2f-8e80-4a6a-b388-2b2cc5406b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\devices\valve">
+      <UniqueIdentifier>{a4412bb7-7ed5-45f5-9ec4-f3c7831a4d90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\devices\valve\neptune">
+      <UniqueIdentifier>{6675f71a-ea75-4dfd-b015-616f30010934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\utils">
+      <UniqueIdentifier>{4e566a52-1a95-4628-a408-62d89cae02ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\vdev">
+      <UniqueIdentifier>{e87df611-33e6-4b90-803c-4543e5694d74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\system">
+      <UniqueIdentifier>{d61628d1-080d-4067-a465-274a65dadb75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\system">
+      <UniqueIdentifier>{226a6c6a-f6ea-4b5d-b960-3674e5fa9660}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="driver_mapper.cpp">
+      <Filter>Quelldateien\driver</Filter>
+    </ClCompile>
     <ClCompile Include="hid_interface.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="logging.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="vigem_virtual_device.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\hid</Filter>
     </ClCompile>
     <ClCompile Include="steam_deck_controller_interface.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\devices\valve</Filter>
+    </ClCompile>
+    <ClCompile Include="logging.cpp">
+      <Filter>Quelldateien\utils</Filter>
     </ClCompile>
     <ClCompile Include="tools.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\utils</Filter>
     </ClCompile>
-    <ClCompile Include="driver_mapper.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="vigem_virtual_device.cpp">
+      <Filter>Quelldateien\vdev</Filter>
+    </ClCompile>
+    <ClCompile Include="processes.cpp">
+      <Filter>Quelldateien\system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hid_interface.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="logging.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="steam_deck_config.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="steam_deck_hid_commands.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="vigem_virtual_device.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="steam_deck_controller_interface.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="tools.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\hid</Filter>
     </ClInclude>
     <ClInclude Include="driver_mapper.h">
+      <Filter>Headerdateien\driver</Filter>
+    </ClInclude>
+    <ClInclude Include="vigem_virtual_device.h">
+      <Filter>Headerdateien\vdev</Filter>
+    </ClInclude>
+    <ClInclude Include="tools.h">
+      <Filter>Headerdateien\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="steam_deck_config.h">
+      <Filter>Headerdateien\devices\valve\neptune</Filter>
+    </ClInclude>
+    <ClInclude Include="steam_deck_controller_interface.h">
+      <Filter>Headerdateien\devices\valve\neptune</Filter>
+    </ClInclude>
+    <ClInclude Include="steam_deck_hid_commands.h">
+      <Filter>Headerdateien\devices\valve\neptune</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h">
+      <Filter>Headerdateien\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="processes.h">
+      <Filter>Headerdateien\system</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app_config.conf">
+      <Filter>Ressourcendateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

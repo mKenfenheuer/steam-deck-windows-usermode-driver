@@ -1,6 +1,8 @@
 
+#define _CRT_SECURE_NO_WARNINGS
 #include "logging.h"
 #include <iostream>
+#include <iomanip>
 #include <windows.h>   // WinApi header
 
 
@@ -15,6 +17,16 @@ void set_console_color(uint8_t color)
 }
 
 void log_prefix(const char* tag, int lvl) {
+	time_t tt;
+	struct tm* st;
+	char time_str[32];
+
+	tt = time(NULL);
+	struct tm* p = localtime(&tt);
+
+	strftime(time_str, 32, "%Y-%m-%d %H:%M:%S", p);
+
+	printf("%s ", time_str);
 	snprintf(tag_padded, LOG_TAG_LEN + 1, "%s", tag);
 	printf("[%c] %-" xstr(LOG_TAG_LEN) "s ", levels[lvl], tag_padded);
 }
@@ -43,4 +55,5 @@ void _log(const char* tag, LogLevel lvl, const char* fmt, ...) {
 	vprintf(fmt, args);
 	va_end(args);
 	printf("\n");
+	set_console_color(15);
 }

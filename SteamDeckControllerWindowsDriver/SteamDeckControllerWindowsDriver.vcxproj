@@ -134,6 +134,7 @@
     <ClCompile Include="driver_mapper.cpp" />
     <ClCompile Include="hid_interface.cpp" />
     <ClCompile Include="logging.cpp" />
+    <ClCompile Include="processes.cpp" />
     <ClCompile Include="steam_deck_controller_interface.cpp" />
     <ClCompile Include="tools.cpp" />
     <ClCompile Include="vigem_virtual_device.cpp" />
@@ -147,7 +148,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config.h" />
     <ClInclude Include="driver_mapper.h" />
+    <ClInclude Include="processes.h" />
     <ClInclude Include="hid_interface.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="steam_deck_config.h" />
@@ -155,6 +158,11 @@
     <ClInclude Include="steam_deck_hid_commands.h" />
     <ClInclude Include="tools.h" />
     <ClInclude Include="vigem_virtual_device.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app_config.conf">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -34,6 +34,9 @@ bool sdc_get_serial(char* buffer)
 
 	strncpy(buffer, (const char*)&data[3], MAX_SERIAL_LEN);
 
+	if (strlen(buffer) == 0)
+		return false;
+
 	return true;
 }
 

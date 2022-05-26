@@ -52,3 +52,15 @@ bool vigem_update_device(XUSB_REPORT report)
 	}
 	return true;
 }
+
+bool vigem_reset_device()
+{
+	XUSB_REPORT report = XUSB_REPORT();
+	auto pir = vigem_target_x360_update(_vigem_client, _vigem_target, report);
+	if (!VIGEM_SUCCESS(pir))
+	{
+		LOG_ERROR("Could not update virtual controller status. Error 0x%2x", pir);
+		return false;
+	}
+	return true;
+}

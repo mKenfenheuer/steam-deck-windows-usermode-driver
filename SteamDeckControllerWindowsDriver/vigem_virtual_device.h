@@ -23,3 +23,7 @@ bool vigem_open_device();
 //
 // Returns bool - indicates if the device was successfully updated
 bool vigem_update_device(XUSB_REPORT report);
+// Resets the status of the device
+//
+// Returns bool - indicates if the device was successfully reset
+bool vigem_reset_device();
