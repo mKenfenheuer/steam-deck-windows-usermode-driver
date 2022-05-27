@@ -8,12 +8,13 @@ The layout is similar to an XBox One Elite controller (Grip Buttons R4,L4,R5,L5 
 1. Install ViGEm Bus driver from [here](https://github.com/ViGEm/ViGEmBus/releases).
 1. Download the latest release from the releases section or build it yourself (see below).
 2. Make sure Steam is closed. Steam doesnt like us messing with their controller.
-3. Run the .exe file inside the zip.
-4. Have fun
+3. Run the .exe file inside the zip, or install the whole solution via the .msi
+4. Configure your settings in the app_config.conf (blacklist or whitelist processes)
+6. Have fun
 
 ## Known Bugs
 
-* Steam still produces controller inputs even if we are hooking the hid device. Therefore with the driver active you will get doubled inputs in BigPicture mode and steam games.
+* Steam still produces controller inputs even if we are hooking the hid device. Therefore with the driver active you will get doubled inputs in BigPicture mode and steam games if the driver is not disabled by config.
 * The driver sometimes fails to grab the serial number / fails to initialize. Make sure steam is closed when launching the driver. If that doesnt help, reboot.
 
 Please report any bugs you encounter using the Issues section. Don't forget to provide a meaningful description such as What does not work? How should it work? What did you do? Makes it easier for all of us.
