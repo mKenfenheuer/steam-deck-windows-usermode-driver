@@ -9,7 +9,7 @@ The layout is similar to an XBox One Elite controller (Grip Buttons R4,L4,R5,L5 
 1. Download the latest release from the releases section or build it yourself (see below).
 2. Make sure Steam is closed. Steam doesnt like us messing with their controller.
 3. Run the .exe file inside the zip, or install the whole solution via the .msi
-4. Configure your settings in the app_config.conf (blacklist or whitelist processes)
+4. Configure your settings in the app_config.conf (blacklist or whitelist processes) (more info [here](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/wiki/Configuration-via-config-file))
 6. Have fun
 
 ## Known Bugs
