@@ -21,6 +21,8 @@
 #include "steam_deck_config.h"
 #include "steam_deck_hid_commands.h"
 
+#define MAP_VALUE(A,B,C) (double)((double)A / B * C);
+
 
 bool sdc_get_serial(char* buffer)
 {
@@ -41,14 +43,50 @@ bool sdc_get_serial(char* buffer)
 }
 
 
+//0x8e -> Mouse Buttons disabled, touchpad enabled.
+//0x85 -> Mouse Buttons work, touchpad work.
+//0x83 -> Mouse Buttons work, touchpad work.
+//0x81 -> All Disabled
+
+typedef struct Haptic {
+	uint8_t		packet_type = 0x8f;
+	uint8_t		len = 0x07;
+	uint8_t		position = 1;
+	uint16_t	amplitude;
+	uint16_t	period;
+	uint16_t	cunt;
+} Haptic;
+
 bool sdc_set_lizard_mode(bool enabled)
 {
-	uint8_t data[64] = { COMMAND_SET_LIZARD_MODE, (uint8_t)(enabled ? 0x01 : 0x00) }; // Command to set lizard mode
+	uint8_t data[64] = { 0x8f, 0x00 };
 
 	if (hid_request(data, -64) == NULL) {
 		return false;
 	}
+	return true;
+}
 
+bool sdc_set_haptic(uint8_t amount)
+{
+	uint8_t data[64] = {0x8f, 0x07, 0x0 }; // Command to set lizard mode
+	Haptic haptic;
+
+	
+	if (amount > 0)
+	{
+		amount = MAP_VALUE(amount, 0xff, 0x85);
+		haptic.amplitude = 0x0000 + 0x85 - amount + 0x10;
+		haptic.period = 0x0005;
+		haptic.cunt = 1;
+	}
+
+
+	memcpy(&data, &haptic, sizeof(Haptic));
+
+	if (hid_request(data, -64) == NULL) {
+		return false;
+	}
 	return true;
 }
 

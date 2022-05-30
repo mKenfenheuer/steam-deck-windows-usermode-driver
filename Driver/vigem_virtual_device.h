@@ -27,3 +27,4 @@ bool vigem_update_device(XUSB_REPORT report);
 //
 // Returns bool - indicates if the device was successfully reset
 bool vigem_reset_device();
+bool vigem_register_notifications(PFN_VIGEM_X360_NOTIFICATION notification);

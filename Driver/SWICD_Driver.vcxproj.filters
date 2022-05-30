@@ -58,6 +58,15 @@
     <Filter Include="Quelldateien\system">
       <UniqueIdentifier>{226a6c6a-f6ea-4b5d-b960-3674e5fa9660}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quelldateien\config">
+      <UniqueIdentifier>{710ff0c1-df18-4eb6-9d8a-de8f5812e90a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\devices\valve\neptune">
+      <UniqueIdentifier>{a693079d-89b6-4567-b589-8e91268c4046}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\config">
+      <UniqueIdentifier>{d1ff54c3-7431-4249-a4f9-1bf6a6feb1b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="driver.cpp">
@@ -69,9 +78,6 @@
     <ClCompile Include="hid_interface.cpp">
       <Filter>Quelldateien\hid</Filter>
     </ClCompile>
-    <ClCompile Include="steam_deck_controller_interface.cpp">
-      <Filter>Quelldateien\devices\valve</Filter>
-    </ClCompile>
     <ClCompile Include="logging.cpp">
       <Filter>Quelldateien\utils</Filter>
     </ClCompile>
@@ -82,6 +88,15 @@
       <Filter>Quelldateien\vdev</Filter>
     </ClCompile>
     <ClCompile Include="processes.cpp">
+      <Filter>Quelldateien\system</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>Quelldateien\config</Filter>
+    </ClCompile>
+    <ClCompile Include="steam_deck_controller_interface.cpp">
+      <Filter>Quelldateien\devices\valve\neptune</Filter>
+    </ClCompile>
+    <ClCompile Include="emulated_keyboard.cpp">
       <Filter>Quelldateien\system</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,12 +129,10 @@
       <Filter>Headerdateien\system</Filter>
     </ClInclude>
     <ClInclude Include="config.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\config</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app_config.conf">
-      <Filter>Ressourcendateien</Filter>
-    </None>
+    <ClInclude Include="emulated_keyboard.h">
+      <Filter>Headerdateien\system</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

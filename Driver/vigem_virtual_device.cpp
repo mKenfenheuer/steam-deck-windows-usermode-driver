@@ -64,3 +64,14 @@ bool vigem_reset_device()
 	}
 	return true;
 }
+
+bool vigem_register_notifications(PFN_VIGEM_X360_NOTIFICATION notification)
+{
+	auto pir = vigem_target_x360_register_notification(_vigem_client, _vigem_target, notification, NULL);
+	if (!VIGEM_SUCCESS(pir))
+	{
+		LOG_ERROR("Could not hook notifications. Error 0x%2x", pir);
+		return false;
+	}
+	return true;
+}

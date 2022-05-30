@@ -1,38 +1,38 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration.Install;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.ServiceProcess;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SWICD_ServiceInstaller
+namespace SWICD_Lib
 {
     [RunInstaller(true)]
-    internal class Program
+    public partial class ProjectInstaller : Installer
     {
-        static void Main(string[] args)
+        protected override void OnAfterInstall(IDictionary savedState)
         {
-            var cwd = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+            var cwd = Path.GetDirectoryName(Assembly.GetAssembly(typeof(ProjectInstaller)).Location);
             var filename = Path.Combine(cwd, "SWICD_Driver_Service.exe");
 
-            if (args[0] == "--install")
-            {
-                InstallService(filename);
-                StartService();
-            }
-            else if (args[0] == "--uninstall")
-            {
-                StopService();
-                UninstallService();
-            }
-            else if (args[0] == "--test")
-            {
-                ServiceTest test = new ServiceTest();
-                test.OnStart();
-                Console.ReadLine();
-            }
-            else
-            {
-                Console.WriteLine("Nothing to do. Specify --install or --uninstall as argument.");
-            }
+            InstallService(filename);
+            StartService();
+            Console.ReadLine();
+            base.OnAfterInstall(savedState);
+            
+        }
+
+        protected override void OnBeforeUninstall(IDictionary savedState)
+        {
+            StopService();
+            UninstallService();
+            Console.ReadLine();
+            base.OnBeforeUninstall(savedState);
         }
 
         public static void InstallService(string exeFilename)

@@ -21,6 +21,8 @@
 #include <string>
 #include <filesystem>
 #include <direct.h>
+#include <thread>
+#include <functional>
 
 // internal 
 #define LOG_TAG "driver_main"
@@ -31,6 +33,7 @@
 #include "vigem_virtual_device.h"
 #include "processes.h"
 #include "config.h"
+#include "emulated_keyboard.h"
 
 //Steam Deck Config
 #include "steam_deck_config.h"
@@ -39,16 +42,20 @@
 
 #define EXIT_ERROR(code) prepare_exit(); return -code;
 
-#define TIME_MILLIS() (long)(time(nullptr) * 1000);
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+using std::chrono::system_clock;
+
+#define TIME_MILLIS() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
 
 AppConfig config;
+ControllerConfig* active_controller;
 
-std::vector<std::string> blacklisted_processes = std::vector<std::string>();
-std::vector<std::string> whitelisted_processes = std::vector<std::string>();
 bool emulating = true;
 bool _lst_emulating = true;
-long last_process_check;
-long last_conf_load;
+unsigned long long last_process_check;
+unsigned long long last_conf_load;
 
 void prepare_exit()
 {
@@ -88,6 +95,7 @@ void signal_received(int signum) {
 	exit(signum);
 }
 
+unsigned long long _last_lizard_mode_update = TIME_MILLIS();
 void driver_mainloop()
 {
 	uint8_t data[64];
@@ -99,30 +107,19 @@ void driver_mainloop()
 		tool_bytes2hex(data, hex_str, length);
 		LOG_DEBUG("Data read from hid device: %s", hex_str);
 #endif
-		map_driver_hid_input(data, length);
 
-	}
-}
+		SDCInput* input = (SDCInput*)data;
 
-void check_should_emulate()
-{
-	last_process_check = TIME_MILLIS();
+		if (emulating)
+			map_driver_hid_input(input);
 
-	if (config.mode == APP_MODE_WHITELIST)
-	{
-		bool whitelisted = false;
-		for (auto it = std::begin(whitelisted_processes); it != std::end(whitelisted_processes) && !whitelisted; ++it) {
-			whitelisted = sys_check_process_running((*it).c_str());
+		if (TIME_MILLIS() - _last_lizard_mode_update > 900)
+		{
+			sdc_set_lizard_mode(!active_controller->disable_lizard_mode);
+			_last_lizard_mode_update = TIME_MILLIS();
 		}
-		emulating = whitelisted;
-	}
-	else
-	{
-		bool blacklisted = false;
-		for (auto it = std::begin(blacklisted_processes); it != std::end(blacklisted_processes) && !blacklisted; ++it) {
-			blacklisted = sys_check_process_running((*it).c_str());
-		}
-		emulating = !blacklisted;
+
+		handle_button_actions(input);
 	}
 }
 
@@ -144,82 +141,47 @@ void handle_emulating_changed()
 	}
 }
 
-void process_config(std::string key, std::string value)
+void manager_thread()
 {
-	if (key == "blacklist")
-	{
-		blacklisted_processes.push_back(value);
-		return;
-	}
+	unsigned long last_conf_load = TIME_MILLIS();
+	unsigned long last_em_check = TIME_MILLIS();
 
-	if (key == "whitelist")
+	while (true)
 	{
-		whitelisted_processes.push_back(value);
-		return;
-	}
-
-	if (key == "mode")
-	{
-		if (value == "whitelist")
+		unsigned long time = TIME_MILLIS();
+		if (time - last_conf_load > 1000)
 		{
-			config.mode = APP_MODE_WHITELIST;
+			load_conf(&config);
+			last_conf_load = TIME_MILLIS();
 		}
-		else
-		{
-			config.mode = APP_MODE_BLACKLIST;
-		}
-		return;
-	}
 
-	LOG_WARN("Unknown config key: %s=%s", key.c_str(), value.c_str());
+		if (time - last_em_check > 500)
+		{
+			emulating = check_should_emulate(&config);
+			active_controller = get_active_config(&config);
+			last_em_check = TIME_MILLIS();
+		}
+
+		if (_lst_emulating != emulating)
+			handle_emulating_changed();
+
+		Sleep(100);
+	}
 }
 
-bool load_conf()
+void vigem_raiseEvent(PVIGEM_CLIENT client, PVIGEM_TARGET target,
+	uint8_t largeMotor, uint8_t smallMotor, uint8_t ledNumber,
+	LPVOID userData)
 {
-	last_conf_load = TIME_MILLIS();
-
-	LOG_INFO("Loading config");
-
-	std::ifstream file(CONF_FILE);
-	if (file.is_open()) {
-
-		blacklisted_processes.clear();
-		whitelisted_processes.clear();
-
-		std::string line;
-		while (std::getline(file, line))
-		{
-			//Ignore comments in conf file
-			if (line.c_str()[0] == '#')
-				continue;
-
-			//Ignore empty lines
-			if (line.length() == 0)
-				continue;
-
-
-			LOG_DEBUG("%s", line.c_str());
-			std::istringstream is_line(line);
-			std::string key;
-			if (std::getline(is_line, key, '='))
-			{
-				std::string value;
-				if (std::getline(is_line, value))
-					process_config(key, value);
-			}
-		}
-		return true;
-	} 
-	else
-	{
-		LOG_ERROR("Unable to open config file: %s", CONF_FILE);
-		return false;
-	}
+	LOG_INFO("LM: %d, SM: %d", largeMotor, smallMotor);
+	uint8_t value = max(largeMotor, smallMotor);
+	sdc_set_haptic(value);
 }
+
 
 int main()
 {
-	if (!load_conf())
+	if (!load_conf(&config))
 	{
 		EXIT_ERROR(0x1f);
 	}
@@ -247,16 +209,7 @@ int main()
 
 	LOG_INFO("Serial of connected controller: %s", serial);
 
-	//Lets try to disable the lizard mode of the controller (mouse and keyboard input instead of controller controls)
-
-	if (!sdc_set_lizard_mode(false))
-	{
-		LOG_ERROR("Failed to disable lizard mode");
-		EXIT_ERROR(0x03);
-	}
-
 	//Now clear any controller mappings
-
 	if (!sdc_clear_mappings())
 	{
 		LOG_ERROR("Failed to clear mappings");
@@ -280,30 +233,25 @@ int main()
 
 	}
 
+	vigem_register_notifications(&vigem_raiseEvent);
+
 	//Everything looks good. Now we can try to grab some input and pass it to the mapper.
 	LOG_INFO("Driver is successfully started. Happy gaming!");
 
-	check_should_emulate();
+	emulating = check_should_emulate(&config);
+	active_controller = get_active_config(&config);
+
+	auto threadObj = thread(&manager_thread);
+	threadObj.detach();
 
 	while (true)
 	{
 		long start = TIME_MILLIS();
-		if (emulating)
-			driver_mainloop();
+		driver_mainloop();
 		long end = TIME_MILLIS();
-		if (end - start < 10)
-			Sleep((10 - (end - start)));
 
-		if (end - last_process_check > 5000)
-			check_should_emulate();
-
-		if (end - last_conf_load > 15000)
-			load_conf();
-
-		if (_lst_emulating != emulating)
-		{
-			handle_emulating_changed();
-		}
+		if (end - start < 5)
+			Sleep((5 - (end - start)));
 	}
 
 

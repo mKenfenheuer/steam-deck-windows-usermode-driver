@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWICD_Lib.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,14 +11,26 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SWICD_Driver_Service
 {
     public partial class Service : ServiceBase
     {
+        
         Process DriverProcess;
-        EventLog eventLog = new EventLog();
-        string filename;
+        string InstallationDirectory;
+        List<string> DriverLog = new List<string>();
+        Thread _driverLogWorker;
+        Thread _driverManagementWorker;
+        bool _running = true;
+        EventLog log = new EventLog()
+        {
+            Source = "SWICD_Driver",
+        };
+
+        bool IsDriverRunning => !DriverProcess?.HasExited ?? false;
+
         public Service()
         {
             InitializeComponent();
@@ -25,45 +38,80 @@ namespace SWICD_Driver_Service
 
         protected override void OnStart(string[] args)
         {
-            eventLog.Source = "SWICD_Driver_Service";
-            eventLog.WriteEntry("SWICD Driver Started.", EventLogEntryType.Information);
+            InstallationDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _driverLogWorker = new Thread(new ThreadStart(DriverLogWorker));
+            _driverLogWorker.IsBackground = true;
+            _driverLogWorker.Start();
+            _driverManagementWorker = new Thread(new ThreadStart(DriverManagementWorker));
+            _driverManagementWorker.IsBackground = true;
+            _driverManagementWorker.Start();
+        }        
 
-
-            var cwd = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            filename = Path.Combine(cwd, "SWICD_Driver.exe");
-
-            eventLog.WriteEntry($"SWICD Driver Location: {filename}", EventLogEntryType.Information);
-
-            StartDriver();
-            CheckDriverStatusTimer.Enabled = true;
-        }
-
-        void Thread_ProcessWorker()
+        void DriverLogWorker()
         {
-            var stdline = DriverProcess.StandardOutput.ReadLine();
-            if (stdline != null)
-                eventLog.WriteEntry(stdline, EventLogEntryType.Information);
+            while (_running)
+            {
+                try
+                {
+                    if (DriverProcess != null)
+                    {
+                        try
+                        {
+                            var stdline = DriverProcess.StandardOutput.ReadLine();
+                            if (stdline != null)
+                            {
+                                DriverLog.Add(stdline);
+                                log.WriteEntry(stdline, EventLogEntryType.Information);
+                                File.AppendAllText(Path.Combine("C:\\", "DriverLog.log"), stdline + "\r\n");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                        }
 
-            var errline = DriverProcess.StandardError.ReadLine();
-            if (errline != null)
-                eventLog.WriteEntry(errline, EventLogEntryType.Error);
+                        try
+                        {
+                            var errline = DriverProcess.StandardError.ReadLine();
+                            if (errline != null)
+                            {
+                                log.WriteEntry(errline, EventLogEntryType.Error);
+                                DriverLog.Add(errline);
+                                File.AppendAllText(Path.Combine("C:\\", "DriverLog.log"), errline + "\r\n");
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+
+                }
+                Thread.Sleep(100);
+            }
+
         }
 
         void StartDriver()
         {
-            var cwd = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            filename = Path.Combine(cwd, "SWICD_Driver.exe");
+            var filename = Path.Combine(InstallationDirectory, "SWICD_Driver.exe");
             DriverProcess = new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = filename,
-                    WorkingDirectory = cwd,
+                    WorkingDirectory = InstallationDirectory,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardError = true,
                     RedirectStandardOutput = true,
+                    Verb = "runas"
                 }
             };
             DriverProcess.Start();
@@ -72,15 +120,27 @@ namespace SWICD_Driver_Service
         protected override void OnStop()
         {
             if (DriverProcess != null && !DriverProcess.HasExited)
+            {
                 DriverProcess.Kill();
+            }
+            _running = false;
         }
 
-        private void CheckDriverStatusTimer_Tick(object sender, EventArgs e)
+        private void DriverManagementWorker()
         {
-            if (DriverProcess == null || DriverProcess.HasExited)
-                StartDriver();
-            Thread_ProcessWorker();
-
+            while (_running)
+            {
+                try
+                {
+                    if (!IsDriverRunning)
+                        StartDriver();
+                }
+                catch (Exception ex)
+                {
+                    log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                }
+                Thread.Sleep(1000);
+            }
         }
     }
 }

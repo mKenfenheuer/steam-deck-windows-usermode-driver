@@ -12,6 +12,7 @@ bool sdc_get_serial(char* buffer);
 //
 // Returns bool - indicates success
 bool sdc_set_lizard_mode(bool enabled);
+bool sdc_set_haptic(uint8_t amount);
 // Enables or disabled the steam deck controllers lizard mode
 // (mouse and keyboard emulation)
 // 

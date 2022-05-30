@@ -22,13 +22,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
-        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
+        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
-        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -45,13 +45,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7E4AD82DECA44E6B9DC260D8C0C14911"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_51E3D310BC6998BA90A933937813C811"
+        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_D203DF603E7945959E3FF56024ECAE33"
+        "MsmKey" = "8:_51E3D310BC6998BA90A933937813C811"
+        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7E4AD82DECA44E6B9DC260D8C0C14911"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -64,7 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
+        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_51E3D310BC6998BA90A933937813C811"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,7 +94,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
+        "OwnerKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -103,6 +115,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -119,6 +147,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -207,10 +243,21 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D203DF603E7945959E3FF56024ECAE33"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_51E3D310BC6998BA90A933937813C811"
             {
-            "SourcePath" = "8:..\\..\\Driver\\app_config.conf"
-            "TargetName" = "8:app_config.conf"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SWICD_Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_51E3D310BC6998BA90A933937813C811"
+                    {
+                    "Name" = "8:SWICD_Lib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SWICD_Lib.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Condition" = "8:"
@@ -224,7 +271,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBB769324F08D0914843EA54E225E229"
@@ -314,15 +361,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SWICD Driver"
-        "ProductCode" = "8:{B314C475-9A17-4814-BF36-DADAFD5CD2D8}"
-        "PackageCode" = "8:{38311287-7DCE-428D-95E1-EE81F7BB0EAA}"
+        "ProductCode" = "8:{3428DAA9-7C8F-4ED7-AD2E-630E7EE0D9C5}"
+        "PackageCode" = "8:{B21EA0B4-4003-4377-92F1-5E8FB939D9CE}"
         "UpgradeCode" = "8:{C2FD17B4-D53B-435F-8F09-10B4D2610684}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.1.1"
+        "ProductVersion" = "8:0.1.2"
         "Manufacturer" = "8:Maximilian Kenfenheuer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/issues"
@@ -934,7 +981,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7E4AD82DECA44E6B9DC260D8C0C14911"
             {
-            "SourcePath" = "8:..\\SWICD_ServiceInstaller\\obj\\Debug\\SWICD_ServiceInstaller.exe"
+            "SourcePath" = "8:..\\..\\Libraries\\SWICD_Lib\\obj\\Debug\\SWICD_Lib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"

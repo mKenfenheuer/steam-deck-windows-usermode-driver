@@ -1,8 +1,9 @@
 #pragma once
-//Checks if a certain process is running
+#include <vector>
+#include <string>
+using namespace std;
+// Gets a list of running processes
 // 
-// const char* name: the name of the process
+// vector<string>* list: the pointer to the list of processes to fill
 // 
-// Returns:
-// bool - indicates whether the process is running
-bool sys_check_process_running(const char* name);
+void sys_get_process_list(vector<string>* list);

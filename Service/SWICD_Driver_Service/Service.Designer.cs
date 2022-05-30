@@ -29,20 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.CheckDriverStatusTimer = new System.Windows.Forms.Timer(this.components);
             // 
-            // CheckDriverStatusTimer
+            // Service
             // 
-            this.CheckDriverStatusTimer.Tick += new System.EventHandler(this.CheckDriverStatusTimer_Tick);
-            // 
-            // Service1
-            // 
-            this.ServiceName = "Service1";
+            this.ServiceName = "SWICD_Driver";
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer CheckDriverStatusTimer;
     }
 }

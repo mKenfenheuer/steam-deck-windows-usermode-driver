@@ -62,5 +62,11 @@
       <DependentUpon>Service.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\SWICD_Lib\SWICD_Lib.csproj">
+      <Project>{b25ada70-5a22-43bf-abec-106d473b4c66}</Project>
+      <Name>SWICD_Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

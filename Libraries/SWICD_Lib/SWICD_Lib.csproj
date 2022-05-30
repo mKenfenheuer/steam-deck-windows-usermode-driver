@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B25ADA70-5A22-43BF-ABEC-106D473B4C66}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SWICD_ServiceInstaller</RootNamespace>
-    <AssemblyName>SWICD_ServiceInstaller</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SWICD_Lib</RootNamespace>
+    <AssemblyName>SWICD_Lib</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
@@ -39,15 +42,20 @@
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="ProjectInstaller.cs">
+    <Compile Include="Config\AxisMapping.cs" />
+    <Compile Include="Config\ButtonMapping.cs" />
+    <Compile Include="Config\ConfigLoader.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\ControllerConfig.cs" />
+    <Compile Include="Config\EmulatedAxis.cs" />
+    <Compile Include="Config\EmulatedAxisConfig.cs" />
+    <Compile Include="Config\EmulatedButton.cs" />
+    <Compile Include="Config\HardwareButton.cs" />
+    <Compile Include="Config\OperationMode.cs" />
+    <Compile Include="Service\ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
