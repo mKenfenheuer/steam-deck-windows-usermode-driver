@@ -219,11 +219,11 @@ int main()
 	//Lets try to configure the controller mode
 	// idle_timeout: 10 minutes
 	// gyro_enabled: true
-	if (!sdc_configure(10 * 60, true))
+	/*if (!sdc_configure(10 * 60, true))
 	{
 		LOG_ERROR("Failed to configure controller");
 		EXIT_ERROR(0x05);
-	}
+	}*/
 
 	//The steam deck controller has been set up. Now we can connect to ViGEm and create a virtual controller
 	if (!vigem_open_device())

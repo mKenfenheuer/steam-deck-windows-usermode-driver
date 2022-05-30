@@ -59,20 +59,38 @@ typedef struct Haptic {
 
 bool sdc_set_lizard_mode(bool enabled)
 {
-	uint8_t data[64] = { 0x8f, 0x00 };
+	if (!enabled)
+	{
+		uint8_t data[64] = { 0x87, 0x03, 0x08, 0x07 };
 
-	if (hid_request(data, -64) == NULL) {
-		return false;
+		if (hid_request(data, -64) == NULL) {
+			return false;
+		}
+	}
+	else 
+	{
+		uint8_t data[64] = { 0x85, 0x00 };
+
+		if (hid_request(data, -64) == NULL) {
+			return false;
+		}
+
+		data[0] = 0x8e;
+
+		if (hid_request(data, -64) == NULL) {
+			return false;
+		}
 	}
 	return true;
 }
 
 bool sdc_set_haptic(uint8_t amount)
 {
-	uint8_t data[64] = {0x8f, 0x07, 0x0 }; // Command to set lizard mode
+
+	uint8_t data[64] = { 0x8f, 0x07, 0x0 }; // Command to set lizard mode
 	Haptic haptic;
 
-	
+
 	if (amount > 0)
 	{
 		amount = MAP_VALUE(amount, 0xff, 0x85);
