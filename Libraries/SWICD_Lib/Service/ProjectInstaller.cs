@@ -20,9 +20,9 @@ namespace SWICD_Lib
             var cwd = Path.GetDirectoryName(Assembly.GetAssembly(typeof(ProjectInstaller)).Location);
             var filename = Path.Combine(cwd, "SWICD_Driver_Service.exe");
 
-            InstallService(filename);
-            StartService();
-            Console.ReadLine();
+            //InstallService(filename);
+            //StartService();
+            //Console.ReadLine();
             base.OnAfterInstall(savedState);
             
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,29 +16,24 @@ using System.Windows.Forms;
 
 namespace SWICD_Driver_Service
 {
-    public partial class Service : ServiceBase
+    public partial class ControlForm : Form
     {
-        
         Process DriverProcess;
         string InstallationDirectory;
         List<string> DriverLog = new List<string>();
         Thread _driverLogWorker;
         Thread _driverManagementWorker;
         bool _running = true;
+        bool DriverShouldRun = true;
         EventLog log = new EventLog()
         {
             Source = "SWICD_Driver",
         };
-
         bool IsDriverRunning => !DriverProcess?.HasExited ?? false;
 
-        public Service()
+        public ControlForm()
         {
             InitializeComponent();
-        }
-
-        protected override void OnStart(string[] args)
-        {
             InstallationDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             _driverLogWorker = new Thread(new ThreadStart(DriverLogWorker));
             _driverLogWorker.IsBackground = true;
@@ -45,7 +41,35 @@ namespace SWICD_Driver_Service
             _driverManagementWorker = new Thread(new ThreadStart(DriverManagementWorker));
             _driverManagementWorker.IsBackground = true;
             _driverManagementWorker.Start();
-        }        
+            Application.ApplicationExit += Application_ApplicationExit;
+            Hide();
+        }
+
+        private void Application_ApplicationExit(object sender, EventArgs e)
+        {
+            StopDriver();
+        }
+
+        void StartDriver()
+        {
+            var filename = Path.Combine(InstallationDirectory, "SWICD_Driver.exe");
+            var logname = Path.Combine(InstallationDirectory, "SWICD_Driver.log");
+            DriverProcess = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/c \"SWICD_Driver.exe\"",
+                    WorkingDirectory = InstallationDirectory,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                }
+            };
+            DriverProcess.Start();
+            DriverShouldRun = true;
+        }
 
         void DriverLogWorker()
         {
@@ -62,7 +86,6 @@ namespace SWICD_Driver_Service
                             {
                                 DriverLog.Add(stdline);
                                 log.WriteEntry(stdline, EventLogEntryType.Information);
-                                File.AppendAllText(Path.Combine("C:\\", "DriverLog.log"), stdline + "\r\n");
                             }
                         }
                         catch (Exception ex)
@@ -77,7 +100,6 @@ namespace SWICD_Driver_Service
                             {
                                 log.WriteEntry(errline, EventLogEntryType.Error);
                                 DriverLog.Add(errline);
-                                File.AppendAllText(Path.Combine("C:\\", "DriverLog.log"), errline + "\r\n");
                             }
 
                         }
@@ -96,34 +118,13 @@ namespace SWICD_Driver_Service
             }
 
         }
-
-        void StartDriver()
-        {
-            var filename = Path.Combine(InstallationDirectory, "SWICD_Driver.exe");
-            DriverProcess = new Process()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    FileName = filename,
-                    WorkingDirectory = InstallationDirectory,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                    Verb = "runas"
-                }
-            };
-            DriverProcess.Start();
-        }
-
-        protected override void OnStop()
+        void StopDriver()
         {
             if (DriverProcess != null && !DriverProcess.HasExited)
             {
                 DriverProcess.Kill();
             }
-            _running = false;
+            DriverShouldRun = false;
         }
 
         private void DriverManagementWorker()
@@ -132,7 +133,7 @@ namespace SWICD_Driver_Service
             {
                 try
                 {
-                    if (!IsDriverRunning)
+                    if (!IsDriverRunning && DriverShouldRun)
                         StartDriver();
                 }
                 catch (Exception ex)
@@ -141,6 +142,64 @@ namespace SWICD_Driver_Service
                 }
                 Thread.Sleep(1000);
             }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+        }
+
+        private void ControlForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+        }
+
+        private void timerGuiUpdate_Tick(object sender, EventArgs e)
+        {
+            lbDriverLog.Items.Clear();
+            List<string> log = DriverLog;
+            foreach (var line in log)
+                lbDriverLog.Items.Add(line);
+            lbDriverLog.SelectedIndex = lbDriverLog.Items.Count - 1;
+
+            lblDriverStatus.Text = IsDriverRunning ? "Running" : "Stopped";
+            tsmiStartStopDriver.Text = IsDriverRunning ? "Stop Driver" : "Start Driver";
+            notificationIcon.Icon = IsDriverRunning ? Resources.app_icon_on : Resources.app_icon_off;
+            lblDriverStatus.BackColor = IsDriverRunning ? Color.ForestGreen : Color.DarkRed;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (IsDriverRunning)
+                StopDriver();
+            else
+                StartDriver();
+        }
+
+        private void ControlForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _running = false;
+            if (IsDriverRunning)
+                StopDriver();
+        }
+
+        private void tsmiExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void tsmiShow_Click(object sender, EventArgs e)
+        {
+            this.Show();
+        }
+
+        private void tsmiStartStopDriver_Click(object sender, EventArgs e)
+        {
+            if (IsDriverRunning)
+                StopDriver();
+            else
+                StartDriver();
         }
     }
 }

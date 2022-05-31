@@ -33,6 +33,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_283DD01F338A4888A63817B48526F454"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -76,12 +82,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_51E3D310BC6998BA90A933937813C811"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7E4AD82DECA44E6B9DC260D8C0C14911"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -89,6 +89,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_51E3D310BC6998BA90A933937813C811"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -154,6 +160,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -243,6 +257,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_283DD01F338A4888A63817B48526F454"
+            {
+            "SourcePath" = "8:..\\..\\Service\\SWICD_Driver_Service\\app_icon.ico"
+            "TargetName" = "8:app_icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_51E3D310BC6998BA90A933937813C811"
             {
             "AssemblyRegister" = "3:1"
@@ -300,6 +334,17 @@
         }
         "Folder"
         {
+            "{1525181F-901A-416C-8A58-119130FE478E}:_3F5F772A999144E290AA9B5BB72AFBAA"
+            {
+            "Name" = "8:#1928"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:StartupFolder"
+                "Folders"
+                {
+                }
+            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_4FEEBEC92BEB43FDA95684FB80451D54"
             {
             "Name" = "8:#1919"
@@ -493,7 +538,21 @@
             "Target" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
             "Folder" = "8:_C75A692480104A328681E82519DABCF5"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Icon" = "8:"
+            "Icon" = "8:_283DD01F338A4888A63817B48526F454"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9971323EEA2D462C9D70BC7BDC0CF245"
+            {
+            "Name" = "8:Shortcut to Primäre Ausgabe from SWICD_Driver_Service (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Folder" = "8:_3F5F772A999144E290AA9B5BB72AFBAA"
+            "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Icon" = "8:_283DD01F338A4888A63817B48526F454"
             "Feature" = "8:"
             }
         }
