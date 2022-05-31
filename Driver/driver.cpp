@@ -149,7 +149,7 @@ void manager_thread()
 	while (true)
 	{
 		unsigned long time = TIME_MILLIS();
-		if (time - last_conf_load > 1000)
+		if (time - last_conf_load > 10000)
 		{
 			load_conf(&config);
 			last_conf_load = TIME_MILLIS();
@@ -173,7 +173,7 @@ void vigem_raiseEvent(PVIGEM_CLIENT client, PVIGEM_TARGET target,
 	uint8_t largeMotor, uint8_t smallMotor, uint8_t ledNumber,
 	LPVOID userData)
 {
-	LOG_INFO("LM: %d, SM: %d", largeMotor, smallMotor);
+	LOG_DEBUG("LM: %d, SM: %d", largeMotor, smallMotor);
 	uint8_t value = max(largeMotor, smallMotor);
 	sdc_set_haptic(value);
 }
@@ -219,11 +219,16 @@ int main()
 	//Lets try to configure the controller mode
 	// idle_timeout: 10 minutes
 	// gyro_enabled: true
-	/*if (!sdc_configure(10 * 60, true))
+	if (!sdc_configure(10 * 60, true))
 	{
 		LOG_ERROR("Failed to configure controller");
 		EXIT_ERROR(0x05);
-	}*/
+	}
+	if (!sdc_clear_mappings())
+	{
+		LOG_ERROR("Failed to clear mappings");
+		EXIT_ERROR(0x05);
+	}
 
 	//The steam deck controller has been set up. Now we can connect to ViGEm and create a virtual controller
 	if (!vigem_open_device())

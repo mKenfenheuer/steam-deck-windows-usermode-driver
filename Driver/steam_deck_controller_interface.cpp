@@ -61,20 +61,30 @@ bool sdc_set_lizard_mode(bool enabled)
 {
 	if (!enabled)
 	{
+		//Disable mouse emulation
 		uint8_t data[64] = { 0x87, 0x03, 0x08, 0x07 };
 
 		if (hid_request(data, -64) == NULL) {
 			return false;
 		}
+
+		//Disable keyboard/mouse button emulation
+		uint8_t data2[64] = { 0x81, 0x00 };
+
+		if (hid_request(data2, -64) == NULL) {
+			return false;
+		}
 	}
 	else 
 	{
+		//Enable keyboard/mouse button emulation
 		uint8_t data[64] = { 0x85, 0x00 };
 
 		if (hid_request(data, -64) == NULL) {
 			return false;
 		}
 
+		//Enable mouse emulation
 		data[0] = 0x8e;
 
 		if (hid_request(data, -64) == NULL) {
