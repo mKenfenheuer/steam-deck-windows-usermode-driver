@@ -543,7 +543,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9971323EEA2D462C9D70BC7BDC0CF245"
             {
-            "Name" = "8:Shortcut to Primäre Ausgabe from SWICD_Driver_Service (Active)"
+            "Name" = "8:SWICD Driver Service"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -551,6 +551,34 @@
             "Transitive" = "11:FALSE"
             "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
             "Folder" = "8:_3F5F772A999144E290AA9B5BB72AFBAA"
+            "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Icon" = "8:_283DD01F338A4888A63817B48526F454"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AB285BA8585845A69D3584023FD25822"
+            {
+            "Name" = "8:SWICD Driver"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Folder" = "8:_59CFE7D132E44CECB4851896DD775AA4"
+            "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Icon" = "8:_283DD01F338A4888A63817B48526F454"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_EB85A153828F4CDF8EEF334C9BFFC517"
+            {
+            "Name" = "8:SWICD Driver"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Folder" = "8:_C75A692480104A328681E82519DABCF5"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Icon" = "8:_283DD01F338A4888A63817B48526F454"
             "Feature" = "8:"

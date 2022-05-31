@@ -96,6 +96,7 @@ void signal_received(int signum) {
 }
 
 unsigned long long _last_lizard_mode_update = TIME_MILLIS();
+bool _last_lizard_mode = false;
 void driver_mainloop()
 {
 	uint8_t data[64];
@@ -113,9 +114,14 @@ void driver_mainloop()
 		if (emulating)
 			map_driver_hid_input(input);
 
-		if (TIME_MILLIS() - _last_lizard_mode_update > 900)
+		if (TIME_MILLIS() - _last_lizard_mode_update > 100)
 		{
-			sdc_set_lizard_mode(!active_controller->disable_lizard_mode);
+			bool enable = !active_controller->disable_lizard_mode;
+			if ((enable != _last_lizard_mode) || !enable)
+			{
+				sdc_set_lizard_mode(enable);
+				_last_lizard_mode = enable;
+			}
 			_last_lizard_mode_update = TIME_MILLIS();
 		}
 

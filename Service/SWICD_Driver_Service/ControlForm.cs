@@ -21,7 +21,6 @@ namespace SWICD_Driver_Service
         Process DriverProcess;
         string InstallationDirectory;
         List<string> DriverLog = new List<string>();
-        Thread _driverLogWorker;
         Thread _driverManagementWorker;
         bool _running = true;
         bool DriverShouldRun = true;
@@ -30,14 +29,13 @@ namespace SWICD_Driver_Service
             Source = "SWICD_Driver",
         };
         bool IsDriverRunning => !DriverProcess?.HasExited ?? false;
+        bool CanShow = false;
+        bool CanExit = true;
 
         public ControlForm()
         {
             InitializeComponent();
             InstallationDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            _driverLogWorker = new Thread(new ThreadStart(DriverLogWorker));
-            _driverLogWorker.IsBackground = true;
-            _driverLogWorker.Start();
             _driverManagementWorker = new Thread(new ThreadStart(DriverManagementWorker));
             _driverManagementWorker.IsBackground = true;
             _driverManagementWorker.Start();
@@ -71,53 +69,6 @@ namespace SWICD_Driver_Service
             DriverShouldRun = true;
         }
 
-        void DriverLogWorker()
-        {
-            while (_running)
-            {
-                try
-                {
-                    if (DriverProcess != null)
-                    {
-                        try
-                        {
-                            var stdline = DriverProcess.StandardOutput.ReadLine();
-                            if (stdline != null)
-                            {
-                                DriverLog.Add(stdline);
-                                log.WriteEntry(stdline, EventLogEntryType.Information);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-                        }
-
-                        try
-                        {
-                            var errline = DriverProcess.StandardError.ReadLine();
-                            if (errline != null)
-                            {
-                                log.WriteEntry(errline, EventLogEntryType.Error);
-                                DriverLog.Add(errline);
-                            }
-
-                        }
-                        catch (Exception ex)
-                        {
-                            log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-
-                }
-                Thread.Sleep(100);
-            }
-
-        }
         void StopDriver()
         {
             if (DriverProcess != null && !DriverProcess.HasExited)
@@ -146,11 +97,14 @@ namespace SWICD_Driver_Service
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            CanShow = true;
             this.Show();
         }
 
         private void ControlForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            CanShow = false;
+            if(!CanExit)
             e.Cancel = true;
             this.Hide();
         }
@@ -180,17 +134,21 @@ namespace SWICD_Driver_Service
         private void ControlForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _running = false;
+            CanShow = false;
             if (IsDriverRunning)
                 StopDriver();
         }
 
         private void tsmiExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            CanExit = true;
+            StopDriver();
+            Application.Exit();
         }
 
         private void tsmiShow_Click(object sender, EventArgs e)
         {
+            CanShow = true;
             this.Show();
         }
 
@@ -200,6 +158,12 @@ namespace SWICD_Driver_Service
                 StopDriver();
             else
                 StartDriver();
+        }
+
+        private void ControlForm_Shown(object sender, EventArgs e)
+        {
+            if (!CanShow)
+                Hide();
         }
     }
 }

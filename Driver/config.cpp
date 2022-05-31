@@ -343,11 +343,13 @@ bool load_conf(AppConfig* config)
 				if (executable.length() > 0)
 					controller_config = get_controller_config(config, executable);
 
-				if (controller_config == nullptr)
+				if (controller_config == nullptr && executable.length() > 0)
 				{
-					ControllerConfig cc = ControllerConfig();
-					cc.executable = executable;
-					config->pre_exe_controller_configs.push_back(cc);
+					ControllerConfig* cc = (ControllerConfig*) malloc(sizeof(config->default_controller_config));
+					memcpy(cc, &(config->default_controller_config), sizeof(config->default_controller_config));
+					cc->executable = executable;
+					config->pre_exe_controller_configs.push_back(*cc);
+					free(cc);
 					controller_config = get_controller_config(config, executable);
 				}
 
