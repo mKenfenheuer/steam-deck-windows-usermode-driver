@@ -15,19 +15,24 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ListView Panel.ZIndex="0" Background="#FF232323" ItemsSource="{Binding NavigationItems}">
+        <ListView Panel.ZIndex="0" 
+                  Background="#FF232323" 
+                  SelectedItem="{Binding SelectedNavigationItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding NavigationItems}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Title}" Foreground="#fff" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center" FontSize="16">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding OnClickableLabel}" CommandParameter="{Binding .}" />
-                        </Label.GestureRecognizers>
-                    </Label>
+                    <Label Content="{Binding Title}" 
+                           Foreground="#fff" 
+                           HorizontalAlignment="Left" 
+                           Margin="5,0,0,0" 
+                           VerticalAlignment="Center" 
+                           FontSize="16" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Rectangle Fill="#2c2c2c" Width="1" HorizontalAlignment="Right" Panel.ZIndex="1" StrokeThickness="0"></Rectangle>
-        <Frame Name="ContentFrame" Content="{Binding FrameContent}" Grid.Column="1">
+        <Frame Name="ContentFrame" Content="{Binding ContentPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"
+               NavigationUIVisibility="Hidden">
         </Frame>
     </Grid>
 </Window>
