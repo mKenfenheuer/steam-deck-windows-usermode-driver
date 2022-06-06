@@ -15,50 +15,8 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
-        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
-        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_283DD01F338A4888A63817B48526F454"
         "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_40E61BEA0B6A44888FADD80C1FCE17E7"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_51E3D310BC6998BA90A933937813C811"
-        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_51E3D310BC6998BA90A933937813C811"
-        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,38 +27,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FBB769324F08D0914843EA54E225E229"
-        "OwnerKey" = "8:_40E61BEA0B6A44888FADD80C1FCE17E7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_7E4AD82DECA44E6B9DC260D8C0C14911"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_51E3D310BC6998BA90A933937813C811"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1C1214CD1E4BD656D67A80BF69DB7C61"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -226,37 +154,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C1214CD1E4BD656D67A80BF69DB7C61"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_1C1214CD1E4BD656D67A80BF69DB7C61"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_283DD01F338A4888A63817B48526F454"
             {
             "SourcePath" = "8:..\\..\\Service\\SWICD_Driver_Service\\app_icon.ico"
@@ -275,57 +172,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_51E3D310BC6998BA90A933937813C811"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SWICD_Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_51E3D310BC6998BA90A933937813C811"
-                    {
-                    "Name" = "8:SWICD_Lib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:SWICD_Lib.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBB769324F08D0914843EA54E225E229"
-            {
-            "SourcePath" = "8:SETUPAPI.dll"
-            "TargetName" = "8:SETUPAPI.dll"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -535,7 +381,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_40DC5AAD71474A9BA4252B4B65F06412"
+            "Target" = "8:"
             "Folder" = "8:_C75A692480104A328681E82519DABCF5"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Icon" = "8:_283DD01F338A4888A63817B48526F454"
@@ -549,7 +395,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Target" = "8:"
             "Folder" = "8:_3F5F772A999144E290AA9B5BB72AFBAA"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Icon" = "8:_283DD01F338A4888A63817B48526F454"
@@ -563,7 +409,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Target" = "8:"
             "Folder" = "8:_59CFE7D132E44CECB4851896DD775AA4"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Icon" = "8:_283DD01F338A4888A63817B48526F454"
@@ -577,7 +423,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_083E6F3EDD1A446B9AF9B634DBD63C0A"
+            "Target" = "8:"
             "Folder" = "8:_C75A692480104A328681E82519DABCF5"
             "WorkingFolder" = "8:_A989021FC6EF4284A09D5A8631B95877"
             "Icon" = "8:_283DD01F338A4888A63817B48526F454"
@@ -982,90 +828,6 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_083E6F3EDD1A446B9AF9B634DBD63C0A"
-            {
-            "SourcePath" = "8:..\\..\\Service\\SWICD_Driver_Service\\obj\\Debug\\SWICD_Driver_Service.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{A756356B-2CF2-4BB2-AF68-EA86D851EE97}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_40DC5AAD71474A9BA4252B4B65F06412"
-            {
-            "SourcePath" = "8:..\\..\\Configurator\\SWICD_Configurator\\obj\\Debug\\SWICD_Configurator.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{ACAD487F-4AC8-46B2-928F-19B68095F420}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_40E61BEA0B6A44888FADD80C1FCE17E7"
-            {
-            "SourcePath" = "8:..\\..\\x64\\Debug\\SWICD_Driver.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{12419A19-DB25-4610-831B-C02F333531B1}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7E4AD82DECA44E6B9DC260D8C0C14911"
             {
             "SourcePath" = "8:..\\..\\Libraries\\SWICD_Lib\\obj\\Debug\\SWICD_Lib.dll"

@@ -52,9 +52,6 @@
     <Compile Include="Config\EmulatedButton.cs" />
     <Compile Include="Config\HardwareButton.cs" />
     <Compile Include="Config\OperationMode.cs" />
-    <Compile Include="Service\ProjectInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
