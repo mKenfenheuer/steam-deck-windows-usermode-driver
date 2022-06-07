@@ -8,11 +8,11 @@ using System.Windows;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("SWICD")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Steam Deck Controller Windows Driver")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Maximilian Kenfenheuer")]
 [assembly: AssemblyProduct("SWICD")]
-[assembly: AssemblyCopyright("Copyright ©  2022")]
+[assembly: AssemblyCopyright("Copyright © 2022 Maximilian Kenfenheuer")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

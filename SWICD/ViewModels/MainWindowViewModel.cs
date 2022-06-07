@@ -1,13 +1,20 @@
-﻿using SWICD.Model;
+﻿using Microsoft.Win32;
+using SWICD.Commands;
+using SWICD.Model;
 using SWICD.Pages;
+using SWICD.Services;
+using SWICD_Lib.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SWICD.ViewModels
 {
@@ -23,26 +30,102 @@ namespace SWICD.ViewModels
             }
             get => null;
         }
+
+        internal void OnWindowClosing(CancelEventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Do you want to save and apply the configuration now?",
+                "Attention", 
+                MessageBoxButton.YesNoCancel, 
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Cancel)
+                e.Cancel = true;
+            if (result == MessageBoxResult.Yes)
+                SaveConfiguration();
+
+
+        }
+
+        private void SaveConfiguration()
+        {
+            ControllerService.Instance.Configuration = Configuration;
+            ConfigLoader.SaveConfiguration(Configuration, "app_config.conf");
+        }
+
+        private Configuration Configuration { get; set; } = new Configuration();
         public Page ContentPage { get; set; }
 
         public MainWindowViewModel()
         {
+            if (File.Exists("app_config.conf"))
+            {
+                Configuration = ConfigLoader.GetConfiguration("app_config.conf");
+            }
+
             NavigationItems = new ObservableCollection<NavigationItemModel>();
             NavigationItems.Add(new NavigationItemModel()
             {
-                Title = "Settings"
+                Title = "Driver Status",
+                Page = new DriverStatusPage(),
             });
             NavigationItems.Add(new NavigationItemModel()
             {
-                Title = "Profiles"
+                Title = "Settings",
+                Page = new SettingsPage(),
             });
+            NavigationItems.Add(new NavigationItemModel()
+            {
+                Title = "Profiles",
+                Selectable = false,
+            });
+            NavigationItems.Add(new NavigationItemModel()
+            {
+                Title = "Default Profile",
+                IsSubItem = true,
+                Page = new ProfileEditPage(Configuration.DefaultControllerConfig),
+            });
+
+            foreach (var profile in Configuration.PerProcessControllerConfig)
+            {
+                NavigationItems.Add(new NavigationItemModel()
+                {
+                    Title = profile.Key,
+                    IsSubItem = true,
+                    Page = new ProfileEditPage(profile.Value),
+                });
+            }
+
+            SelectedNavigationItem = NavigationItems.First();
+            NotifyPropertyChanged(nameof(SelectedNavigationItem));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ICommand AddProfileClickCommand => new CommandHandler((obj) => _ = OnAddProfileClick());
+
+        public async Task OnAddProfileClick()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Executable | *.exe";
+            openFileDialog.Title = "Select the game executable";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string executable = Path.GetFileName(openFileDialog.FileName);
+                ControllerConfig config = new ControllerConfig(executable);
+                Configuration.PerProcessControllerConfig.Add(executable, config);
+                NavigationItems.Add(new NavigationItemModel()
+                {
+                    Title = executable,
+                    IsSubItem = true,
+                    Page = new ProfileEditPage(config),
+                });
+            }
+        }
+
         public async Task OnNavigationItemSelected(NavigationItemModel item)
         {
-            ContentPage = new SettingsPage();
+            ContentPage = item.Page;
             NotifyPropertyChanged(nameof(ContentPage));
         }
         public void NotifyPropertyChanged(string propName)

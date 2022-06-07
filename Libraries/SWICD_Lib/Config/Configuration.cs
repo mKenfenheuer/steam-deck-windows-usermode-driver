@@ -12,6 +12,7 @@ namespace SWICD_Lib.Config
         public List<string> WhitelistedProcesses { get; set; } = new List<string>();
         public OperationMode OperationMode { get; set; } = OperationMode.Blacklist;
         public ControllerConfig DefaultControllerConfig { get; set; } = new ControllerConfig();
+        public ButtonActions ButtonActions { get; set; } = new ButtonActions();
         public Dictionary<string, ControllerConfig> PerProcessControllerConfig { get; set; } = new Dictionary<string, ControllerConfig>();
     }
 }

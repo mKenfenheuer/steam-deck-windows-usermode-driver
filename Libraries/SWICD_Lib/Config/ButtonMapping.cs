@@ -1,37 +1,71 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SWICD_Lib.Config
 {
-    public class ButtonMapping
+    public class ButtonMapping : ICloneable
     {
-        public EmulatedButton BtnX { get; set; } = EmulatedButton.BtnX;
-        public EmulatedButton BtnY { get; set; } = EmulatedButton.BtnY;
-        public EmulatedButton BtnA { get; set; } = EmulatedButton.BtnA;
-        public EmulatedButton BtnB { get; set; } = EmulatedButton.BtnB;
-        public EmulatedButton BtnMenu { get; set; } = EmulatedButton.BtnStart;
-        public EmulatedButton BtnOptions { get; set; } = EmulatedButton.BtnBack;
-        public EmulatedButton BtnSteam { get; set; } = EmulatedButton.BtnStart;
-        public EmulatedButton BtnQuickAccess { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnDpadUp { get; set; } = EmulatedButton.BtnDpadUp;
-        public EmulatedButton BtnDpadLeft { get; set; } = EmulatedButton.BtnDpadUp;
-        public EmulatedButton BtnDpadRight { get; set; } = EmulatedButton.BtnDpadRight;
-        public EmulatedButton BtnDpadDown { get; set; } = EmulatedButton.BtnDpadDown;
-        public EmulatedButton BtnL1 { get; set; } = EmulatedButton.BtnLB;
-        public EmulatedButton BtnR1 { get; set; } = EmulatedButton.BtnRB;
-        public EmulatedButton BtnL2 { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnR2 { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnL4 { get; set; } = EmulatedButton.BtnA;
-        public EmulatedButton BtnR4 { get; set; } = EmulatedButton.BtnB;
-        public EmulatedButton BtnL5 { get; set; } = EmulatedButton.BtnX;
-        public EmulatedButton BtnR5 { get; set; } = EmulatedButton.BtnY;
-        public EmulatedButton BtnRPadPress { get; set; } = EmulatedButton.BtnRS;
-        public EmulatedButton BtnLPadPress { get; set; } = EmulatedButton.BtnLS;
-        public EmulatedButton BtnRPadTouch { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnLPadTouch { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnRStickPress { get; set; } = EmulatedButton.BtnRS;
-        public EmulatedButton BtnLStickPress { get; set; } = EmulatedButton.BtnLS;
-        public EmulatedButton BtnRStickTouch { get; set; } = EmulatedButton.None;
-        public EmulatedButton BtnLStickTouch { get; set; } = EmulatedButton.None;
+        private Dictionary<HardwareButton, EmulatedButton> _mappings = new Dictionary<HardwareButton, EmulatedButton>()
+        {
+            { HardwareButton.BtnX, EmulatedButton.BtnX },
+            { HardwareButton.BtnY, EmulatedButton.BtnY },
+            { HardwareButton.BtnA, EmulatedButton.BtnA },
+            { HardwareButton.BtnB, EmulatedButton.BtnB },
+            { HardwareButton.BtnMenu, EmulatedButton.BtnStart },
+            { HardwareButton.BtnOptions, EmulatedButton.BtnBack },
+            { HardwareButton.BtnSteam, EmulatedButton.BtnStart },
+            { HardwareButton.BtnQuickAccess, EmulatedButton.None },
+            { HardwareButton.BtnDpadUp, EmulatedButton.BtnDpadUp },
+            { HardwareButton.BtnDpadLeft, EmulatedButton.BtnDpadUp },
+            { HardwareButton.BtnDpadRight, EmulatedButton.BtnDpadRight },
+            { HardwareButton.BtnDpadDown, EmulatedButton.BtnDpadDown },
+            { HardwareButton.BtnL1, EmulatedButton.BtnLB },
+            { HardwareButton.BtnR1, EmulatedButton.BtnRB },
+            { HardwareButton.BtnL2, EmulatedButton.None },
+            { HardwareButton.BtnR2, EmulatedButton.None },
+            { HardwareButton.BtnL4, EmulatedButton.BtnA },
+            { HardwareButton.BtnR4, EmulatedButton.BtnB },
+            { HardwareButton.BtnL5, EmulatedButton.BtnX },
+            { HardwareButton.BtnR5, EmulatedButton.BtnY },
+            { HardwareButton.BtnRPadPress, EmulatedButton.BtnRS },
+            { HardwareButton.BtnLPadPress, EmulatedButton.BtnLS },
+            { HardwareButton.BtnRPadTouch, EmulatedButton.None },
+            { HardwareButton.BtnLPadTouch, EmulatedButton.None },
+            { HardwareButton.BtnRStickPress, EmulatedButton.BtnRS },
+            { HardwareButton.BtnLStickPress, EmulatedButton.BtnLS },
+            { HardwareButton.BtnRStickTouch, EmulatedButton.None },
+            { HardwareButton.BtnLStickTouch, EmulatedButton.None },
+        };
+
+        public ButtonMapping(Dictionary<HardwareButton, EmulatedButton> mappings)
+        {
+            _mappings = mappings;
+        }
+
+        public ButtonMapping()
+        {
+        }
+
+        public EmulatedButton this[HardwareButton button]
+        {
+            get
+            {
+                if (_mappings.ContainsKey(button))
+                    return _mappings[button];
+                return EmulatedButton.None;
+            }
+            set
+            {
+                _mappings[button] = value;
+            }
+        }
+        public object Clone()
+        {
+            var clone = new ButtonMapping(_mappings.ToDictionary(entry => entry.Key,
+                                               entry => entry.Value));
+            return clone;
+        }
 
         internal string ToString(string executable = null)
         {
@@ -40,37 +74,17 @@ namespace SWICD_Lib.Config
             {
                 config = $"[buttons,{executable}]\r\n";
             }
-            config += $"BtnX={GetEmulatedButtonName(BtnX)}\r\n";
-            config += $"BtnY={GetEmulatedButtonName(BtnY)}\r\n";
-            config += $"BtnA={GetEmulatedButtonName(BtnA)}\r\n";
-            config += $"BtnB={GetEmulatedButtonName(BtnB)}\r\n";
-            config += $"BtnMenu={GetEmulatedButtonName(BtnMenu)}\r\n";
-            config += $"BtnOptions={GetEmulatedButtonName(BtnOptions)}\r\n";
-            config += $"BtnSteam={GetEmulatedButtonName(BtnSteam)}\r\n";
-            config += $"BtnQuickAccess={GetEmulatedButtonName(BtnQuickAccess)}\r\n";
-            config += $"BtnDpadUp={GetEmulatedButtonName(BtnDpadUp)}\r\n";
-            config += $"BtnDpadLeft={GetEmulatedButtonName(BtnDpadLeft)}\r\n";
-            config += $"BtnDpadRight={GetEmulatedButtonName(BtnDpadRight)}\r\n";
-            config += $"BtnDpadDown={GetEmulatedButtonName(BtnDpadDown)}\r\n";
-            config += $"BtnL1={GetEmulatedButtonName(BtnL1)}\r\n";
-            config += $"BtnR1={GetEmulatedButtonName(BtnR1)}\r\n";
-            config += $"BtnL2={GetEmulatedButtonName(BtnL2)}\r\n";
-            config += $"BtnR2={GetEmulatedButtonName(BtnR2)}\r\n";
-            config += $"BtnL4={GetEmulatedButtonName(BtnL4)}\r\n";
-            config += $"BtnR4={GetEmulatedButtonName(BtnR4)}\r\n";
-            config += $"BtnL5={GetEmulatedButtonName(BtnL5)}\r\n";
-            config += $"BtnR5={GetEmulatedButtonName(BtnR5)}\r\n";
-            config += $"BtnRPadPress={GetEmulatedButtonName(BtnRPadPress)}\r\n";
-            config += $"BtnLPadPress={GetEmulatedButtonName(BtnLPadPress)}\r\n";
-            config += $"BtnRPadTouch={GetEmulatedButtonName(BtnRPadTouch)}\r\n";
-            config += $"BtnLPadTouch={GetEmulatedButtonName(BtnLPadTouch)}\r\n";
-            config += $"BtnRStickPress={GetEmulatedButtonName(BtnRStickPress)}\r\n";
-            config += $"BtnLStickPress={GetEmulatedButtonName(BtnLStickPress)}\r\n";
-            config += $"BtnRStickTouch={GetEmulatedButtonName(BtnRStickTouch)}\r\n";
-            config += $"BtnLStickTouch={GetEmulatedButtonName(BtnLStickTouch)}\r\n";
+
+            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
+                if (button != HardwareButton.None)
+                {
+                    config += $"{GetHardwareButtonName(button)}={GetEmulatedButtonName(this[button])}\r\n";
+                }
+
             return config;
         }
         internal string GetEmulatedButtonName(EmulatedButton value) => Enum.GetName(typeof(EmulatedButton), value);
+        internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
 
     }
 }
