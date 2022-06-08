@@ -32,26 +32,13 @@ namespace SWICD.Services
 
         public ControllerService()
         {
-            if (File.Exists("app_config.conf"))
-            {
-                Configuration = ConfigLoader.GetConfiguration("app_config.conf");
-                LoggingService.LogInformation("Config Loaded.");
-                LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
-                LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
-                LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
-                LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
-            }
-            else
-            {
-                LoggingService.LogWarning("Could not load config. Creating default empty config.");
-                Configuration = new Configuration();
-                ConfigLoader.SaveConfiguration(Configuration, "app_config.conf");
-                LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
-                LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
-                LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
-                LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
-            }
-            _neptuneController.OnControllerInputReceived += OnControllerInputReceived;
+            Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+            LoggingService.LogInformation("Config Loaded.");
+            LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
+            LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
+            LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
+            LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
+            _neptuneController.OnControllerInputReceived = input => Task.Run(() => OnControllerInputReceived(input));
             _viGEmClient = new ViGEmClient();
             _emulatedController = _viGEmClient.CreateXbox360Controller();
             _emulatedController.FeedbackReceived += EmulatedController_FeedbackReceived;
@@ -140,9 +127,9 @@ namespace SWICD.Services
         }
 
 
-        private void OnControllerInputReceived(object sender, NeptuneControllerInputEventArgs e)
+        private void OnControllerInputReceived(NeptuneControllerInputEventArgs e)
         {
-            _ = Task.Run(() => HandleInput(e.State));
+            HandleInput(e.State);
         }
 
         public void Start()

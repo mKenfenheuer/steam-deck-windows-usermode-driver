@@ -9,6 +9,27 @@ namespace SWICD_Lib.Config
 {
     public class ConfigLoader
     {
+        public static Configuration GetConfiguration(Environment.SpecialFolder specialFolder, string subfolder, string file)
+        {
+            string folder = Environment.GetFolderPath(specialFolder);
+            if (subfolder != null)
+            {
+                folder = Path.Combine(folder, subfolder);
+            }
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            file = Path.Combine(folder, file);
+            if (!File.Exists(folder))
+            {
+                var config = new Configuration();
+                SaveConfiguration(config, file);
+                return config;
+            }
+
+            return GetConfiguration(file);
+        }
+
         public static Configuration GetConfiguration(string file)
         {
             Configuration configuration = new Configuration();
@@ -31,7 +52,7 @@ namespace SWICD_Lib.Config
 
                     string[] parts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if(parts.Length > 2)
+                    if (parts.Length > 2)
                     {
                         parts = new string[]
                         {
@@ -105,6 +126,20 @@ namespace SWICD_Lib.Config
             var config = (ControllerConfig)configuration.DefaultControllerConfig.Clone();
             config.Executable = executable;
             return config;
+        }
+
+        public static void SaveConfiguration(Configuration config, Environment.SpecialFolder specialFolder, string subfolder, string file)
+        {
+            string folder = Environment.GetFolderPath(specialFolder);
+            if (subfolder != null)
+            {
+                folder = Path.Combine(folder, subfolder);
+            }
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            file = Path.Combine(folder, file);
+            SaveConfiguration(config, file);
         }
 
         public static void SaveConfiguration(Configuration config, string file)

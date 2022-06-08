@@ -35,8 +35,8 @@ namespace SWICD.ViewModels
         {
             var result = MessageBox.Show(
                 "Do you want to save and apply the configuration now?",
-                "Attention", 
-                MessageBoxButton.YesNoCancel, 
+                "Attention",
+                MessageBoxButton.YesNoCancel,
                 MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Cancel)
@@ -50,7 +50,7 @@ namespace SWICD.ViewModels
         private void SaveConfiguration()
         {
             ControllerService.Instance.Configuration = Configuration;
-            ConfigLoader.SaveConfiguration(Configuration, "app_config.conf");
+            ConfigLoader.SaveConfiguration(Configuration, Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
         }
 
         private Configuration Configuration { get; set; } = new Configuration();
@@ -58,10 +58,7 @@ namespace SWICD.ViewModels
 
         public MainWindowViewModel()
         {
-            if (File.Exists("app_config.conf"))
-            {
-                Configuration = ConfigLoader.GetConfiguration("app_config.conf");
-            }
+            Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
 
             NavigationItems = new ObservableCollection<NavigationItemModel>();
             NavigationItems.Add(new NavigationItemModel()
