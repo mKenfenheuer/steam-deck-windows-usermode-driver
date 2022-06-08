@@ -37,9 +37,19 @@ namespace SWICD.Services
                 Configuration = ConfigLoader.GetConfiguration("app_config.conf");
                 LoggingService.LogInformation("Config Loaded.");
                 LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
-                LoggingService.LogInformation($"Mode: {Configuration.OperationMode}");
-                LoggingService.LogInformation($"Blacklisted processes: {Configuration.BlacklistedProcesses.Count}");
-                LoggingService.LogInformation($"Whitelisted processes: {Configuration.WhitelistedProcesses.Count}");
+                LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
+                LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
+                LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
+            }
+            else
+            {
+                LoggingService.LogWarning("Could not load config. Creating default empty config.");
+                Configuration = new Configuration();
+                ConfigLoader.SaveConfiguration(Configuration, "app_config.conf");
+                LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
+                LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
+                LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
+                LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
             }
             _neptuneController.OnControllerInputReceived += OnControllerInputReceived;
             _viGEmClient = new ViGEmClient();
@@ -67,36 +77,49 @@ namespace SWICD.Services
             {
                 var list = Process.GetProcesses();
 
-                bool emulate = Configuration.OperationMode == OperationMode.Blacklist ? true : false;
+                bool emulate = Configuration.GenericSettings.OperationMode == OperationMode.Blacklist ? true : false;
 
                 foreach (var process in list)
+                {
+                    if (Configuration.GenericSettings.OperationMode == OperationMode.Blacklist &&
+                        Configuration.GenericSettings.BlacklistedProcesses.Contains($"{process.ProcessName}.exe"))
                     {
-                        if (Configuration.OperationMode == OperationMode.Blacklist &&
-                            Configuration.BlacklistedProcesses.Contains(process.ProcessName))
-                        {
-                            emulate = false;
-                            break;
-                        }
-                        if (Configuration.OperationMode == OperationMode.Whitelist &&
-                            Configuration.WhitelistedProcesses.Contains(process.ProcessName))
-                        {
-
-                            emulate = true;
-                            break;
-                        }
+                        emulate = false;
+                        break;
                     }
+                    if (Configuration.GenericSettings.OperationMode == OperationMode.Whitelist &&
+                        Configuration.GenericSettings.WhitelistedProcesses.Contains($"{process.ProcessName}.exe"))
+                    {
+
+                        emulate = true;
+                        break;
+                    }
+
+                    if (Configuration.GenericSettings.OperationMode == OperationMode.Combined &&
+                        Configuration.GenericSettings.BlacklistedProcesses.Contains($"{process.ProcessName}.exe"))
+                    {
+                        emulate = false;
+                        break;
+                    }
+
+                    if (Configuration.GenericSettings.OperationMode == OperationMode.Combined &&
+                        Configuration.GenericSettings.WhitelistedProcesses.Contains($"{process.ProcessName}.exe"))
+                    {
+                        emulate = true;
+                    }
+                }
 
 
                 var profile = Configuration.DefaultControllerConfig;
 
                 foreach (var process in list.OrderBy(p => p.ProcessName))
+                {
+                    if (Configuration.PerProcessControllerConfig.ContainsKey(process.ProcessName))
                     {
-                        if (Configuration.PerProcessControllerConfig.ContainsKey(process.ProcessName))
-                        {
-                            profile = Configuration.PerProcessControllerConfig[process.ProcessName];
-                            break;
-                        }
+                        profile = Configuration.PerProcessControllerConfig[process.ProcessName];
+                        break;
                     }
+                }
 
                 if (EmulationEnabled != emulate)
                 {
@@ -109,7 +132,8 @@ namespace SWICD.Services
                     LizardModeEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardMode;
                     LoggingService.LogDebug($"LizardModeEnabled changed to: {LizardModeEnabled}");
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 LoggingService.LogError($"Could not check for process changes: {ex}");
             }
@@ -136,6 +160,7 @@ namespace SWICD.Services
                 LoggingService.LogError($"Could not open neptune controller: {ex}");
             }
             Started = true;
+            LoggingService.LogInformation("Driver started.");
             OnServiceStartStop?.Invoke(this, true);
         }
 
@@ -153,6 +178,7 @@ namespace SWICD.Services
             EmulationEnabled = false;
             Started = false;
             _emulatedController.Disconnect();
+            LoggingService.LogInformation("Driver stopped.");
             OnServiceStartStop?.Invoke(this, false);
         }
 

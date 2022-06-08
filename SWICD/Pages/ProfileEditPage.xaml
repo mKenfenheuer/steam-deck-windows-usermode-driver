@@ -203,6 +203,7 @@
                                     <ComboBox
                                         Grid.Column="2"
                                         Grid.ColumnSpan="1"
+                  VerticalContentAlignment="Center"
                                         SelectedItem="{Binding EmulatedAxis}"
                                         ItemsSource="{Binding AxisItems}"/>
 
@@ -210,6 +211,7 @@
                                         Grid.Column="3"
                                         Grid.ColumnSpan="1"
                                         Margin="5,0,0,0"
+                  VerticalContentAlignment="Center"
                                         SelectedItem="{Binding ActivationButton}"
                                         ItemsSource="{Binding ButtonItems}"/>
 
@@ -305,6 +307,7 @@
 
                                     <ComboBox
                                         Grid.Column="1"
+                                        VerticalContentAlignment="Center"
                                         SelectedItem="{Binding EmulatedButton}"
                                         ItemsSource="{Binding ButtonItems}"/>
                                 </Grid>

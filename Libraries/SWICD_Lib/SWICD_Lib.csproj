@@ -69,6 +69,7 @@
     <Compile Include="Config\EmulatedAxis.cs" />
     <Compile Include="Config\EmulatedAxisConfig.cs" />
     <Compile Include="Config\EmulatedButton.cs" />
+    <Compile Include="Config\GenericSettings.cs" />
     <Compile Include="Config\HardwareAxis.cs" />
     <Compile Include="Config\HardwareButton.cs" />
     <Compile Include="Config\OperationMode.cs" />

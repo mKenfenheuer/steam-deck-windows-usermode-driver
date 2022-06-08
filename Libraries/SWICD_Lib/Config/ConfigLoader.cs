@@ -110,15 +110,16 @@ namespace SWICD_Lib.Config
         public static void SaveConfiguration(Configuration config, string file)
         {
             string configText = "[general]\r\n";
-            foreach (string executable in config.BlacklistedProcesses)
+            foreach (string executable in config.GenericSettings.BlacklistedProcesses)
             {
-                configText += $"blacklist={executable}\r\n";
+                configText += $"Blacklist={executable}\r\n";
             }
-            foreach (string executable in config.WhitelistedProcesses)
+            foreach (string executable in config.GenericSettings.WhitelistedProcesses)
             {
-                configText += $"whitelist={executable}\r\n";
+                configText += $"Whitelist={executable}\r\n";
             }
-            configText += $"mode={(config.OperationMode == OperationMode.Whitelist ? "whitelist" : "blacklist")}\r\n";
+            configText += $"Mode={config.GenericSettings.OperationMode}\r\n";
+            configText += $"StartWithWindows={config.GenericSettings.StartWithWindows}\r\n";
 
             configText += "\r\n";
 
@@ -175,27 +176,18 @@ namespace SWICD_Lib.Config
 
         private static void ProcessGeneralLine(string key, string value, ref Configuration config)
         {
-            switch (key)
+            switch (key.ToLower())
             {
                 case "blacklist":
-                    config.BlacklistedProcesses.Add(value);
+                    config.GenericSettings.BlacklistedProcesses.Add(value);
                     break;
                 case "whitelist":
-                    config.WhitelistedProcesses.Add(value);
+                    config.GenericSettings.WhitelistedProcesses.Add(value);
                     break;
                 case "mode":
-                    if (value == "whitelist")
-                    {
-                        config.OperationMode = OperationMode.Whitelist;
-                    }
-                    else if (value == "blacklist")
-                    {
-                        config.OperationMode = OperationMode.Blacklist;
-                    }
-                    else
-                    {
-                        throw new Exception("Unexpected mode of operation!");
-                    }
+                    OperationMode mode = OperationMode.Combined;
+                    bool parsed = Enum.TryParse(value, out mode);
+                    config.GenericSettings.OperationMode = mode;
                     break;
             }
         }

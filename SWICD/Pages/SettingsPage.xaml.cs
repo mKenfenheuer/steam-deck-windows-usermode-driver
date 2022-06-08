@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SWICD.ViewModels;
+using SWICD_Lib.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,13 @@ namespace SWICD.Pages
     /// </summary>
     public partial class SettingsPage : Page
     {
-        public SettingsPage()
+        public SettingsPage() : this(null)
+        {
+        }
+        public SettingsPage(GenericSettings genericSettings)
         {
             InitializeComponent();
+            DataContext = new SettingsViewModel(genericSettings);
         }
     }
 }

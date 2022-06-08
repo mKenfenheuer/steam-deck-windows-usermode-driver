@@ -72,7 +72,7 @@ namespace SWICD.ViewModels
             NavigationItems.Add(new NavigationItemModel()
             {
                 Title = "Settings",
-                Page = new SettingsPage(),
+                Page = new SettingsPage(Configuration.GenericSettings),
             });
             NavigationItems.Add(new NavigationItemModel()
             {

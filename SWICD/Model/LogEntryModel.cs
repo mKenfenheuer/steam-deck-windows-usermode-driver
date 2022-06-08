@@ -25,7 +25,7 @@ namespace SWICD.Model
                     case LogLevel.Warning:
                         return Color.Yellow;
                     case LogLevel.Debug:
-                        return Color.Green;
+                        return Color.Cyan;
                     case LogLevel.Information:
                         return Color.White;
                     case LogLevel.Critical:

@@ -3,13 +3,374 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SWICD.Pages"
+      xmlns:local="clr-namespace:SWICD.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPage">
 
+    <Page.DataContext>
+        <local:SettingsViewModel />
+    </Page.DataContext>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <Label
+            FontSize="16"
+            FontWeight="Bold"
+            Grid.ColumnSpan="4"
             Foreground="#fff">Settings</Label>
+
+        <Label
+            Foreground="#fff"
+            VerticalAlignment="Center"
+            Grid.Row="1">Start with Windows</Label>
+        <CheckBox Foreground="#fff"
+                  Grid.Column="1"
+                  VerticalAlignment="Center"
+                  IsChecked="{Binding StartWithWindows}"
+                  Content="{Binding StartWithWindowsText}"
+                  Grid.Row="1" />
+
+
+        <Label
+            Foreground="#fff"
+            VerticalAlignment="Center"
+            Grid.Row="1"
+            Grid.Column="2">Operation Mode</Label>
+        <ComboBox Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  VerticalAlignment="Center"
+                  ItemsSource="{Binding OperationModeItems}"
+                  SelectedItem="{Binding OperationMode}"
+                  Grid.Row="1"/>
+
+        <TabControl            
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                BorderThickness="0"
+                BorderBrush="#1B1B1B"
+                Background="#1B1B1B"
+                Padding="-1">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid Name="Panel">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Panel" Property="Background" Value="#1f1f1f" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Panel" Property="Background" Value="#2c2c2c" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem
+                    Header="Process White/Blacklists"
+                    FontSize="12"
+                    Foreground="#fff">
+
+                <Grid
+                      Background="#2c2c2c">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition  Width="1"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+                    <Label Foreground="#fff"
+                           Content="Whitelisted Processes" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <ListView Panel.ZIndex="0" 
+                        BorderThickness="0"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Background="Transparent"
+                        SelectedItem="{Binding SelectedWhitelistedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding WhitelistedProcesses}"
+                        HorizontalContentAlignment="Stretch">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Content"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#ff2c2c2c"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#ff282828"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding .}" 
+                                    Foreground="#fff" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="5,0,0,0"
+                                    VerticalAlignment="Center" 
+                                    FontSize="11" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button
+                        Grid.Row="2"
+                        HorizontalContentAlignment="Left"
+                        Foreground="#fff"
+                        Command="{Binding AddWhitelistedProcessClickCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#303030"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#353535"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Label Content="Add" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalContentAlignment="Left"
+                        Foreground="#fff"
+                        Command="{Binding RemoveWhitelistedProcessClickCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#902c2c"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#c02c2c"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Label Content="Remove" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Rectangle 
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Fill="#353535"/>
+
+                    <Label Foreground="#fff"
+                           Grid.Column="3"
+                           Grid.ColumnSpan="2"
+                           Content="Blacklisted Processes" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <ListView 
+                        Panel.ZIndex="0" 
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        Grid.Row="1"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        SelectedItem="{Binding SelectedBlacklistedProcess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding BlacklistedProcesses}"
+                        HorizontalContentAlignment="Stretch">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Content"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#ff2c2c2c"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#ff282828"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding .}" 
+                                    Foreground="#fff" 
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center" 
+                                    FontSize="11" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="3"
+                        HorizontalContentAlignment="Left"
+                        Foreground="#fff"
+                        Command="{Binding AddBlacklistedProcessClickCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#303030"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#353535"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Label Content="Add" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+                        </Button.Content>
+                    </Button>
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="4"
+                        HorizontalContentAlignment="Left"
+                        Foreground="#fff"
+                        Command="{Binding RemoveBlacklistedProcessClickCommand}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#902c2c"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#F02c2c"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Content>
+                            <Label Content="Remove" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+                        </Button.Content>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem
+                    Header="HID Hiding"
+                    FontSize="12"
+                    Foreground="#fff">
+                <Grid
+                      Background="#2c2c2c">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
