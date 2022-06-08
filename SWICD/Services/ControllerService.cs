@@ -41,6 +41,7 @@ namespace SWICD.Services
             _neptuneController.OnControllerInputReceived = input => Task.Run(() => OnControllerInputReceived(input));
             _viGEmClient = new ViGEmClient();
             _emulatedController = _viGEmClient.CreateXbox360Controller();
+            _emulatedController.AutoSubmitReport = false;
             _emulatedController.FeedbackReceived += EmulatedController_FeedbackReceived;
         }
 
@@ -174,7 +175,7 @@ namespace SWICD.Services
             _emulatedController.ResetReport();
 
             if (EmulationEnabled)
-                InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);
+                InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);           
 
             _emulatedController.SubmitReport();
         }

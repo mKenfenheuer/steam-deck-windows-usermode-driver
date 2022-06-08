@@ -57,6 +57,8 @@ namespace SWICD.ViewModels
 
         public MainWindowViewModel()
         {
+            ControllerService.Instance.Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+
             NavigationItems = new ObservableCollection<NavigationItemModel>();
             NavigationItems.Add(new NavigationItemModel()
             {
