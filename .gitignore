@@ -8,3 +8,4 @@ packages/
 *.log
 Debug/
 *.msi
+driver_log.log
