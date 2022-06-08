@@ -207,7 +207,9 @@
     <Content Include="hidapi.net.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="neptune-hidapi.net.dll" />
+    <Content Include="neptune-hidapi.net.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
