@@ -5,3 +5,6 @@ Release/
 bin/
 obj/
 packages/
+*.log
+Debug/
+*.msi
