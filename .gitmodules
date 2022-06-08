@@ -1,0 +1,6 @@
+[submodule "Libraries/hidapi.net"]
+	path = Libraries/hidapi.net
+	url = https://github.com/mKenfenheuer/hidapi.net.git
+[submodule "Libraries/neptune-hidapi.net"]
+	path = Libraries/neptune-hidapi.net
+	url = https://github.com/mKenfenheuer/neptune-hidapi.net.git

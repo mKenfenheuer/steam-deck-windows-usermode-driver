@@ -34,9 +34,9 @@ namespace SWICD.ViewModels
         internal void OnWindowClosing(CancelEventArgs e)
         {
             var result = MessageBox.Show(
-                "Do you want to save and apply the configuration now?",
-                "Attention", 
-                MessageBoxButton.YesNoCancel, 
+                "Do you want to save the configuration now?",
+                "Attention",
+                MessageBoxButton.YesNoCancel,
                 MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Cancel)
@@ -49,20 +49,14 @@ namespace SWICD.ViewModels
 
         private void SaveConfiguration()
         {
-            ControllerService.Instance.Configuration = Configuration;
-            ConfigLoader.SaveConfiguration(Configuration, "app_config.conf");
+            ConfigLoader.SaveConfiguration(Configuration, Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
         }
 
-        private Configuration Configuration { get; set; } = new Configuration();
+        private Configuration Configuration => ControllerService.Instance.Configuration;
         public Page ContentPage { get; set; }
 
         public MainWindowViewModel()
         {
-            if (File.Exists("app_config.conf"))
-            {
-                Configuration = ConfigLoader.GetConfiguration("app_config.conf");
-            }
-
             NavigationItems = new ObservableCollection<NavigationItemModel>();
             NavigationItems.Add(new NavigationItemModel()
             {

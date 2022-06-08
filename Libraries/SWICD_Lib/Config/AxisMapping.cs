@@ -8,10 +8,10 @@ namespace SWICD_Lib.Config
     {
         private Dictionary<HardwareAxis, EmulatedAxisConfig> _mappings = new Dictionary<HardwareAxis, EmulatedAxisConfig>()
         {
-            { HardwareAxis.LeftStickX, new EmulatedAxisConfig(EmulatedAxis.LeftStickX, HardwareButton.BtnLStickTouch) },
-            { HardwareAxis.LeftStickY, new EmulatedAxisConfig(EmulatedAxis.LeftStickY, HardwareButton.BtnLStickTouch) },
-            { HardwareAxis.RightStickX, new EmulatedAxisConfig(EmulatedAxis.RightStickX, HardwareButton.BtnRStickTouch) },
-            { HardwareAxis.RightStickY, new EmulatedAxisConfig(EmulatedAxis.RightStickY, HardwareButton.BtnRStickTouch) },
+            { HardwareAxis.LeftStickX, new EmulatedAxisConfig(EmulatedAxis.LeftStickX) },
+            { HardwareAxis.LeftStickY, new EmulatedAxisConfig(EmulatedAxis.LeftStickY) },
+            { HardwareAxis.RightStickX, new EmulatedAxisConfig(EmulatedAxis.RightStickX) },
+            { HardwareAxis.RightStickY, new EmulatedAxisConfig(EmulatedAxis.RightStickY) },
             { HardwareAxis.LeftPadX, new EmulatedAxisConfig(EmulatedAxis.LeftStickX, HardwareButton.BtnLPadTouch) },
             { HardwareAxis.LeftPadY, new EmulatedAxisConfig(EmulatedAxis.LeftStickY, HardwareButton.BtnLPadTouch) },
             { HardwareAxis.RightPadX, new EmulatedAxisConfig(EmulatedAxis.RightStickX, HardwareButton.BtnRPadTouch) },
