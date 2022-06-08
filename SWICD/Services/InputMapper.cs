@@ -12,6 +12,7 @@ namespace SWICD.Services
 {
     internal class InputMapper
     {
+        private static NeptuneControllerInputState _lastState = null;
         public static void MapInput(ControllerConfig config, NeptuneControllerInputState input, IXbox360Controller controller)
         {
             foreach (var axis in input.AxesState.Axes)
@@ -36,10 +37,23 @@ namespace SWICD.Services
                 if (emulatedButton != EmulatedButton.None)
                 {
                     var xboxButton = GetXbox360Button(emulatedButton);
-                    if (xboxButton != null)
+                    if (xboxButton != null && input.ButtonState[button])
                         controller.SetButtonState(xboxButton, input.ButtonState[button]);
                 }
             }
+
+            if(_lastState != null)
+            {
+                foreach(var btn in _lastState.ButtonState.Buttons)
+                {
+                    if (_lastState.ButtonState[btn] != input.ButtonState[btn])
+                    {
+                        LoggingService.LogDebug($"Button {btn} changed to: {input.ButtonState[btn]}");
+                    }
+                }
+            }
+
+            _lastState = input;
         }
 
         private static Xbox360Button GetXbox360Button(EmulatedButton emulatedButton)

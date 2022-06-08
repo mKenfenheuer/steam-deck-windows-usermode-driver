@@ -20,7 +20,7 @@ namespace SWICD_Lib.Config
                 Directory.CreateDirectory(folder);
 
             file = Path.Combine(folder, file);
-            if (!File.Exists(folder))
+            if (!File.Exists(file))
             {
                 var config = new Configuration();
                 SaveConfiguration(config, file);
