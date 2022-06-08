@@ -4,9 +4,14 @@ namespace SWICD_Lib.Config
 {
     public class EmulatedAxisConfig
     {
-        public EmulatedAxis EmulatedAxis { get; set; }
-        public HardwareButton ActivationButton { get; set; }
-        public bool Inverted { get; set; }
+        private EmulatedAxis _emulatedAxis;
+        public EmulatedAxis EmulatedAxis { get => _emulatedAxis; set => _emulatedAxis = value; }
+
+        private HardwareButton _activationButton;
+        public HardwareButton ActivationButton { get => _activationButton; set => _activationButton = value; }
+
+        private bool _inverted;
+        public bool Inverted { get => _inverted; set => _inverted = value; }
 
         public EmulatedAxisConfig(EmulatedAxis emulatedAxis, HardwareButton activationButton, bool inverted)
         {
@@ -34,6 +39,27 @@ namespace SWICD_Lib.Config
             EmulatedAxis = emulatedAxis;
             ActivationButton = HardwareButton.None;
             Inverted = false;
+        }
+
+        public EmulatedAxisConfig(string config)
+        {
+            string[] configs = config.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            Enum.TryParse(configs[0], out _emulatedAxis);
+
+            for(int i = 1; i < configs.Length; i++)
+            {
+                string conf = configs[i];
+                if(conf.StartsWith("activate"))
+                {
+                    Enum.TryParse(conf.Replace("activate=", ""), out _activationButton);
+                }
+
+                if(conf.StartsWith("invert"))
+                {
+                    bool.TryParse(conf.Replace("inverted=", ""), out _inverted);
+                }
+            }
+
         }
 
         public override string ToString()

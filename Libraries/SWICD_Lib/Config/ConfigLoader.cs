@@ -9,6 +9,27 @@ namespace SWICD_Lib.Config
 {
     public class ConfigLoader
     {
+        public static Configuration GetConfiguration(Environment.SpecialFolder specialFolder, string subfolder, string file)
+        {
+            string folder = Environment.GetFolderPath(specialFolder);
+            if (subfolder != null)
+            {
+                folder = Path.Combine(folder, subfolder);
+            }
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            file = Path.Combine(folder, file);
+            if (!File.Exists(folder))
+            {
+                var config = new Configuration();
+                SaveConfiguration(config, file);
+                return config;
+            }
+
+            return GetConfiguration(file);
+        }
+
         public static Configuration GetConfiguration(string file)
         {
             Configuration configuration = new Configuration();
@@ -31,7 +52,7 @@ namespace SWICD_Lib.Config
 
                     string[] parts = line.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    if(parts.Length > 2)
+                    if (parts.Length > 2)
                     {
                         parts = new string[]
                         {
@@ -47,6 +68,10 @@ namespace SWICD_Lib.Config
                     {
                         ProcessGeneralLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
                     }
+                    if (section == "actions")
+                    {
+                        ProcessActionsLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
+                    }
 
                     if (section == "buttons")
                     {
@@ -60,6 +85,12 @@ namespace SWICD_Lib.Config
                         continue;
                     }
 
+                    if (section == "profile")
+                    {
+                        configuration.DefaultControllerConfig = ProcessProfileLine(parts[0].Trim(), parts[1].Trim(), configuration.DefaultControllerConfig);
+                        continue;
+                    }
+
                     string executable = section.Substring(section.IndexOf(",") + 1);
 
                     if (section.StartsWith("buttons"))
@@ -67,7 +98,7 @@ namespace SWICD_Lib.Config
 
                         configuration.PerProcessControllerConfig[executable] = ProcessButtonsLine(parts[0].Trim(), parts[1].Trim(),
                                                                     configuration.PerProcessControllerConfig.ContainsKey(executable) ?
-                                                                    configuration.PerProcessControllerConfig[executable] : new ControllerConfig());
+                                                                    configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
                     }
 
                     if (section.StartsWith("axes"))
@@ -75,25 +106,55 @@ namespace SWICD_Lib.Config
 
                         configuration.PerProcessControllerConfig[executable] = ProcessAxesLine(parts[0].Trim(), parts[1].Trim(),
                                                                     configuration.PerProcessControllerConfig.ContainsKey(executable) ?
-                                                                    configuration.PerProcessControllerConfig[executable] : new ControllerConfig());
+                                                                    configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
+                    }
+
+                    if (section.StartsWith("profile"))
+                    {
+
+                        configuration.PerProcessControllerConfig[executable] = ProcessProfileLine(parts[0].Trim(), parts[1].Trim(),
+                                                                    configuration.PerProcessControllerConfig.ContainsKey(executable) ?
+                                                                    configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
                     }
                 }
             }
             return configuration;
         }
 
+        private static ControllerConfig GetControllerConfigFromDefault(Configuration configuration, string executable)
+        {
+            var config = (ControllerConfig)configuration.DefaultControllerConfig.Clone();
+            config.Executable = executable;
+            return config;
+        }
+
+        public static void SaveConfiguration(Configuration config, Environment.SpecialFolder specialFolder, string subfolder, string file)
+        {
+            string folder = Environment.GetFolderPath(specialFolder);
+            if (subfolder != null)
+            {
+                folder = Path.Combine(folder, subfolder);
+            }
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            file = Path.Combine(folder, file);
+            SaveConfiguration(config, file);
+        }
+
         public static void SaveConfiguration(Configuration config, string file)
         {
             string configText = "[general]\r\n";
-            foreach (string executable in config.BlacklistedProcesses)
+            foreach (string executable in config.GenericSettings.BlacklistedProcesses)
             {
-                configText += $"blacklist={executable}\r\n";
+                configText += $"Blacklist={executable}\r\n";
             }
-            foreach (string executable in config.WhitelistedProcesses)
+            foreach (string executable in config.GenericSettings.WhitelistedProcesses)
             {
-                configText += $"whitelist={executable}\r\n";
+                configText += $"Whitelist={executable}\r\n";
             }
-            configText += $"mode={(config.OperationMode == OperationMode.Whitelist ? "whitelist" : "blacklist")}\r\n";
+            configText += $"Mode={config.GenericSettings.OperationMode}\r\n";
+            configText += $"StartWithWindows={config.GenericSettings.StartWithWindows}\r\n";
 
             configText += "\r\n";
 
@@ -101,47 +162,67 @@ namespace SWICD_Lib.Config
 
             configText += "\r\n";
 
+            configText += config.ButtonActions.ToString();
+
+            configText += "\r\n";
+
             foreach (string executable in config.PerProcessControllerConfig.Keys)
-                configText += config.PerProcessControllerConfig[executable].ToString(executable) + "\r\n";
+                configText += config.PerProcessControllerConfig[executable].ToString() + "\r\n";
 
             File.WriteAllText(file, configText.Trim());
         }
 
         private static ControllerConfig ProcessAxesLine(string v1, string v2, ControllerConfig configuration)
         {
-            //TODO: Implement
+            HardwareAxis axis = (HardwareAxis)Enum.Parse(typeof(HardwareAxis), v1);
+            configuration.AxisMapping[axis] = new EmulatedAxisConfig(v2);
             return configuration;
+        }
+
+        private static ControllerConfig ProcessProfileLine(string v1, string v2, ControllerConfig configuration)
+        {
+            if (v1 == "DisableLizardMode")
+            {
+                configuration.ProfileSettings.DisableLizardMode = v2.ToLower() == "true";
+            }
+            return configuration;
+        }
+
+        private static void ProcessActionsLine(string v1, string v2, ref Configuration configuration)
+        {
+            if (v1 == "OpenWindowsGameBar")
+            {
+                configuration.ButtonActions.OpenWindowsGameBar = (HardwareButton)Enum.Parse(typeof(HardwareButton), v2);
+            }
         }
 
         private static ControllerConfig ProcessButtonsLine(string v1, string v2, ControllerConfig configuration)
         {
-            //TODO: Implement
+            HardwareButton hardwareButton = HardwareButton.None;
+            EmulatedButton emulatedButton = EmulatedButton.None;
+
+            Enum.TryParse(v1, out hardwareButton);
+            Enum.TryParse(v2, out emulatedButton);
+
+            configuration.ButtonMapping[hardwareButton] = emulatedButton;
+
             return configuration;
         }
 
         private static void ProcessGeneralLine(string key, string value, ref Configuration config)
         {
-            switch (key)
+            switch (key.ToLower())
             {
                 case "blacklist":
-                    config.BlacklistedProcesses.Add(value);
+                    config.GenericSettings.BlacklistedProcesses.Add(value);
                     break;
                 case "whitelist":
-                    config.WhitelistedProcesses.Add(value);
+                    config.GenericSettings.WhitelistedProcesses.Add(value);
                     break;
                 case "mode":
-                    if (value == "whitelist")
-                    {
-                        config.OperationMode = OperationMode.Whitelist;
-                    }
-                    else if (value == "blacklist")
-                    {
-                        config.OperationMode = OperationMode.Blacklist;
-                    }
-                    else
-                    {
-                        throw new Exception("Unexpected mode of operation!");
-                    }
+                    OperationMode mode = OperationMode.Combined;
+                    bool parsed = Enum.TryParse(value, out mode);
+                    config.GenericSettings.OperationMode = mode;
                     break;
             }
         }

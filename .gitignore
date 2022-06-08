@@ -4,3 +4,8 @@ x64/
 Release/
 bin/
 obj/
+packages/
+*.log
+Debug/
+*.msi
+driver_log.log

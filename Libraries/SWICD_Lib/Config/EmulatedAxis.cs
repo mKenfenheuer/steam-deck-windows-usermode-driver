@@ -2,7 +2,7 @@
 {
     public enum EmulatedAxis
     {
-        None = 1,
+        None = 0,
         LeftStickX = 1,
         LeftStickY = 2,
         RightStickX = 3,

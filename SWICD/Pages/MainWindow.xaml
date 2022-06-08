@@ -1,0 +1,109 @@
+﻿<Window x:Class="SWICD.Pages.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:SWICD.ViewModels"
+        mc:Ignorable="d"
+        Title="SWICD Driver Control Panel" Height="450" Width="800"
+        Background="#1B1B1B">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel></viewModels:MainWindowViewModel>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+                  Background="#FF232323" >
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <ListView Panel.ZIndex="0" 
+                  BorderThickness="0"
+                  Background="Transparent"
+                  SelectedItem="{Binding SelectedNavigationItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding NavigationItems}"
+                  HorizontalContentAlignment="Stretch">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="IsEnabled" Value="{Binding Selectable}" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter x:Name="PART_Content"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#ff2c2c2c"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#ff282828"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}" 
+                            Foreground="#fff" 
+                            HorizontalAlignment="Left" 
+                            Margin="{Binding Margins}"
+                            VerticalAlignment="Center" 
+                            FontSize="16" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button
+                Grid.Row="1"
+                HorizontalContentAlignment="Left"
+                Foreground="#fff"
+                Command="{Binding AddProfileClickCommand}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="#2c2c2c"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#353535"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <Label Content="+ Add Profile" 
+                           FontSize="16"
+                           Foreground="#fff"
+                           Margin="5,0,0,0"
+                           Padding="0"/>
+                </Button.Content>                
+            </Button>
+        </Grid>
+        <Rectangle Fill="#2c2c2c" Width="1" HorizontalAlignment="Right" Panel.ZIndex="1" StrokeThickness="0"></Rectangle>
+        <Frame Name="ContentFrame" Content="{Binding ContentPage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"
+               NavigationUIVisibility="Hidden">
+        </Frame>
+    </Grid>
+</Window>
