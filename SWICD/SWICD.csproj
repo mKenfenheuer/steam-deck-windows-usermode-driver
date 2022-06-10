@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Services\ControllerService.cs" />
+    <Compile Include="Services\FontEnumMapper.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
@@ -172,6 +173,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\PromptFont.ttf" />
     <Resource Include="Resources\xbox_controller_font.otf" />
   </ItemGroup>
   <ItemGroup>

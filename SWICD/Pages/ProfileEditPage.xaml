@@ -11,7 +11,7 @@
         <local:ProfileEditPageViewModel></local:ProfileEditPageViewModel>
     </Page.DataContext>
     <Page.Resources>
-        <FontFamily x:Key="XboxButtons" >/Resources/#Controller: Microsoft Xbox One</FontFamily>
+        <FontFamily x:Key="PromptFont" >/Resources/#PromptFont</FontFamily>
     </Page.Resources>
 
     <Grid>
@@ -117,11 +117,10 @@
                 <Grid
                       Background="#2c2c2c">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition   />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -188,24 +187,27 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="240"/>
+                                        <ColumnDefinition Width="1"/>
+                                        <ColumnDefinition Width="130" />
+                                        <ColumnDefinition Width="200"  />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
 
                                     <Label Content="{Binding AxisText}" 
-                                    Foreground="#fff" 
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Center" 
-                                    FontSize="16" />
+                                        Foreground="#fff" 
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        HorizontalAlignment="Left" 
+                                        VerticalAlignment="Center" 
+                                        FontFamily="{DynamicResource PromptFont}"
+                                        FontSize="30" />
 
                                     <ComboBox
                                         Grid.Column="2"
                                         Grid.ColumnSpan="1"
+                                        FontFamily="{DynamicResource PromptFont}"
+                                        FontSize="30"
                                         VerticalContentAlignment="Center"
                                         SelectedItem="{Binding SelectedEmulatedAxis}"
                                         ItemsSource="{Binding AxisItems}"/>
@@ -214,6 +216,8 @@
                                         Grid.Column="3"
                                         Grid.ColumnSpan="1"
                                         Margin="5,0,0,0"
+                                        FontFamily="{DynamicResource PromptFont}"
+                                        FontSize="30"
                                         VerticalContentAlignment="Center"
                                         SelectedItem="{Binding SelectedActivationButton}"
                                         ItemsSource="{Binding ButtonItems}"/>
@@ -304,14 +308,15 @@
 
                                     <Label Content="{Binding ButtonText}" 
                                             Foreground="#fff" 
+                                            FontFamily="{DynamicResource PromptFont}"
                                             HorizontalAlignment="Left" 
                                             VerticalAlignment="Center" 
-                                            FontSize="16" />
+                                            FontSize="30" />
 
                                     <ComboBox
                                         Grid.Column="1"
-                                        FontSize="22"
-                                        FontFamily="{StaticResource XboxButtons}"
+                                        FontSize="30"
+                                        FontFamily="{DynamicResource PromptFont}"
                                         VerticalContentAlignment="Center"
                                         SelectedItem="{Binding SelectedEmulatedButton}"
                                         ItemsSource="{Binding ButtonItems}" />

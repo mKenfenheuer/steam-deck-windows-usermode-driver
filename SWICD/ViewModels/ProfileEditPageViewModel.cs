@@ -56,7 +56,7 @@ namespace SWICD.ViewModels
                         EmulatedButton = ControllerConfig.ButtonMapping[button],
                     });
 
-            foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareButton)))
+            foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareAxis)))
                 if (axis != HardwareAxis.None)
                     AxisMappings.Add(new AxisMappingModel()
                     {

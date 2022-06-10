@@ -93,6 +93,16 @@ namespace SWICD.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
         /// </summary>
+        internal static byte[] PromptFont {
+            get {
+                object obj = ResourceManager.GetObject("PromptFont", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
         internal static byte[] xbox_controller_font {
             get {
                 object obj = ResourceManager.GetObject("xbox_controller_font", resourceCulture);
