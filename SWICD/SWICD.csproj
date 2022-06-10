@@ -101,8 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuildVersionInfo.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
     <Compile Include="Model\ButtonMappingModel.cs" />
+    <Compile Include="Model\EnumComboBoxItem.cs" />
     <Compile Include="Model\LogEntryModel.cs" />
     <Compile Include="Model\NavigationItemModel.cs" />
     <Compile Include="Pages\DriverStatusPage.xaml.cs">
@@ -170,6 +172,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\xbox_controller_font.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -205,10 +208,12 @@
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\build\Microsoft.Extensions.Logging.Abstractions.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>echo "$(DevEnvDir)..\..\MSBuild\Current\Bin\msbuild.exe"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>"$(DevEnvDir)..\..\MSBuild\Current\Bin\msbuild.exe" $(SolutionDir)Setup\SetupBuildVersionInfo\SetupBuildVersionInfo.csproj /p:configuration=$(ConfigurationName)
+"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-assembly-info $(SolutionDir)SWICD\Properties\AssemblyInfo.cs
+"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-build-info $(SolutionDir)SWICD\BuildVersionInfo.cs</PreBuildEvent>
   </PropertyGroup>
 </Project>

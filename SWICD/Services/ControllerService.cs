@@ -32,6 +32,8 @@ namespace SWICD.Services
 
         public ControllerService()
         {
+            LoggingService.LogInformation($"Driver Version: {BuildVersionInfo.Version}");
+            LoggingService.LogInformation($"Driver Build Time (UTC): {BuildVersionInfo.BuildTime}");
             Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
             LoggingService.LogInformation("Config Loaded.");
             LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");

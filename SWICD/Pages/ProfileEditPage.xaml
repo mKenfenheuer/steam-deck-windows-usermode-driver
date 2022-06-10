@@ -10,6 +10,9 @@
     <Page.DataContext>
         <local:ProfileEditPageViewModel></local:ProfileEditPageViewModel>
     </Page.DataContext>
+    <Page.Resources>
+        <FontFamily x:Key="XboxButtons" >/Resources/#Controller: Microsoft Xbox One</FontFamily>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -203,16 +206,16 @@
                                     <ComboBox
                                         Grid.Column="2"
                                         Grid.ColumnSpan="1"
-                  VerticalContentAlignment="Center"
-                                        SelectedItem="{Binding EmulatedAxis}"
+                                        VerticalContentAlignment="Center"
+                                        SelectedItem="{Binding SelectedEmulatedAxis}"
                                         ItemsSource="{Binding AxisItems}"/>
 
                                     <ComboBox
                                         Grid.Column="3"
                                         Grid.ColumnSpan="1"
                                         Margin="5,0,0,0"
-                  VerticalContentAlignment="Center"
-                                        SelectedItem="{Binding ActivationButton}"
+                                        VerticalContentAlignment="Center"
+                                        SelectedItem="{Binding SelectedActivationButton}"
                                         ItemsSource="{Binding ButtonItems}"/>
 
                                     <CheckBox 
@@ -307,9 +310,11 @@
 
                                     <ComboBox
                                         Grid.Column="1"
+                                        FontSize="22"
+                                        FontFamily="{StaticResource XboxButtons}"
                                         VerticalContentAlignment="Center"
-                                        SelectedItem="{Binding EmulatedButton}"
-                                        ItemsSource="{Binding ButtonItems}"/>
+                                        SelectedItem="{Binding SelectedEmulatedButton}"
+                                        ItemsSource="{Binding ButtonItems}" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

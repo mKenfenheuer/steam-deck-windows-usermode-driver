@@ -53,7 +53,7 @@ namespace SWICD.ViewModels
                     ButtonMappings.Add(new ButtonMappingModel()
                     {
                         HardwareButton = button,
-                        EmulatedButton = ControllerConfig.ButtonMapping[button]
+                        EmulatedButton = ControllerConfig.ButtonMapping[button],
                     });
 
             foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareButton)))

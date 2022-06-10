@@ -89,5 +89,15 @@ namespace SWICD.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] xbox_controller_font {
+            get {
+                object obj = ResourceManager.GetObject("xbox_controller_font", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SetupBuildVersionInfo
@@ -14,16 +16,70 @@ namespace SetupBuildVersionInfo
             switch (args[0])
             {
                 case "write-git-info":
-                    WriteGitInfo();
+                    WriteGitInfo(args[1]);
+                    break;
+                case "delete-git-info":
+                    File.Delete(args[1]);
+                    break;
+                case "write-assembly-info":
+                    WriteAssemblyInfo(args[1]);
+                    break;
+                case "write-setup-info":
+                    WriteSetupInfo(args[1]);
+                    break;
+                case "write-build-info":
+                    WriteBuildVersionInfo(args[1]);
                     break;
             }
         }
 
-        private static void WriteGitInfo()
+        private static void WriteSetupInfo(string v)
+        {
+            string info = GetVersionInfo();
+            string text = File.ReadAllText(v);
+            string replaced = Regex.Replace(text, "(\"ProductVersion\" = \"8:)[^\\\"]+", $"$1{GetVersionInfo()}");
+            File.WriteAllText(v, replaced);
+        }
+
+        private static void WriteAssemblyInfo(string v)
+        {
+            string info = GetVersionInfo();
+            string text = File.ReadAllText(v);
+            string replaced = Regex.Replace(text, "(AssemblyVersion\\(\")[^\\\"]+", $"AssemblyVersion(\"{GetAssemblyVersionInfo()}");
+            replaced = Regex.Replace(replaced, "(AssemblyFileVersion\\(\")[^\\\"]+", $"AssemblyFileVersion(\"{GetAssemblyVersionInfo()}");
+            File.WriteAllText(v, replaced);
+        }
+
+        private static void WriteBuildVersionInfo(string v)
+        {
+            string info = GetVersionInfo();
+            string text = File.ReadAllText(v);
+            string replaced = Regex.Replace(text, "(Version => \")[^\\\"]+", $"Version => \"{GetVersionInfo()}");
+            replaced = Regex.Replace(replaced, "(BuildTime => new DateTime\\()[^\\)]+", $"BuildTime => new DateTime({DateTime.UtcNow.Ticks}");
+            File.WriteAllText(v, replaced);
+        }
+
+        private static object GetAssemblyVersionInfo()
+        {
+            string tag = GetGitTag();
+            tag = Regex.Replace(tag, "[^0-9]+([0-9\\.]*).*", "$1");
+            return tag;
+        }
+
+        private static string GetVersionInfo()
         {
             string tag = GetGitTag();
             string hash = GetCommitHash();
+            tag = Regex.Replace(tag, $"-?[0-9]+-g{hash}", "");
             string isDirty = GetDirtyStatus();
+            if (isDirty == "")
+                isDirty = "clean";
+            return $"{tag}-{hash}-{isDirty}";
+        }
+
+        private static void WriteGitInfo(string file)
+        {
+            File.WriteAllText(file, GetVersionInfo());
         }
 
         private static string GetDirtyStatus()
@@ -36,7 +92,7 @@ namespace SetupBuildVersionInfo
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     FileName = "cmd.exe",
-                    Arguments = "/c \"git diff --quiet || echo 'dirty'\""
+                    Arguments = "/c \"git diff --quiet || echo dirty\""
                 }
             };
             process.Start();

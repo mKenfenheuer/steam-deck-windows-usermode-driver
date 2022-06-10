@@ -17,7 +17,7 @@ namespace SWICD.ViewModels
     {
         public ObservableCollection<LogEntryModel> LogEntries { get; set; } = new ObservableCollection<LogEntryModel>();
         public string DriverStatusText { get; set; }
-        public string DriverVersionText => $"v{Assembly.GetExecutingAssembly().GetName().Version}";
+        public string DriverVersionText => BuildVersionInfo.Version;
         public SolidColorBrush DriverStatusColor { get; set; }
         private readonly Dispatcher _dispatcher;
 
