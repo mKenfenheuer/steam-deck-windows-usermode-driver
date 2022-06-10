@@ -27,18 +27,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
-        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
-        "OwnerKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_5E7E1F3EA266B56A96F726E1C8A445B2"
         "OwnerKey" = "8:_B7CDFCC8720DD9306550D5BE8B08A85A"
         "MsmSig" = "8:_UNDEFINED"
@@ -46,12 +34,6 @@
         "Entry"
         {
         "MsmKey" = "8:_5E7E1F3EA266B56A96F726E1C8A445B2"
-        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_613650C51FF64476593904870C659EA4"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -83,6 +65,12 @@
         {
         "MsmKey" = "8:_897076FA96F7CF3252AF8E5229A4977B"
         "OwnerKey" = "8:_B7CDFCC8720DD9306550D5BE8B08A85A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_95C8D762196CE94BAAF2691EF2F28932"
+        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -117,14 +105,44 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
+        "MsmKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FA837415D4DB578072949B3943A851AD"
+        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FA837415D4DB578072949B3943A851AD"
+        "OwnerKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_95C8D762196CE94BAAF2691EF2F28932"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FA837415D4DB578072949B3943A851AD"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -161,24 +179,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_897076FA96F7CF3252AF8E5229A4977B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_613650C51FF64476593904870C659EA4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -313,37 +313,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57FA6F74B31EFCFAEB5505A09ECEB74D"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_57FA6F74B31EFCFAEB5505A09ECEB74D"
-                    {
-                    "Name" = "8:hidapi.net.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:hidapi.net.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5E7E1F3EA266B56A96F726E1C8A445B2"
             {
             "AssemblyRegister" = "3:1"
@@ -358,37 +327,6 @@
                     }
                 }
             "SourcePath" = "8:System.Runtime.CompilerServices.Unsafe.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_613650C51FF64476593904870C659EA4"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SWICD_Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_613650C51FF64476593904870C659EA4"
-                    {
-                    "Name" = "8:SWICD_Lib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:SWICD_Lib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -451,6 +389,37 @@
                     }
                 }
             "SourcePath" = "8:System.Buffers.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_95C8D762196CE94BAAF2691EF2F28932"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:SWICD_Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
+                "ScatterAssemblies"
+                {
+                    "_95C8D762196CE94BAAF2691EF2F28932"
+                    {
+                    "Name" = "8:SWICD_Lib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:SWICD_Lib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -581,20 +550,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EDDCA2500898AB06DFB0048312FD71B2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F07E5E3A9039F7E308BC0BDA91891B12"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:neptune-hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
-                    "_EDDCA2500898AB06DFB0048312FD71B2"
+                    "_F07E5E3A9039F7E308BC0BDA91891B12"
                     {
                     "Name" = "8:neptune-hidapi.net.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:neptune-hidapi.net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FA837415D4DB578072949B3943A851AD"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
+                "ScatterAssemblies"
+                {
+                    "_FA837415D4DB578072949B3943A851AD"
+                    {
+                    "Name" = "8:hidapi.net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:hidapi.net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -690,15 +690,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SWICD Driver"
-        "ProductCode" = "8:{D94041A1-65BC-4504-AC64-1424B5D8DB11}"
-        "PackageCode" = "8:{3EDCFD53-158D-477B-BF88-F2C4A456CBBB}"
+        "ProductCode" = "8:{C405C44F-6A1B-46FD-9215-2F5201824CF9}"
+        "PackageCode" = "8:{E3E204E2-E6DB-4074-A28E-170A8BA682A5}"
         "UpgradeCode" = "8:{C2FD17B4-D53B-435F-8F09-10B4D2610684}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:v0.2.1-fix-074f08b-dirty"
+        "ProductVersion" = "8:v0.2.2"
         "Manufacturer" = "8:Maximilian Kenfenheuer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/issues"
@@ -1080,7 +1080,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_E6BA33126B1343FEAB60332D3F8E2679"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Installation best√§tigen"
+                    "DisplayName" = "8:Installation best‰tigen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdConfirmDlg.wid"
@@ -1155,7 +1155,7 @@
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_227F781F10CB4341946F1DE729C50878"
                     {
                     "Sequence" = "3:300"
-                    "DisplayName" = "8:Installation best√§tigen"
+                    "DisplayName" = "8:Installation best‰tigen"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
                     "SourcePath" = "8:<VsdDialogDir>\\VsdAdminConfirmDlg.wid"
@@ -1254,7 +1254,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5144782880D5472CA05F90007F0CB313"
             {
-            "SourcePath" = "8:..\\..\\SWICD\\obj\\x64\\Debug\\SWICD.exe"
+            "SourcePath" = "8:..\\..\\SWICD\\obj\\x64\\Release\\SWICD.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
