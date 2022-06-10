@@ -102,9 +102,9 @@ namespace SWICD.Services
 
                 foreach (var process in list.OrderBy(p => p.ProcessName))
                 {
-                    if (Configuration.PerProcessControllerConfig.ContainsKey(process.ProcessName))
+                    if (Configuration.PerProcessControllerConfig.ContainsKey($"{process.ProcessName}.exe"))
                     {
-                        profile = Configuration.PerProcessControllerConfig[process.ProcessName];
+                        profile = Configuration.PerProcessControllerConfig[$"{process.ProcessName}.exe"];
                         break;
                     }
                 }
@@ -114,7 +114,12 @@ namespace SWICD.Services
                     EmulationEnabled = emulate;
                     LoggingService.LogDebug($"EmulationEnabled changed to: {EmulationEnabled}");
                 }
-                _currentControllerConfig = profile;
+                if (_currentControllerConfig != profile)
+                {
+                    _currentControllerConfig = profile;
+                    var profileDisplay = profile.Executable ?? "Default Profile";
+                    LoggingService.LogDebug($"Active profile changed to: {profileDisplay}");
+                }
                 if (LizardModeEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardMode)
                 {
                     LizardModeEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardMode;

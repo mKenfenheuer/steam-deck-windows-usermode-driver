@@ -20,25 +20,36 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Label Content="Driver Status"
+        <Label Content="Driver Version"
                FontWeight="SemiBold"
                Foreground="#fff" />
         <Label Grid.Column="1"
                Grid.ColumnSpan ="2"
+               Content="{Binding DriverVersionText}"
+               Foreground="#fff" />
+        
+        <Label Content="Driver Status"
+               FontWeight="SemiBold"
+               Grid.Row="1"
+               Foreground="#fff" />
+        <Label Grid.Column="1"
+               Grid.ColumnSpan ="2"
+               Grid.Row="1"
                Content="{Binding DriverStatusText}"
                Foreground="{Binding DriverStatusColor}" />
 
-        <Label Grid.Row="1"
+        <Label Grid.Row="2"
                Content="Driver Log"
                FontWeight="SemiBold"
                Foreground="#fff" />
         
         <ListView
             Background="Transparent"
-            Grid.Row="2"
+            Grid.Row="3"
             Grid.ColumnSpan="3"
             ItemsSource="{Binding LogEntries}"
             HorizontalContentAlignment="Stretch">

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -16,6 +17,7 @@ namespace SWICD.ViewModels
     {
         public ObservableCollection<LogEntryModel> LogEntries { get; set; } = new ObservableCollection<LogEntryModel>();
         public string DriverStatusText { get; set; }
+        public string DriverVersionText => $"v{Assembly.GetExecutingAssembly().GetName().Version}";
         public SolidColorBrush DriverStatusColor { get; set; }
         private readonly Dispatcher _dispatcher;
 
