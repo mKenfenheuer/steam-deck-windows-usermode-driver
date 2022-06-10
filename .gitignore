@@ -9,3 +9,4 @@ packages/
 Debug/
 *.msi
 driver_log.log
+BuildVersionInfo.cs
