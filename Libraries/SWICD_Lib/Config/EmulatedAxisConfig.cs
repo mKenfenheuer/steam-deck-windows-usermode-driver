@@ -2,7 +2,7 @@
 
 namespace SWICD_Lib.Config
 {
-    public class EmulatedAxisConfig
+    public class EmulatedAxisConfig : ICloneable
     {
         private EmulatedAxis _emulatedAxis;
         public EmulatedAxis EmulatedAxis { get => _emulatedAxis; set => _emulatedAxis = value; }
@@ -75,5 +75,17 @@ namespace SWICD_Lib.Config
         internal string GetEmulatedAxisName(EmulatedAxis value) => Enum.GetName(typeof(EmulatedAxis), value);
         internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
 
+        public override bool Equals(object obj)
+        {
+            return obj is EmulatedAxisConfig config &&
+                   _emulatedAxis == config._emulatedAxis &&
+                   _activationButton == config._activationButton &&
+                   _inverted == config._inverted;
+        }
+
+        public object Clone()
+        {
+           return new EmulatedAxisConfig(_emulatedAxis, _activationButton, _inverted);
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace SWICD.Services
                 }
             }
 
-            if(_lastState != null)
+            /*if(_lastState != null)
             {
                 foreach(var btn in _lastState.ButtonState.Buttons)
                 {
@@ -51,7 +51,7 @@ namespace SWICD.Services
                         LoggingService.LogDebug($"Button {btn} changed to: {input.ButtonState[btn]}");
                     }
                 }
-            }
+            }*/
 
             _lastState = input;
         }

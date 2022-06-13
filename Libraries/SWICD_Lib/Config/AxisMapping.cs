@@ -50,7 +50,6 @@ namespace SWICD_Lib.Config
                 _mappings[axis] = value;
             }
         }
-
         internal string ToString(string executable = null)
         {
             string config = $"[axes]\r\n";
@@ -72,8 +71,14 @@ namespace SWICD_Lib.Config
         public object Clone()
         {
             var clone = new AxisMapping(_mappings.ToDictionary(entry => entry.Key,
-                                               entry => entry.Value));
+                                               entry => (EmulatedAxisConfig)entry.Value.Clone()));
             return clone;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is AxisMapping mapping &&
+                   _mappings.EqualsWithValues(mapping._mappings);
         }
     }
 }

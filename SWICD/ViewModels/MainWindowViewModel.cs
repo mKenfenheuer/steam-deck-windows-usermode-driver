@@ -33,23 +33,25 @@ namespace SWICD.ViewModels
 
         internal void OnWindowClosing(CancelEventArgs e)
         {
-            var result = MessageBox.Show(
-                "Do you want to save the configuration now?",
-                "Attention",
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Question);
+            if (Configuration.HasChanges())
+            {
+                var result = MessageBox.Show(
+                    "Do you want to save the configuration now?",
+                    "Attention",
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Cancel)
-                e.Cancel = true;
-            if (result == MessageBoxResult.Yes)
-                SaveConfiguration();
-
-
+                if (result == MessageBoxResult.Cancel)
+                    e.Cancel = true;
+                if (result == MessageBoxResult.Yes)
+                    SaveConfiguration();
+            }
         }
 
         private void SaveConfiguration()
         {
             ConfigLoader.SaveConfiguration(Configuration, Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+            Configuration.CreateSnapshot();
         }
 
         private Configuration Configuration => ControllerService.Instance.Configuration;

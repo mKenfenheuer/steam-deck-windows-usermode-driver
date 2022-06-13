@@ -54,6 +54,7 @@ namespace SWICD.ViewModels
                     {
                         HardwareButton = button,
                         EmulatedButton = ControllerConfig.ButtonMapping[button],
+                        SetAction = val => ControllerConfig.ButtonMapping[button] = val,
                     });
 
             foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareAxis)))
@@ -64,6 +65,8 @@ namespace SWICD.ViewModels
                         EmulatedAxis = ControllerConfig.AxisMapping[axis].EmulatedAxis,
                         ActivationButton = ControllerConfig.AxisMapping[axis].ActivationButton,
                         Inverted = ControllerConfig.AxisMapping[axis].Inverted,
+                        SetAxisAction = val => ControllerConfig.AxisMapping[axis].EmulatedAxis = val,
+                        SetActivationButtonAction = val => ControllerConfig.AxisMapping[axis].ActivationButton = val,
                     });
         }
         public void NotifyPropertyChanged(string propName)

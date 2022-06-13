@@ -71,10 +71,8 @@ namespace SetupBuildVersionInfo
             string tag = GetGitTag();
             string hash = GetCommitHash();
             tag = Regex.Replace(tag, $"-?[0-9]+-g{hash}", "");
-            string isDirty = GetDirtyStatus();
-            if (isDirty == "")
-                isDirty = "clean";
-            return $"{tag}-{hash}-{isDirty}";
+            string config = GetConfiguration();
+            return $"{tag}-{hash}-{config}";
         }
 
         private static void WriteGitInfo(string file)
@@ -82,23 +80,14 @@ namespace SetupBuildVersionInfo
             File.WriteAllText(file, GetVersionInfo());
         }
 
-        private static string GetDirtyStatus()
+        private static string GetConfiguration()
         {
-            var process = new Process()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    FileName = "cmd.exe",
-                    Arguments = "/c \"git diff --quiet || echo dirty\""
-                }
-            };
-            process.Start();
-            process.WaitForExit();
-            string dirty = process.StandardOutput.ReadToEnd().Trim();
-            return dirty;
+#if DEBUG
+            return "debug";
+#else
+            return "release";
+#endif
+
         }
 
         private static string GetGitTag()
@@ -138,14 +127,5 @@ namespace SetupBuildVersionInfo
             string hash = process.StandardOutput.ReadToEnd().Trim();
             return hash;
         }
-
-        //git diff --quiet || echo 'dirty'
     }
 }
-
-/*
- * 
- * git describe --tags > git-info.txt
-echo "-" >> git-info.txt
-git show --format="%h" --no-patch >> git-info.txt
-*/

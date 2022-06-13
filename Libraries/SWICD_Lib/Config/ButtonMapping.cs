@@ -86,5 +86,10 @@ namespace SWICD_Lib.Config
         internal string GetEmulatedButtonName(EmulatedButton value) => Enum.GetName(typeof(EmulatedButton), value);
         internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
 
+        public override bool Equals(object obj)
+        {
+            return obj is ButtonMapping mapping &&
+                   _mappings.EqualsWithValues(mapping._mappings);
+        }
     }
 }

@@ -25,5 +25,11 @@ namespace SWICD_Lib.Config
                 DisableLizardMode = DisableLizardMode,  
             };
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ProfileSettings settings &&
+                   DisableLizardMode == settings.DisableLizardMode;
+        }
     }
 }

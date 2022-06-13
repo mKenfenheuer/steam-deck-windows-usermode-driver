@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SWICD_Lib.Config
 {
@@ -36,6 +37,15 @@ namespace SWICD_Lib.Config
             clone.ButtonMapping = (ButtonMapping)ButtonMapping.Clone();
             clone.AxisMapping = (AxisMapping)AxisMapping.Clone();
             return clone;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ControllerConfig config &&
+                   Executable == config.Executable &&
+                   EqualityComparer<ProfileSettings>.Default.Equals(ProfileSettings, config.ProfileSettings) &&
+                   EqualityComparer<ButtonMapping>.Default.Equals(ButtonMapping, config.ButtonMapping) &&
+                   EqualityComparer<AxisMapping>.Default.Equals(AxisMapping, config.AxisMapping);
         }
     }
 }

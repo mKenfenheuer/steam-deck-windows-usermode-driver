@@ -58,10 +58,11 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\AxisMapping.cs" />
-    <Compile Include="Config\ButtonActions.cs" />
+    <Compile Include="Config\KeyboardButtonActions.cs" />
     <Compile Include="Config\ButtonMapping.cs" />
     <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Config\Configuration.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Config\HardwareButton.cs" />
     <Compile Include="Config\OperationMode.cs" />
     <Compile Include="Config\ProfileSettings.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

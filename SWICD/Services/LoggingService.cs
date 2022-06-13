@@ -41,6 +41,11 @@ namespace SWICD.Services
             File.AppendAllText(file, $"[{entry.Time}][{level}]: {message}\r\n"); 
         }
 
+        public string GetLogString()
+        {
+            return File.ReadAllText(file);
+        }
+
         public static void LogInformation(string message) => Instance.Log(LogLevel.Information, message);
         public static void LogWarning(string message) => Instance.Log(LogLevel.Warning, message);
         public static void LogError(string message) => Instance.Log(LogLevel.Error, message);

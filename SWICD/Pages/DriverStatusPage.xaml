@@ -28,10 +28,43 @@
                FontWeight="SemiBold"
                Foreground="#fff" />
         <Label Grid.Column="1"
-               Grid.ColumnSpan ="2"
+               Grid.ColumnSpan ="1"
                Content="{Binding DriverVersionText}"
                Foreground="#fff" />
-        
+
+        <Button
+            Grid.Column="2"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding CreateSupportPackageClickCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#303030"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Create support package" 
+                    FontSize="16"
+                    Foreground="#fff"
+                    Margin="5,0,0,0"
+                    Padding="0"/>
+            </Button.Content>
+        </Button>
+
         <Label Content="Driver Status"
                FontWeight="SemiBold"
                Grid.Row="1"

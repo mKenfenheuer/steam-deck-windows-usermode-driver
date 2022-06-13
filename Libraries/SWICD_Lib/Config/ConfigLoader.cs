@@ -68,9 +68,9 @@ namespace SWICD_Lib.Config
                     {
                         ProcessGeneralLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
                     }
-                    if (section == "actions")
+                    if (section == "keyboard-actions")
                     {
-                        ProcessActionsLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
+                        ProcessKeyboardActionsLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
                     }
 
                     if (section == "buttons")
@@ -118,6 +118,7 @@ namespace SWICD_Lib.Config
                     }
                 }
             }
+            configuration.CreateSnapshot();
             return configuration;
         }
 
@@ -144,32 +145,7 @@ namespace SWICD_Lib.Config
 
         public static void SaveConfiguration(Configuration config, string file)
         {
-            string configText = "[general]\r\n";
-            foreach (string executable in config.GenericSettings.BlacklistedProcesses)
-            {
-                configText += $"Blacklist={executable}\r\n";
-            }
-            foreach (string executable in config.GenericSettings.WhitelistedProcesses)
-            {
-                configText += $"Whitelist={executable}\r\n";
-            }
-            configText += $"Mode={config.GenericSettings.OperationMode}\r\n";
-            configText += $"StartWithWindows={config.GenericSettings.StartWithWindows}\r\n";
-
-            configText += "\r\n";
-
-            configText += config.DefaultControllerConfig.ToString();
-
-            configText += "\r\n";
-
-            configText += config.ButtonActions.ToString();
-
-            configText += "\r\n";
-
-            foreach (string executable in config.PerProcessControllerConfig.Keys)
-                configText += config.PerProcessControllerConfig[executable].ToString() + "\r\n";
-
-            File.WriteAllText(file, configText.Trim());
+            File.WriteAllText(file, config.ToString().Trim());
         }
 
         private static ControllerConfig ProcessAxesLine(string v1, string v2, ControllerConfig configuration)
@@ -188,12 +164,13 @@ namespace SWICD_Lib.Config
             return configuration;
         }
 
-        private static void ProcessActionsLine(string v1, string v2, ref Configuration configuration)
+        private static void ProcessKeyboardActionsLine(string v1, string v2, ref Configuration configuration)
         {
-            if (v1 == "OpenWindowsGameBar")
-            {
-                configuration.ButtonActions.OpenWindowsGameBar = (HardwareButton)Enum.Parse(typeof(HardwareButton), v2);
-            }
+            HardwareButton[] buttons = v1.Split(new char[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(s => (HardwareButton)Enum.Parse(typeof(HardwareButton), s))
+                                .ToArray();
+
+            configuration.KeyboardButtonActions[buttons] = v2;            
         }
 
         private static ControllerConfig ProcessButtonsLine(string v1, string v2, ControllerConfig configuration)
