@@ -1,7 +1,7 @@
 # Usermode controller driver for the Steam Deck build in controller
 
 This work-in-progress driver maps the Steam deck's builtin controller to a virtual ViGEm XBox 360 Controller.
-The layout is similar to an XBox One Elite controller (Grip Buttons R4,L4,R5,L5 map to A,B,X,Y).
+The layout is customizeable using the gui.
 
 ## How to try? 
 
