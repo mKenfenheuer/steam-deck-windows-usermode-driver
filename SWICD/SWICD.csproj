@@ -66,6 +66,9 @@
     <Reference Include="Nefarius.ViGEm.Client, Version=1.17.178.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nefarius.ViGEm.Client.1.17.178\lib\net452\Nefarius.ViGEm.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -104,9 +107,25 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BuildVersionInfo.cs" />
+    <Compile Include="Config\AxisMapping.cs" />
+    <Compile Include="Config\ButtonMapping.cs" />
+    <Compile Include="Config\ConfigLoader.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\ControllerConfig.cs" />
+    <Compile Include="Config\EmulatedAxis.cs" />
+    <Compile Include="Config\EmulatedAxisConfig.cs" />
+    <Compile Include="Config\EmulatedButton.cs" />
+    <Compile Include="Config\GenericSettings.cs" />
+    <Compile Include="Config\HardwareAxis.cs" />
+    <Compile Include="Config\HardwareButton.cs" />
+    <Compile Include="Config\KeyboardButtonActions.cs" />
+    <Compile Include="Config\OperationMode.cs" />
+    <Compile Include="Config\ProfileSettings.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
     <Compile Include="Model\ButtonMappingModel.cs" />
     <Compile Include="Model\EnumComboBoxItem.cs" />
+    <Compile Include="Model\GitHubTag.cs" />
     <Compile Include="Model\LogEntryModel.cs" />
     <Compile Include="Model\NavigationItemModel.cs" />
     <Compile Include="Pages\DriverStatusPage.xaml.cs">
@@ -121,6 +140,7 @@
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Services\ControllerService.cs" />
     <Compile Include="Services\FontEnumMapper.cs" />
+    <Compile Include="Services\GitHubApi.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
@@ -185,10 +205,6 @@
     <ProjectReference Include="..\Libraries\neptune-hidapi.net\neptune-hidapi.net.csproj">
       <Project>{f7283783-81ef-4cd2-bd86-598fe193c11f}</Project>
       <Name>neptune-hidapi.net</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Libraries\SWICD_Lib\SWICD_Lib.csproj">
-      <Project>{b25ada70-5a22-43bf-abec-106d473b4c66}</Project>
-      <Name>SWICD_Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
