@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -22,9 +23,13 @@ namespace SWICD.ViewModels
         public ObservableCollection<LogEntryModel> LogEntries { get; set; } = new ObservableCollection<LogEntryModel>();
         public string DriverStatusText { get; set; }
         public string DriverVersionText => BuildVersionInfo.Version;
+        public string LatestDriverVersionText { get; set; } = "Checking ...";
+        public string LatestDriverVersionLink { get; set; }
+        public SolidColorBrush LatestDriverVersionColor { get; set; } = new SolidColorBrush(Colors.LightGray);
         public SolidColorBrush DriverStatusColor { get; set; }
         private readonly Dispatcher _dispatcher;
         public CommandHandler CreateSupportPackageClickCommand => new CommandHandler(obj => CreateSupportPackage());
+        public CommandHandler OpenGitHubReleaseClickCommand => new CommandHandler(obj => OpenGitHubRelease());
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,7 +42,34 @@ namespace SWICD.ViewModels
             this._dispatcher = dispatcher;
             LoggingService.Instance.OnNewLogEntry += OnNewLogEntry;
             ControllerService.Instance.OnServiceStartStop += OnServiceStartStop;
+            Task.Run(CheckNewVersion);
         }
+
+        private async Task CheckNewVersion()
+        {
+            var release = await GitHubApi.GetLatestRelease();
+
+            var releaseVersionStr = Regex.Replace(release.TagName, @"[^0-9\.]+([0-9\.]+)[^\.]*", "$1");
+            var curVersionStr = Regex.Replace(BuildVersionInfo.Version, @"[^0-9\.]+([0-9\.]+)[^\.]*", "$1");
+
+            Version releaseVersion = new Version(releaseVersionStr);
+            Version buildVersion = new Version(curVersionStr);
+
+            _dispatcher.Invoke(() =>
+            {
+                LatestDriverVersionText = release.TagName;
+                LatestDriverVersionLink = release.HtmlUrl;
+                LatestDriverVersionColor = new SolidColorBrush(buildVersion <= releaseVersion ? Colors.White : Colors.Yellow);
+            });
+
+            NotifyPropertyChanged(nameof(LatestDriverVersionText));
+            NotifyPropertyChanged(nameof(LatestDriverVersionColor));
+        }
+        private void OpenGitHubRelease()
+        {
+            System.Diagnostics.Process.Start(LatestDriverVersionLink);
+        }
+
         private void CreateSupportPackage()
         {
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
