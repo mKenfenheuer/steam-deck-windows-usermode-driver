@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsInput.Native;
 
 namespace SWICD.Services
 {
@@ -47,6 +48,11 @@ namespace SWICD.Services
                     return "NONE";
             }
             return "\u2753";
+        }
+
+        internal static string MapEmulatedKeyboardKeyToFont(VirtualKeyCode e)
+        {
+            throw new NotImplementedException();
         }
 
         public static string MapEmulatedAxisToFont(EmulatedAxis emulated)

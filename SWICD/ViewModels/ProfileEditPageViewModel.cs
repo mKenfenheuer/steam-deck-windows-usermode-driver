@@ -15,6 +15,7 @@ namespace SWICD.ViewModels
         public string Executable { get; set; }
         public string PageTitle => Executable != null ? $"Controller Profile: {Executable}" : "Default Controller Profile";
         private ControllerConfig ControllerConfig { get; set; }
+        public ObservableCollection<KeyboardMappingModel> KeyboardMappings { get; set; } = new ObservableCollection<KeyboardMappingModel>();
         public ObservableCollection<ButtonMappingModel> ButtonMappings { get; set; } = new ObservableCollection<ButtonMappingModel>();
         public ObservableCollection<AxisMappingModel> AxisMappings { get; set; } = new ObservableCollection<AxisMappingModel>();
 
@@ -55,6 +56,16 @@ namespace SWICD.ViewModels
                         HardwareButton = button,
                         EmulatedButton = ControllerConfig.ButtonMapping[button],
                         SetAction = val => ControllerConfig.ButtonMapping[button] = val,
+                    });
+
+
+            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
+                if (button != HardwareButton.None)
+                    KeyboardMappings.Add(new KeyboardMappingModel()
+                    {
+                        HardwareButton = button,
+                        EmulatedKeyboardKey = ControllerConfig.KeyboardMapping[button],
+                        SetAction = val => ControllerConfig.KeyboardMapping[button] = val,
                     });
 
             foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareAxis)))

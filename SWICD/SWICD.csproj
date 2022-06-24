@@ -108,6 +108,7 @@
     </ApplicationDefinition>
     <Compile Include="BuildVersionInfo.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
+    <Compile Include="Model\KeyboardMappingModel.cs" />
     <Compile Include="Model\ButtonMappingModel.cs" />
     <Compile Include="Model\EnumComboBoxItem.cs" />
     <Compile Include="Model\LogEntryModel.cs" />
