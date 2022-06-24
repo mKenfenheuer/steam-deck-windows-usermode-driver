@@ -3,6 +3,14 @@
 This work-in-progress driver maps the Steam deck's builtin controller to a virtual ViGEm XBox 360 Controller.
 The layout is customizeable using the gui.
 
+## How to get support
+
+Mainly support is provided through the issues section. Please adhere the issue templates as precisely as possible.
+
+If you'd like to get in touch with me or other users directly you are welcome to join the discord server:
+
+https://discord.gg/pxgNz53H
+
 ## How to try? 
 
 1. Install ViGEm Bus driver from [here](https://github.com/ViGEm/ViGEmBus/releases).
