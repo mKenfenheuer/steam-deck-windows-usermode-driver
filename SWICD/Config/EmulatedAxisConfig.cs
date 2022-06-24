@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class EmulatedAxisConfig : ICloneable
     {

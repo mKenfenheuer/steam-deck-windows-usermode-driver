@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class ControllerConfig : ICloneable
     {
@@ -9,6 +9,7 @@ namespace SWICD_Lib.Config
         public ProfileSettings ProfileSettings { get; set; } = new ProfileSettings();
         public ButtonMapping ButtonMapping { get; set; } = new ButtonMapping();
         public AxisMapping AxisMapping { get; set; } = new AxisMapping();
+        public KeyboardMapping KeyboardMapping { get; set; } = new KeyboardMapping();
 
         public ControllerConfig()
         {
@@ -26,7 +27,7 @@ namespace SWICD_Lib.Config
 
         public override string ToString()
         {
-            return ProfileSettings.ToString(Executable) + "\r\n" + ButtonMapping.ToString(Executable) + "\r\n" + AxisMapping.ToString(Executable);
+            return ProfileSettings.ToString(Executable) + "\r\n" + ButtonMapping.ToString(Executable) + "\r\n" + KeyboardMapping.ToString(Executable) + "\r\n" + AxisMapping.ToString(Executable);
         }
 
         public object Clone()
@@ -36,6 +37,7 @@ namespace SWICD_Lib.Config
             clone.ProfileSettings = (ProfileSettings)ProfileSettings.Clone();
             clone.ButtonMapping = (ButtonMapping)ButtonMapping.Clone();
             clone.AxisMapping = (AxisMapping)AxisMapping.Clone();
+            clone.KeyboardMapping = (KeyboardMapping)KeyboardMapping.Clone();
             return clone;
         }
 
@@ -45,6 +47,7 @@ namespace SWICD_Lib.Config
                    Executable == config.Executable &&
                    EqualityComparer<ProfileSettings>.Default.Equals(ProfileSettings, config.ProfileSettings) &&
                    EqualityComparer<ButtonMapping>.Default.Equals(ButtonMapping, config.ButtonMapping) &&
+                   EqualityComparer<KeyboardMapping>.Default.Equals(KeyboardMapping, config.KeyboardMapping) &&
                    EqualityComparer<AxisMapping>.Default.Equals(AxisMapping, config.AxisMapping);
         }
     }

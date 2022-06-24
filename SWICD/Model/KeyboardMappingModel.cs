@@ -1,5 +1,5 @@
 ﻿using SWICD.Services;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,9 +13,9 @@ namespace SWICD.Model
 {
     internal class KeyboardMappingModel
     {
-        private EnumComboBoxItem<VirtualKeyCode> _selectedEmulatedButton;
+        private EnumComboBoxItem<VirtualKeyboardKey> _selectedEmulatedButton;
 
-        public ObservableCollection<EnumComboBoxItem<VirtualKeyCode>> KeyboardItems { get; set; } = new ObservableCollection<EnumComboBoxItem<VirtualKeyCode>>(Enum.GetValues(typeof(VirtualKeyCode)).Cast<VirtualKeyCode>().Select(e => new EnumComboBoxItem<VirtualKeyCode>()
+        public ObservableCollection<EnumComboBoxItem<VirtualKeyboardKey>> KeyboardItems { get; set; } = new ObservableCollection<EnumComboBoxItem<VirtualKeyboardKey>>(Enum.GetValues(typeof(VirtualKeyboardKey)).Cast<VirtualKeyboardKey>().Select(e => new EnumComboBoxItem<VirtualKeyboardKey>()
         {
             Value = e,
             Display = FontEnumMapper.MapEmulatedKeyboardKeyToFont(e),
@@ -23,7 +23,7 @@ namespace SWICD.Model
 
         public string ButtonText => FontEnumMapper.MapHardwareButtonToFont(HardwareButton); // Regex.Replace(HardwareButton.ToString().Replace("Btn", ""), "([^A-Z])([A-Z])", "$1 $2");
         public HardwareButton HardwareButton { get; set; }
-        public EnumComboBoxItem<VirtualKeyCode> SelectedKeyboardButton
+        public EnumComboBoxItem<VirtualKeyboardKey> SelectedKeyboardKey
         {
             get => _selectedEmulatedButton;
             set
@@ -33,13 +33,13 @@ namespace SWICD.Model
                     SetAction(value.Value);
             }
         }
-        public Action<VirtualKeyCode> SetAction { get; set; }
-        public VirtualKeyCode EmulatedKeyboardKey
+        public Action<VirtualKeyboardKey> SetAction { get; set; }
+        public VirtualKeyboardKey EmulatedKeyboardKey
         {
-            get => SelectedKeyboardButton.Value;
+            get => SelectedKeyboardKey.Value;
             set
             {
-                SelectedKeyboardButton = new EnumComboBoxItem<VirtualKeyCode>()
+                SelectedKeyboardKey = new EnumComboBoxItem<VirtualKeyboardKey>()
                 {
                     Value = value,
                     Display = FontEnumMapper.MapEmulatedKeyboardKeyToFont(value),

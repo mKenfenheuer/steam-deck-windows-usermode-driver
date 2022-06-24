@@ -3,7 +3,7 @@ using SWICD.Commands;
 using SWICD.Model;
 using SWICD.Pages;
 using SWICD.Services;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

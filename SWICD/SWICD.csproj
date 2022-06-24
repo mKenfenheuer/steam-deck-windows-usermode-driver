@@ -111,6 +111,7 @@
     </ApplicationDefinition>
     <Compile Include="BuildVersionInfo.cs" />
     <Compile Include="Config\AxisMapping.cs" />
+    <Compile Include="Config\KeyboardMapping.cs" />
     <Compile Include="Config\ButtonMapping.cs" />
     <Compile Include="Config\ConfigLoader.cs" />
     <Compile Include="Config\Configuration.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Config\KeyboardButtonActions.cs" />
     <Compile Include="Config\OperationMode.cs" />
     <Compile Include="Config\ProfileSettings.cs" />
+    <Compile Include="Config\VirtualKeyboardKey.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
     <Compile Include="Model\KeyboardMappingModel.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Services\ControllerService.cs" />
     <Compile Include="Services\FontEnumMapper.cs" />
     <Compile Include="Services\GitHubApi.cs" />
+    <Compile Include="Services\KeyboardInputMapper.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />

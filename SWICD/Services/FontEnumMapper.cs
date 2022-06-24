@@ -1,4 +1,4 @@
-﻿using SWICD_Lib.Config;
+﻿using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,9 +50,9 @@ namespace SWICD.Services
             return "\u2753";
         }
 
-        internal static string MapEmulatedKeyboardKeyToFont(VirtualKeyCode e)
+        internal static string MapEmulatedKeyboardKeyToFont(VirtualKeyboardKey e)
         {
-            throw new NotImplementedException();
+            return e.ToString();
         }
 
         public static string MapEmulatedAxisToFont(EmulatedAxis emulated)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nefarius.ViGEm.Client.Targets;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
 
 namespace SWICD.Services

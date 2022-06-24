@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class KeyboardButtonActions : ICloneable
     {

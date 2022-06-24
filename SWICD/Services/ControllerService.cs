@@ -7,7 +7,7 @@ using neptune_hidapi.net;
 using Nefarius.ViGEm.Client;
 using Nefarius.ViGEm.Client.Targets;
 using Nefarius.ViGEm.Client.Targets.Xbox360;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System.IO;
 using System.Diagnostics;
 
@@ -182,7 +182,10 @@ namespace SWICD.Services
             _emulatedController.ResetReport();
 
             if (EmulationEnabled)
-                InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);           
+            {
+                InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);
+                KeyboardInputMapper.MapInput(_currentControllerConfig, state);
+            }
 
             _emulatedController.SubmitReport();
         }

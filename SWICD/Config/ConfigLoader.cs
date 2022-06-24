@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class ConfigLoader
     {
@@ -79,6 +79,12 @@ namespace SWICD_Lib.Config
                         continue;
                     }
 
+                    if (section == "keyboardkeys")
+                    {
+                        configuration.DefaultControllerConfig = ProcessKeyboardLine(parts[0].Trim(), parts[1].Trim(), configuration.DefaultControllerConfig);
+                        continue;
+                    }
+
                     if (section == "axes")
                     {
                         configuration.DefaultControllerConfig = ProcessAxesLine(parts[0].Trim(), parts[1].Trim(), configuration.DefaultControllerConfig);
@@ -97,6 +103,14 @@ namespace SWICD_Lib.Config
                     {
 
                         configuration.PerProcessControllerConfig[executable] = ProcessButtonsLine(parts[0].Trim(), parts[1].Trim(),
+                                                                    configuration.PerProcessControllerConfig.ContainsKey(executable) ?
+                                                                    configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
+                    }
+
+                    if (section.StartsWith("keyboardkeys"))
+                    {
+
+                        configuration.PerProcessControllerConfig[executable] = ProcessKeyboardLine(parts[0].Trim(), parts[1].Trim(),
                                                                     configuration.PerProcessControllerConfig.ContainsKey(executable) ?
                                                                     configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
                     }
@@ -170,7 +184,7 @@ namespace SWICD_Lib.Config
                                 .Select(s => (HardwareButton)Enum.Parse(typeof(HardwareButton), s))
                                 .ToArray();
 
-            configuration.KeyboardButtonActions[buttons] = v2;            
+            configuration.KeyboardButtonActions[buttons] = v2;
         }
 
         private static ControllerConfig ProcessButtonsLine(string v1, string v2, ControllerConfig configuration)
@@ -182,6 +196,19 @@ namespace SWICD_Lib.Config
             Enum.TryParse(v2, out emulatedButton);
 
             configuration.ButtonMapping[hardwareButton] = emulatedButton;
+
+            return configuration;
+        }
+
+        private static ControllerConfig ProcessKeyboardLine(string v1, string v2, ControllerConfig configuration)
+        {
+            HardwareButton hardwareButton = HardwareButton.None;
+            VirtualKeyboardKey keyboardKey = VirtualKeyboardKey.NONE;
+
+            Enum.TryParse(v1, out hardwareButton);
+            Enum.TryParse(v2, out keyboardKey);
+
+            configuration.KeyboardMapping[hardwareButton] = keyboardKey;
 
             return configuration;
         }

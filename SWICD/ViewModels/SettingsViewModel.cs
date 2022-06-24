@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using SWICD.Commands;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public enum HardwareButton
     {

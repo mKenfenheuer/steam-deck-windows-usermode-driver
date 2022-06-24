@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SWICD_Lib
+namespace SWICD
 {
     internal static class Extensions
     {
