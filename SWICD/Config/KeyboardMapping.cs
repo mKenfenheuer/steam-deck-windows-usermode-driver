@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WindowsInput.Native;
 
 namespace SWICD.Config
 {
@@ -70,10 +69,10 @@ namespace SWICD.Config
 
         internal string ToString(string executable = null)
         {
-            string config = $"[keyboard]\r\n";
+            string config = $"[keyboardkeys]\r\n";
             if (executable != null)
             {
-                config = $"[keyboard,{executable}]\r\n";
+                config = $"[keyboardkeys,{executable}]\r\n";
             }
 
             foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
