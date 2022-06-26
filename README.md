@@ -1,4 +1,4 @@
-# Usermode controller driver for the Steam Deck build in controller
+# Usermode controller driver for the Steam Deck built in controller
 
 This work-in-progress driver maps the Steam deck's builtin controller to a virtual ViGEm XBox 360 Controller.
 The layout is customizeable using the gui.
