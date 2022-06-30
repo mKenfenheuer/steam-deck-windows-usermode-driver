@@ -1,3 +1,4 @@
+# Profiles
 Profiles allow you to set specific input mappings on a per game basis when a matching executable is found. Default Profile is used when no match is found.
 
 ## Profile Settings

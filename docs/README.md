@@ -1,5 +1,5 @@
-# **S**teamdeck **WI**ndows **C**ontroller **D**river
-User Documentation for SWICD Driver
+# Steamdeck Windows Controller Driver
+End User Documentation for **S**teamdeck **WI**ndows **C**ontroller **D**river (SWICD)
 
 - Installation
 - Driver Status
