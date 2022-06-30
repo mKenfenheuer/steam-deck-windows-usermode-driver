@@ -7,9 +7,9 @@ Enabling this setting will start SWICD when Windows starts.  Use this setting if
 Select the operation mode that you would like SWICD to operate in.  
 
 There are three options: 
-* Blacklist
-* Whitelist
-* Combined
+- Blacklist
+- Whitelist
+- Combined
 
 ### Blacklist
 Use Blacklist mode to prevent SWICD from emulating input if a process with the same executable name is running. The mode must be set to blacklist or combined, if not this setting is ignored.
