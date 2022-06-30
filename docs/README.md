@@ -1,5 +1,5 @@
-# **S**teamdeck **WI**ndows **C**ontroller **D**river
-User Documentation for SWICD Driver
+# Steamdeck WIndows Controller Driver
+End User Documentation for **S**teamdeck **WI**ndows **C**ontroller **D**river (SWICD)
 
 * Driver Status
 * [Settings](/docs/Settings.md)
