@@ -1,4 +1,4 @@
-#Settings
+# Settings
 Settings allows you to make configuration changes within the application.
 
 ## Start with Windows
