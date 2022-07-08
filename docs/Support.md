@@ -2,7 +2,7 @@
 This page will show you how to get support, open an Issue if needed, known issues, and contains an FAQs section for commonly run into issues and asked questions.
 
 ## How to get support
-Mainly support is provided through the [issues section](/issues). Please adhere the issue templates as precisely as possible (see below).
+Mainly support is provided through the [issues section](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/issues). Please adhere the issue templates as precisely as possible (see below).
 
 If you'd like to get in touch with Maximilian or other users directly you are welcome to join the discord server: https://discord.gg/pxgNz53H
 

@@ -102,5 +102,9 @@ Button mappings allow you to assign the function of a Steam Deck button to any X
 - R3
 
 ## Keyboard Mappings
+Coming in version v0.2.5
 
 ## Adding a Profile
+1. Click the **+ Add Profile** button in the lower-left corner of the SWICD window while on the Profiles page.  
+2. Navigate to the executable for the game that you'd like to make a profile for, select it, and then press **Open**.
+3. The Executable name will show up under Profiles on the left menu. Press the name of the executable on that menu and select the options you'd like to be loaded when that executable is launched.
