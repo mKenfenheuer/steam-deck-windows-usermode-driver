@@ -8,8 +8,8 @@ Shows the version of the driver that you are running
 Shows the current status of the driver.
 
 ### Possible Status States
-- <span style="color: green;">Running</span> - Indicates that driver is currently running (icon status in task tray will also have a green dot when running)
-- <span style="color: red;">Stopped</span> - Indicates that driver has been paused (icon status in task tray will lso have a red dot when paused)
+- <span style="color: #00FF00;">Running</span> - Indicates that driver is currently running (icon status in task tray will also have a green dot when running)
+- <span style="color: #FF0000;">Stopped</span> - Indicates that driver has been paused (icon status in task tray will lso have a red dot when paused)
 
 ## Driver Log
 Shows output of the driver log. Here you will see Debug, Information, and Error messages output by the driver.
