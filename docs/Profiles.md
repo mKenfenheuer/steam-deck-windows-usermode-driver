@@ -52,7 +52,7 @@ Select inverted if you would like the inputs reversed (left is right, up is down
 - Left Trigger
 - Right Trigger
 
-![Xbox Controller Axis Buttons](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/wiki/docs/images/Xbox%20Axis.png)
+![Xbox Controller Axis Buttons](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/wiki/images/Xbox%20Axis.png)
 
 ## Button Mappings
 Button mappings allow you to assign the function of a Steam Deck button to any Xbox Controller button.
