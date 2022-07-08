@@ -1,4 +1,3 @@
-# Support
 This page will show you how to get support, open an Issue if needed, known issues, and contains an FAQs section for commonly run into issues and asked questions.
 
 ## How to get support

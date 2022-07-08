@@ -1,4 +1,3 @@
-# Profiles
 Profiles allow you to set specific input mappings on a per game basis when a matching executable is found. Default Profile is used when no match is found.
 
 ## Profile Settings
@@ -43,7 +42,7 @@ Select inverted if you would like the inputs reversed (left is right, up is down
 - L2
 - R2
 
-![Steam Deck Axis Buttons](/docs/images/Steam%20Deck%20Axis.png)
+![Steam Deck Axis Buttons](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/wiki/images/Steam%20Deck%20Axis.png)
 
 **Xbox Controller Buttons with Axis:**
 - Left Thumbstick (left/right) 
@@ -53,7 +52,7 @@ Select inverted if you would like the inputs reversed (left is right, up is down
 - Left Trigger
 - Right Trigger
 
-![Xbox Controller Axis Buttons](/docs/images/Xbox%20Axis.png)
+![Xbox Controller Axis Buttons](https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/wiki/docs/images/Xbox%20Axis.png)
 
 ## Button Mappings
 Button mappings allow you to assign the function of a Steam Deck button to any Xbox Controller button.
