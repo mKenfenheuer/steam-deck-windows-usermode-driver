@@ -42,16 +42,16 @@ namespace SWICD.Services
                 }
             }
 
-            /*if(_lastState != null)
+            if (_lastState != null)
             {
-                foreach(var btn in _lastState.ButtonState.Buttons)
+                foreach (var btn in _lastState.ButtonState.Buttons)
                 {
                     if (_lastState.ButtonState[btn] != input.ButtonState[btn])
                     {
                         LoggingService.LogDebug($"Button {btn} changed to: {input.ButtonState[btn]}");
                     }
                 }
-            }*/
+            }
 
             _lastState = input;
         }

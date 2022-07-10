@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SWICD.Config;
-using WindowsInput;
+using GregsStack.InputSimulatorStandard;
 
 namespace SWICD.Services
 {
@@ -25,10 +25,10 @@ namespace SWICD.Services
                             var key = config.KeyboardMapping[(HardwareButton)btn];
                             if (input.ButtonState[btn])
                             {
-                                _simulator.Keyboard.KeyDown((WindowsInput.Native.VirtualKeyCode)key);
+                                _simulator.Keyboard.KeyDown((GregsStack.InputSimulatorStandard.Native.VirtualKeyCode)key);
                             } else
                             {
-                                _simulator.Keyboard.KeyUp((WindowsInput.Native.VirtualKeyCode)key);
+                                _simulator.Keyboard.KeyUp((GregsStack.InputSimulatorStandard.Native.VirtualKeyCode)key);
                             }
                         }
                     }
