@@ -17,6 +17,7 @@ namespace SWICD.Services
     {
         public static ControllerService Instance { get; private set; } = new ControllerService();
         public bool EmulationEnabled { get; private set; }
+        public string DecisionExecutable { get; private set; }
         public bool LizardModeEnabled { get => _neptuneController.LizardModeEnabled; private set => _neptuneController.LizardModeEnabled = value; }
         public bool Started { get; private set; }
         public Configuration Configuration { get; internal set; }
@@ -41,10 +42,20 @@ namespace SWICD.Services
             LoggingService.LogInformation($"Blacklisted processes: {Configuration.GenericSettings.BlacklistedProcesses.Count}");
             LoggingService.LogInformation($"Whitelisted processes: {Configuration.GenericSettings.WhitelistedProcesses.Count}");
             _neptuneController.OnControllerInputReceived = input => Task.Run(() => OnControllerInputReceived(input));
+        }
+
+        private void InitEmuController()
+        {
             _viGEmClient = new ViGEmClient();
             _emulatedController = _viGEmClient.CreateXbox360Controller();
             _emulatedController.AutoSubmitReport = false;
             _emulatedController.FeedbackReceived += EmulatedController_FeedbackReceived;
+        }
+
+        private void EnsureInitEmuController()
+        {
+            if (_viGEmClient == null)
+                InitEmuController();
         }
 
         private void EmulatedController_FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)
@@ -75,6 +86,7 @@ namespace SWICD.Services
                         Configuration.GenericSettings.BlacklistedProcesses.Contains($"{process.ProcessName}.exe"))
                     {
                         emulate = false;
+                        DecisionExecutable = $"{process.ProcessName}.exe";
                         break;
                     }
                     if (Configuration.GenericSettings.OperationMode == OperationMode.Whitelist &&
@@ -82,6 +94,7 @@ namespace SWICD.Services
                     {
 
                         emulate = true;
+                        DecisionExecutable = $"{process.ProcessName}.exe";
                         break;
                     }
 
@@ -89,6 +102,7 @@ namespace SWICD.Services
                         Configuration.GenericSettings.BlacklistedProcesses.Contains($"{process.ProcessName}.exe"))
                     {
                         emulate = false;
+                        DecisionExecutable = $"{process.ProcessName}.exe";
                         break;
                     }
 
@@ -96,6 +110,7 @@ namespace SWICD.Services
                         Configuration.GenericSettings.WhitelistedProcesses.Contains($"{process.ProcessName}.exe"))
                     {
                         emulate = true;
+                        DecisionExecutable = $"{process.ProcessName}.exe";
                     }
                 }
 
@@ -142,6 +157,7 @@ namespace SWICD.Services
 
         public void Start()
         {
+            EnsureInitEmuController();
             _running = true;
             _checkProcessesTask = Task.Run(async () => await CheckProcessesLoop());
             _emulatedController.Connect();

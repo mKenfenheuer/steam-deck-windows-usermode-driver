@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_2D6957A5323238791435DCEEFC8BB5FE"
+        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3B83AE985B2F527A8438C5F42B7D7AE8"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,6 +35,18 @@
         {
         "MsmKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
+        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
+        "OwnerKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -75,12 +93,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_95C8D762196CE94BAAF2691EF2F28932"
-        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_975F5A2C2A508890C9E6DF65F89ACEF2"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "MsmSig" = "8:_UNDEFINED"
@@ -95,6 +107,12 @@
         {
         "MsmKey" = "8:_A55E5BA8CFC5A9D5B5A32E4104AC2E54"
         "OwnerKey" = "8:_EAAC380F8F4FD8A514E8B85D15B31877"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A820752BCE67067CA56B5B56AE1C196E"
+        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,26 +141,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
+        "MsmKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA837415D4DB578072949B3943A851AD"
-        "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA837415D4DB578072949B3943A851AD"
-        "OwnerKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_5144782880D5472CA05F90007F0CB313"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2D6957A5323238791435DCEEFC8BB5FE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -184,19 +196,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_95C8D762196CE94BAAF2691EF2F28932"
+        "OwnerKey" = "8:_A820752BCE67067CA56B5B56AE1C196E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F07E5E3A9039F7E308BC0BDA91891B12"
+        "OwnerKey" = "8:_EDDCA2500898AB06DFB0048312FD71B2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FA837415D4DB578072949B3943A851AD"
+        "OwnerKey" = "8:_57FA6F74B31EFCFAEB5505A09ECEB74D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -349,6 +361,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2D6957A5323238791435DCEEFC8BB5FE"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_2D6957A5323238791435DCEEFC8BB5FE"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3B83AE985B2F527A8438C5F42B7D7AE8"
             {
             "AssemblyRegister" = "3:1"
@@ -363,6 +406,37 @@
                     }
                 }
             "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57FA6F74B31EFCFAEB5505A09ECEB74D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
+                "ScatterAssemblies"
+                {
+                    "_57FA6F74B31EFCFAEB5505A09ECEB74D"
+                    {
+                    "Name" = "8:hidapi.net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:hidapi.net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -473,37 +547,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_95C8D762196CE94BAAF2691EF2F28932"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SWICD_Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_95C8D762196CE94BAAF2691EF2F28932"
-                    {
-                    "Name" = "8:SWICD_Lib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:SWICD_Lib.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_975F5A2C2A508890C9E6DF65F89ACEF2"
             {
             "AssemblyRegister" = "3:1"
@@ -569,6 +612,37 @@
                     }
                 }
             "SourcePath" = "8:System.IO.Compression.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A820752BCE67067CA56B5B56AE1C196E"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A820752BCE67067CA56B5B56AE1C196E"
+                    {
+                    "Name" = "8:WindowsInput.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:WindowsInput.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -679,51 +753,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F07E5E3A9039F7E308BC0BDA91891B12"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EDDCA2500898AB06DFB0048312FD71B2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:neptune-hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
-                    "_F07E5E3A9039F7E308BC0BDA91891B12"
+                    "_EDDCA2500898AB06DFB0048312FD71B2"
                     {
                     "Name" = "8:neptune-hidapi.net.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:neptune-hidapi.net.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FA837415D4DB578072949B3943A851AD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:hidapi.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64"
-                "ScatterAssemblies"
-                {
-                    "_FA837415D4DB578072949B3943A851AD"
-                    {
-                    "Name" = "8:hidapi.net.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:hidapi.net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"
@@ -861,6 +904,70 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_C0F36EFB1B524B76894893C3B1A93A0B"
+                            {
+                            "Name" = "8:Microsoft"
+                            "Condition" = "8:"
+                            "AlwaysCreate" = "11:FALSE"
+                            "DeleteAtUninstall" = "11:FALSE"
+                            "Transitive" = "11:FALSE"
+                                "Keys"
+                                {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F6E7D95695164ADCB19AAA92906821AF"
+                                    {
+                                    "Name" = "8:Windows"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0F73A5CA7D2A411AAB10FDBAC17DC5C5"
+                                            {
+                                            "Name" = "8:CurrentVersion"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_3B4D5667EE82427E9E257BCEF56B27EC"
+                                                    {
+                                                    "Name" = "8:Run"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                        }
+                                                        "Values"
+                                                        {
+                                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_16C16924BDB44AAB94297E5F6F6597CD"
+                                                            {
+                                                            "Name" = "8:New Value #1"
+                                                            "Condition" = "8:"
+                                                            "Transitive" = "11:FALSE"
+                                                            "ValueTypes" = "3:1"
+                                                            "Value" = "8:"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                }
+                            }
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_CDFC106960284D66B153593446A89B41"
                             {
                             "Name" = "8:[Manufacturer]"
@@ -957,7 +1064,7 @@
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4959292C636746A1BE3D65955EF09761"
             {
             "Name" = "8:SWICD Driver"
-            "Arguments" = "8:"
+            "Arguments" = "8:autostart-try"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:32512"
@@ -1383,7 +1490,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5144782880D5472CA05F90007F0CB313"
             {
-            "SourcePath" = "8:..\\..\\SWICD\\obj\\x64\\Release\\SWICD.exe"
+            "SourcePath" = "8:..\\..\\SWICD\\obj\\x64\\Debug\\SWICD.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A989021FC6EF4284A09D5A8631B95877"

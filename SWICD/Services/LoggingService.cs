@@ -12,19 +12,28 @@ namespace SWICD.Services
     internal class LoggingService
     {
         public static LoggingService Instance { get; private set; } = new LoggingService();
-        private static List<LogEntryModel> _logEntries = new List<LogEntryModel>();
+        public List<LogEntryModel> LogEntries = new List<LogEntryModel>();
         private string file = "driver_log.log";
+        private FileStream LogStream = null;
+        private StreamWriter LogWriter = null;
 
         public LoggingService()
         {
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             folder = Path.Combine(folder, "SWICD");
-            
+
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
             file = Path.Combine(folder, file);
+
+            LogStream = File.OpenWrite(file);
+            LogStream.Position = LogStream.Length;
+
+            LogWriter = new StreamWriter(LogStream);
         }
+
+
 
         public event EventHandler<LogEntryModel> OnNewLogEntry;
 
@@ -36,9 +45,10 @@ namespace SWICD.Services
                 Message = message,
                 Time = DateTime.Now,
             };
-            _logEntries.Add(entry);
+            LogEntries.Add(entry);
             _ = Task.Run(() => OnNewLogEntry?.Invoke(this, entry));
-            File.AppendAllText(file, $"[{entry.Time}][{level}]: {message}\r\n"); 
+            lock (LogWriter)
+                LogWriter.WriteLine($"[{entry.Time}][{level}]: {message}\r\n");
         }
 
         public string GetLogString()

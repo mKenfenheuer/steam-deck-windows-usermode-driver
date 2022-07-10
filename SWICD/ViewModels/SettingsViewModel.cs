@@ -26,6 +26,20 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(StartWithWindowsText));
             }
         }
+
+        public string StartWithWindowsText => StartWithWindows ? "Enabled" : "Disabled";
+        public bool StartMinimized
+        {
+            get => _settings.StartMinimized;
+            set
+            {
+                _settings.StartMinimized = value;
+                NotifyPropertyChanged(nameof(StartMinimized));
+                NotifyPropertyChanged(nameof(StartMinimizedText));
+            }
+        }
+
+        public string StartMinimizedText => StartMinimized ? "Enabled" : "Disabled";
         public OperationMode OperationMode
         {
             get => _settings.OperationMode;
@@ -101,8 +115,6 @@ namespace SWICD.ViewModels
         public SettingsViewModel()
         {
         }
-
-        public string StartWithWindowsText => StartWithWindows ? "Enabled" : "Disabled";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
