@@ -20,6 +20,7 @@ namespace SWICD.ViewModels
 {
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
+        public static MainWindowViewModel Instance { get; private set; } 
         public ObservableCollection<NavigationItemModel> NavigationItems { get; set; }
         public NavigationItemModel SelectedNavigationItem
         {
@@ -54,11 +55,26 @@ namespace SWICD.ViewModels
             Configuration.CreateSnapshot();
         }
 
+        internal void OnDeleteProfile(ControllerConfig controllerConfig)
+        {
+            Configuration.PerProcessControllerConfig.Remove(controllerConfig.Executable);
+            var Navitem = NavigationItems
+                .Where(n => n.Page is ProfileEditPage)
+                .FirstOrDefault(n => ((n.Page as ProfileEditPage).DataContext as ProfileEditPageViewModel).Executable == controllerConfig.Executable);
+            if (Navitem != null)
+                NavigationItems.Remove(Navitem);
+            NotifyPropertyChanged(nameof(NavigationItems));
+
+            ContentPage = NavigationItems.FirstOrDefault(n => n.Page is DriverStatusPage)?.Page;
+            NotifyPropertyChanged(nameof(ContentPage));
+        }
+
         private Configuration Configuration => ControllerService.Instance.Configuration;
         public Page ContentPage { get; set; }
 
         public MainWindowViewModel()
         {
+            Instance = this;
             ControllerService.Instance.Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
 
             NavigationItems = new ObservableCollection<NavigationItemModel>();

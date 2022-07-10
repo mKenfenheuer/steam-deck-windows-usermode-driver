@@ -37,6 +37,41 @@
                Grid.ColumnSpan="5"
                FontWeight="Bold"
                Content="{Binding PageTitle}" />
+
+        <Button
+            Grid.Column="5"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding DeleteButtonClickCommand}"
+            Visibility="{Binding DeleteButtonVisible}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#902c2c"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#F02c2c"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Delete Profile" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+            </Button.Content>
+        </Button>
+
         <Label Foreground="#fff" 
                FontSize="14" 
                Grid.Row="1" 

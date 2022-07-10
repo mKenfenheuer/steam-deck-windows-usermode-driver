@@ -7,6 +7,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SWICD.Commands;
+using System.Windows;
 
 namespace SWICD.ViewModels
 {
@@ -18,6 +20,23 @@ namespace SWICD.ViewModels
         public ObservableCollection<KeyboardMappingModel> KeyboardMappings { get; set; } = new ObservableCollection<KeyboardMappingModel>();
         public ObservableCollection<ButtonMappingModel> ButtonMappings { get; set; } = new ObservableCollection<ButtonMappingModel>();
         public ObservableCollection<AxisMappingModel> AxisMappings { get; set; } = new ObservableCollection<AxisMappingModel>();
+
+        public bool DeleteButtonVisible => Executable != null;
+        public CommandHandler DeleteButtonClickCommand => new CommandHandler((obj) => OnDeleteButtonClick());
+
+        private void OnDeleteButtonClick()
+        {
+            var result = MessageBox.Show(
+                $"Are you sure you want to delete the profile for {Executable}?",
+                "Attention",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Warning);
+
+            if(result == MessageBoxResult.Yes)
+            {
+                MainWindowViewModel.Instance.OnDeleteProfile(ControllerConfig);
+            }
+        }
 
         public bool DisableLizardMode
         {
