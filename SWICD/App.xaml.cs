@@ -1,4 +1,5 @@
-﻿using SWICD.Services;
+﻿using SWICD.Pages;
+using SWICD.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
