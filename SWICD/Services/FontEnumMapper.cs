@@ -25,10 +25,10 @@ namespace SWICD.Services
                     return "\u2199";
                 case EmulatedButton.BtnLB:
                     return "\u2198";
-                case EmulatedButton.BtnStart:
-                    return "\u21FB";
                 case EmulatedButton.BtnBack:
                     return "\u21FA";
+                case EmulatedButton.BtnStart:
+                    return "\u21FB";
                 case EmulatedButton.BtnLS:
                     return "\u21DE";
                 case EmulatedButton.BtnRS:
@@ -147,9 +147,9 @@ namespace SWICD.Services
                     return "\u21A0";
                 case HardwareButton.BtnDpadUp:
                     return "\u219F";
-                case HardwareButton.BtnMenu:
-                    return "\u21FB";
                 case HardwareButton.BtnOptions:
+                    return "\u21FB";
+                case HardwareButton.BtnMenu:
                     return "\u21FA";
                 case HardwareButton.BtnQuickAccess:
                     return "\u00b7\u00b7\u00b7";

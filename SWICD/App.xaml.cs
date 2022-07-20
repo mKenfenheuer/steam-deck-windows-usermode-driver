@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SWICD.Services;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,12 @@ namespace SWICD
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
+            {
+                LoggingService.LogCritical(eventArgs.Exception.ToString());
+            };
+        }
     }
 }
