@@ -8,8 +8,9 @@ namespace SWICD.Config
     {
         public List<string> BlacklistedProcesses { get; set; } = new List<string>();
         public List<string> WhitelistedProcesses { get; set; } = new List<string>();
-        public OperationMode OperationMode { get; set; } = OperationMode.Combined;
+        public OperationMode OperationMode { get; set; } = OperationMode.Blacklist;
         public bool StartWithWindows { get; set; } = true;
+        public bool StartMinimized { get; set; } = true;
 
         public override string ToString()
         {
@@ -24,6 +25,7 @@ namespace SWICD.Config
             }
             configText += $"Mode={OperationMode}\r\n";
             configText += $"StartWithWindows={StartWithWindows}\r\n";
+            configText += $"StartMinimized={StartMinimized}\r\n";
 
             return configText;
         }

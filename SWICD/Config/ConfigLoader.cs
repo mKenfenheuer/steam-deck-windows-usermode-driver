@@ -225,8 +225,18 @@ namespace SWICD.Config
                     break;
                 case "mode":
                     OperationMode mode = OperationMode.Combined;
-                    bool parsed = Enum.TryParse(value, out mode);
+                    Enum.TryParse(value, out mode);
                     config.GenericSettings.OperationMode = mode;
+                    break;
+                case "startwithwindows":
+                    bool _autostart = config.GenericSettings.StartWithWindows;
+                    bool.TryParse(value, out _autostart);
+                    config.GenericSettings.StartWithWindows = _autostart;
+                    break;
+                case "startminimized":
+                    bool _minimized = config.GenericSettings.StartMinimized;
+                    bool.TryParse(value, out _minimized);
+                    config.GenericSettings.StartMinimized = _minimized;
                     break;
             }
         }
