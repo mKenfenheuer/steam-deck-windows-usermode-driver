@@ -120,6 +120,10 @@ namespace SWICD.ViewModels
 
         public async Task OnAddProfileClick()
         {
+            QuestionWindow window = new QuestionWindow("Would you like to add a profile by selecting an executable or by typing its name?", new string[] { "Select executable", "Type executable", "Abort" });
+            window.ShowDialog();
+
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Executable | *.exe";
             openFileDialog.Title = "Select the game executable";

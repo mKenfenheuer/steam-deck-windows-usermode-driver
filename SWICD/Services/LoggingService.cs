@@ -70,10 +70,10 @@ namespace SWICD.Services
             return File.ReadAllText(file);
         }
 
-        public static void LogInformation(string message) => Instance.Log(LogLevel.Information, message);
-        public static void LogWarning(string message) => Instance.Log(LogLevel.Warning, message);
-        public static void LogError(string message) => Instance.Log(LogLevel.Error, message);
-        public static void LogDebug(string message) => Instance.Log(LogLevel.Debug, message);
-        public static void LogCritical(string message) => Instance.Log(LogLevel.Critical, message);
+        public static void LogInformation(string message) => Instance?.Log(LogLevel.Information, message);
+        public static void LogWarning(string message) => Instance?.Log(LogLevel.Warning, message);
+        public static void LogError(string message) => Instance?.Log(LogLevel.Error, message);
+        public static void LogDebug(string message) => Instance?.Log(LogLevel.Debug, message);
+        public static void LogCritical(string message) => Instance?.Log(LogLevel.Critical, message);
     }
 }

@@ -85,6 +85,12 @@ namespace SWICD.Config
                         continue;
                     }
 
+                    if (section == "mousebuttons")
+                    {
+                        configuration.DefaultControllerConfig = ProcessMouseLine(parts[0].Trim(), parts[1].Trim(), configuration.DefaultControllerConfig);
+                        continue;
+                    }
+
                     if (section == "axes")
                     {
                         configuration.DefaultControllerConfig = ProcessAxesLine(parts[0].Trim(), parts[1].Trim(), configuration.DefaultControllerConfig);
@@ -111,6 +117,14 @@ namespace SWICD.Config
                     {
 
                         configuration.PerProcessControllerConfig[executable] = ProcessKeyboardLine(parts[0].Trim(), parts[1].Trim(),
+                                                                    configuration.PerProcessControllerConfig.ContainsKey(executable) ?
+                                                                    configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
+                    }
+
+                    if (section.StartsWith("mousebuttons"))
+                    {
+
+                        configuration.PerProcessControllerConfig[executable] = ProcessMouseLine(parts[0].Trim(), parts[1].Trim(),
                                                                     configuration.PerProcessControllerConfig.ContainsKey(executable) ?
                                                                     configuration.PerProcessControllerConfig[executable] : GetControllerConfigFromDefault(configuration, executable));
                     }
@@ -173,7 +187,16 @@ namespace SWICD.Config
         {
             if (v1 == "DisableLizardMode")
             {
-                configuration.ProfileSettings.DisableLizardMode = v2.ToLower() == "true";
+                configuration.ProfileSettings.DisableLizardMouse = v2.ToLower() == "true";
+                configuration.ProfileSettings.DisableLizardButtons = v2.ToLower() == "true";
+            }
+            if (v1 == "DisableLizardMouse")
+            {
+                configuration.ProfileSettings.DisableLizardMouse = v2.ToLower() == "true";
+            }
+            if (v1 == "DisableLizardButtons")
+            {
+                configuration.ProfileSettings.DisableLizardButtons = v2.ToLower() == "true";
             }
             return configuration;
         }
@@ -209,6 +232,19 @@ namespace SWICD.Config
             Enum.TryParse(v2, out keyboardKey);
 
             configuration.KeyboardMapping[hardwareButton] = keyboardKey;
+
+            return configuration;
+        }
+
+        private static ControllerConfig ProcessMouseLine(string v1, string v2, ControllerConfig configuration)
+        {
+            HardwareButton hardwareButton = HardwareButton.None;
+            VirtualMouseKey mouseKey = VirtualMouseKey.NONE;
+
+            Enum.TryParse(v1, out hardwareButton);
+            Enum.TryParse(v2, out mouseKey);
+
+            configuration.MouseMapping[hardwareButton] = mouseKey;
 
             return configuration;
         }

@@ -18,7 +18,8 @@ namespace SWICD.Services
         public static ControllerService Instance { get; private set; } = new ControllerService();
         public bool EmulationEnabled { get; private set; }
         public string DecisionExecutable { get; private set; }
-        public bool LizardModeEnabled { get => _neptuneController.LizardModeEnabled; private set => _neptuneController.LizardModeEnabled = value; }
+        public bool LizardMouseEnabled { get => _neptuneController.LizardMouseEnabled; private set => _neptuneController.LizardMouseEnabled = value; }
+        public bool LizardButtonsEnabled { get => _neptuneController.LizardButtonsEnabled; private set => _neptuneController.LizardButtonsEnabled = value; }
         public bool Started { get; private set; }
         public Configuration Configuration { get; internal set; }
 
@@ -137,10 +138,15 @@ namespace SWICD.Services
                     var profileDisplay = profile.Executable ?? "Default Profile";
                     LoggingService.LogDebug($"Active profile changed to: {profileDisplay}");
                 }
-                if (LizardModeEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardMode)
+                if (LizardMouseEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardMouse)
                 {
-                    LizardModeEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardMode;
-                    LoggingService.LogDebug($"LizardModeEnabled changed to: {LizardModeEnabled}");
+                    LizardMouseEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardMouse;
+                    LoggingService.LogDebug($"LizardMouseEnabled changed to: {LizardMouseEnabled}");
+                }
+                if (LizardButtonsEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardButtons)
+                {
+                    LizardButtonsEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardButtons;
+                    LoggingService.LogDebug($"LizardButtonsEnabled changed to: {LizardButtonsEnabled}");
                 }
             }
             catch (Exception ex)
@@ -201,6 +207,11 @@ namespace SWICD.Services
             {
                 InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);
                 KeyboardInputMapper.MapInput(_currentControllerConfig, state);
+            }
+
+            if(!LizardButtonsEnabled)
+            {
+                MouseInputMapper.MapInput(_currentControllerConfig, state);
             }
 
             _emulatedController.SubmitReport();

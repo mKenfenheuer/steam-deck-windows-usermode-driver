@@ -49,6 +49,22 @@ namespace SWICD.Services
             return "\u2753";
         }
 
+        internal static string MapEmulatedMouseButtonToFont(VirtualMouseKey e)
+        {
+            switch (e)
+            {
+                case VirtualMouseKey.NONE:
+                    return "NONE";
+                case VirtualMouseKey.LBUTTON:
+                    return "\u27F5";
+                case VirtualMouseKey.RBUTTON:
+                    return "\u27F6";
+                case VirtualMouseKey.MBUTTON:
+                    return "\u27F7";
+            }
+            return "\u2753";
+        }
+
         internal static string MapEmulatedKeyboardKeyToFont(VirtualKeyboardKey e)
         {
             return e.ToString();

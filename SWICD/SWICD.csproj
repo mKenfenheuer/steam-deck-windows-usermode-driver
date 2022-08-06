@@ -111,6 +111,7 @@
     </ApplicationDefinition>
     <Compile Include="BuildVersionInfo.cs" />
     <Compile Include="Config\AxisMapping.cs" />
+    <Compile Include="Config\MouseMapping.cs" />
     <Compile Include="Config\KeyboardMapping.cs" />
     <Compile Include="Config\ButtonMapping.cs" />
     <Compile Include="Config\ConfigLoader.cs" />
@@ -125,9 +126,11 @@
     <Compile Include="Config\KeyboardButtonActions.cs" />
     <Compile Include="Config\OperationMode.cs" />
     <Compile Include="Config\ProfileSettings.cs" />
+    <Compile Include="Config\VirtualMouseKey.cs" />
     <Compile Include="Config\VirtualKeyboardKey.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
+    <Compile Include="Model\MouseMappingModel.cs" />
     <Compile Include="Model\KeyboardMappingModel.cs" />
     <Compile Include="Model\ButtonMappingModel.cs" />
     <Compile Include="Model\EnumComboBoxItem.cs" />
@@ -140,6 +143,9 @@
     <Compile Include="Pages\ProfileEditPage.xaml.cs">
       <DependentUpon>ProfileEditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\QuestionWindow.xaml.cs">
+      <DependentUpon>QuestionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -147,12 +153,14 @@
     <Compile Include="Services\ControllerService.cs" />
     <Compile Include="Services\FontEnumMapper.cs" />
     <Compile Include="Services\GitHubApi.cs" />
+    <Compile Include="Services\MouseInputMapper.cs" />
     <Compile Include="Services\KeyboardInputMapper.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProfileEditPageViewModel.cs" />
+    <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Page Include="Pages\DriverStatusPage.xaml">
       <SubType>Designer</SubType>
@@ -171,6 +179,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\ProfileEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\QuestionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +214,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\PromptFont_orig.otf" />
     <Resource Include="Resources\PromptFont.ttf" />
     <Resource Include="Resources\xbox_controller_font.otf" />
   </ItemGroup>

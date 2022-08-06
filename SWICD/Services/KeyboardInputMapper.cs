@@ -22,13 +22,43 @@ namespace SWICD.Services
                     {
                         if (_lastState.ButtonState[btn] != input.ButtonState[btn])
                         {
-                            var key = config.KeyboardMapping[(HardwareButton)btn];
-                            if (input.ButtonState[btn])
+                            var key = (GregsStack.InputSimulatorStandard.Native.VirtualKeyCode)config.KeyboardMapping[(HardwareButton)btn];
+                            if (key != GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.LBUTTON &&
+                                key != GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.RBUTTON)
                             {
-                                _simulator.Keyboard.KeyDown((GregsStack.InputSimulatorStandard.Native.VirtualKeyCode)key);
-                            } else
+                                if (input.ButtonState[btn])
+                                {
+                                    _simulator.Keyboard.KeyDown(key);
+                                }
+                                else
+                                {
+                                    _simulator.Keyboard.KeyUp(key);
+                                }
+                            }
+                            else
                             {
-                                _simulator.Keyboard.KeyUp((GregsStack.InputSimulatorStandard.Native.VirtualKeyCode)key);
+                                if (input.ButtonState[btn])
+                                {
+                                    if (key == GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.LBUTTON)
+                                    {
+                                        _simulator.Mouse.LeftButtonDown();
+                                    }
+                                    if (key == GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.RBUTTON)
+                                    {
+                                        _simulator.Mouse.RightButtonDown();
+                                    }
+                                }
+                                else
+                                {
+                                    if (key == GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.LBUTTON)
+                                    {
+                                        _simulator.Mouse.LeftButtonUp();
+                                    }
+                                    if (key == GregsStack.InputSimulatorStandard.Native.VirtualKeyCode.RBUTTON)
+                                    {
+                                        _simulator.Mouse.RightButtonUp();
+                                    }
+                                }
                             }
                         }
                     }

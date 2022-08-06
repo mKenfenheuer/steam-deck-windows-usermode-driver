@@ -87,13 +87,13 @@ namespace SWICD.ViewModels
 
         private void OnRemoveWhitelistedProcessClick()
         {
-            WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
             _settings.WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
+            WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
         }
         private void OnRemoveBlacklistedProcessClick()
         {
-            BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
             _settings.BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
+            BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
         }
 
         public SettingsViewModel(GenericSettings settings)

@@ -4,7 +4,8 @@ namespace SWICD.Config
 {
     public class ProfileSettings: ICloneable
     {
-        public bool DisableLizardMode { get; set; }
+        public bool DisableLizardMouse { get; set; }
+        public bool DisableLizardButtons { get; set; }
 
         public string ToString(string executable)
         {
@@ -13,7 +14,8 @@ namespace SWICD.Config
             {
                 config = $"[profile,{executable}]\r\n";
             }
-            config += $"DisableLizardMode={DisableLizardMode}\r\n"; ;
+            config += $"DisableLizardMouse={DisableLizardMouse}\r\n"; ;
+            config += $"DisableLizardButtons={DisableLizardButtons}\r\n"; ;
 
             return config;
         }
@@ -22,14 +24,17 @@ namespace SWICD.Config
         {
             return new ProfileSettings()
             {
-                DisableLizardMode = DisableLizardMode,  
+                DisableLizardMouse = DisableLizardMouse,
+                DisableLizardButtons = DisableLizardButtons
             };
         }
 
         public override bool Equals(object obj)
         {
             return obj is ProfileSettings settings &&
-                   DisableLizardMode == settings.DisableLizardMode;
+                   DisableLizardMouse == settings.DisableLizardMouse &&
+                   DisableLizardButtons == settings.DisableLizardButtons;
+                
         }
     }
 }
