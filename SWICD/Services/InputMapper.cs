@@ -42,6 +42,7 @@ namespace SWICD.Services
                 }
             }
 
+            /*
             if (_lastState != null)
             {
                 foreach (var btn in _lastState.ButtonState.Buttons)
@@ -52,6 +53,7 @@ namespace SWICD.Services
                     }
                 }
             }
+            */
 
             _lastState = input;
         }

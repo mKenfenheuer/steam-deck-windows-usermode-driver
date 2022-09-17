@@ -12,6 +12,7 @@
     </Page.DataContext>
     <Page.Resources>
         <FontFamily x:Key="PromptFont" >/Resources/#PromptFont</FontFamily>
+        <FontFamily x:Key="PromptFont_orig" >/Resources/#PromptFont_orig</FontFamily>
     </Page.Resources>
 
     <Grid>
@@ -92,25 +93,30 @@
                Grid.Row="3" 
                Grid.Column="0" 
                Grid.ColumnSpan="3"
-               Content="Axis Mappings" />
+               Content="Mappings" />
 
-        <Label Foreground="#fff" 
-               FontSize="14" 
-               FontWeight="Bold"
-               Grid.Row="3" 
-               Grid.Column="3" 
-               Grid.ColumnSpan="2"
-               Content="Button Mappings" />
 
         <CheckBox 
             Grid.Column="1" 
+            Grid.ColumnSpan="2"
             Grid.Row="2" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Margin="10,0,0,0"
             Foreground="#fff"
-            Content="{Binding DisableLizardModeText}"
-            IsChecked="{Binding DisableLizardMode, Mode=TwoWay}" />
+            Content="{Binding DisableLizardMouseText}"
+            IsChecked="{Binding DisableLizardMouse, Mode=TwoWay}" />
+        
+        <CheckBox 
+            Grid.Column="3" 
+            Grid.ColumnSpan="2"
+            Grid.Row="2" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Margin="10,0,0,0"
+            Foreground="#fff"
+            Content="{Binding DisableLizardButtonsText}"
+            IsChecked="{Binding DisableLizardButtons, Mode=TwoWay}" />
 
 
         <TabControl            
@@ -446,6 +452,97 @@
                                         VerticalContentAlignment="Center"
                                         SelectedItem="{Binding SelectedKeyboardKey}"
                                         ItemsSource="{Binding KeyboardItems}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Mouse Mappings"
+                    FontSize="12"
+                    Foreground="#fff">
+                <Grid
+                      Background="#2c2c2c">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Hardware Button"
+                           Foreground="#fff"
+                           FontSize="14"
+                           Grid.Column="0"
+                           FontWeight="SemiBold"/>
+
+                    <Label Content="Mouse Button"
+                           Grid.Column="1"
+                           Foreground="#fff"
+                           FontSize="14"
+                           FontWeight="SemiBold"/>
+
+                    <ListView Panel.ZIndex="0" 
+                            Grid.Row="1"
+                            Foreground="#fff"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            BorderThickness="0"
+                            Background="#2c2c2c"
+                            ItemsSource="{Binding MouseMappings}"
+                            HorizontalContentAlignment="Stretch">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                <ContentPresenter x:Name="PART_Content"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                TextElement.Foreground="{TemplateBinding Foreground}"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#ff2c2c2c"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#ff282828"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="{Binding ButtonText}" 
+                                            Foreground="#fff" 
+                                            FontFamily="{DynamicResource PromptFont}"
+                                            HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center" 
+                                            FontSize="30" />
+
+                                    <ComboBox
+                                        Grid.Column="1"
+                                        FontSize="30"
+                                        FontFamily="{DynamicResource PromptFont}"
+                                        VerticalContentAlignment="Center"
+                                        SelectedItem="{Binding SelectedMouseButton}"
+                                        ItemsSource="{Binding MouseItems}" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

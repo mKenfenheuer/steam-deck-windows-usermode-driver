@@ -13,7 +13,7 @@ namespace SWICD.Services
     {
         public static LoggingService Instance { get; private set; } = new LoggingService();
         public List<LogEntryModel> LogEntries = new List<LogEntryModel>();
-        private string file = "driver_log.log";
+        private string file = $"driver_log_{DateTime.Now.Year}_{DateTime.Now.Month:0#}_{DateTime.Now.Day:0#}.log";
         private FileStream LogStream = null;
         private StreamWriter LogWriter = null;
 
@@ -31,6 +31,20 @@ namespace SWICD.Services
             LogStream.Position = LogStream.Length;
 
             LogWriter = new StreamWriter(LogStream);
+
+            if (Instance == null)
+                Instance = this;
+
+            string[] files = Directory.GetFiles(folder, "*.log");
+            foreach(var filename in files)
+            {
+                FileInfo info = new FileInfo(filename);
+                if(info.LastWriteTime < DateTime.Now.AddDays(-30) && filename != file)
+                {
+                    File.Delete(filename);
+                    LogDebug($"Deleting Log File {Path.GetFileName(filename)} as its older than 30 days.");
+                }
+            }
         }
 
 
@@ -56,10 +70,10 @@ namespace SWICD.Services
             return File.ReadAllText(file);
         }
 
-        public static void LogInformation(string message) => Instance.Log(LogLevel.Information, message);
-        public static void LogWarning(string message) => Instance.Log(LogLevel.Warning, message);
-        public static void LogError(string message) => Instance.Log(LogLevel.Error, message);
-        public static void LogDebug(string message) => Instance.Log(LogLevel.Debug, message);
-        public static void LogCritical(string message) => Instance.Log(LogLevel.Critical, message);
+        public static void LogInformation(string message) => Instance?.Log(LogLevel.Information, message);
+        public static void LogWarning(string message) => Instance?.Log(LogLevel.Warning, message);
+        public static void LogError(string message) => Instance?.Log(LogLevel.Error, message);
+        public static void LogDebug(string message) => Instance?.Log(LogLevel.Debug, message);
+        public static void LogCritical(string message) => Instance?.Log(LogLevel.Critical, message);
     }
 }

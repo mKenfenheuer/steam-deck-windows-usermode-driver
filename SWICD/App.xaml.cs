@@ -15,6 +15,13 @@ namespace SWICD
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            AppDomain.CurrentDomain.FirstChanceException += (sender, eventArgs) =>
+            {
+                LoggingService.LogCritical(eventArgs.Exception.ToString());
+            };
+        }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (e.Args.Length == 1 && e.Args[0] == "autostart-try")

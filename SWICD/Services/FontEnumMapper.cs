@@ -25,10 +25,10 @@ namespace SWICD.Services
                     return "\u2199";
                 case EmulatedButton.BtnLB:
                     return "\u2198";
-                case EmulatedButton.BtnStart:
-                    return "\u21FB";
                 case EmulatedButton.BtnBack:
                     return "\u21FA";
+                case EmulatedButton.BtnStart:
+                    return "\u21FB";
                 case EmulatedButton.BtnLS:
                     return "\u21DE";
                 case EmulatedButton.BtnRS:
@@ -45,6 +45,22 @@ namespace SWICD.Services
                     return "\u219F";
                 case EmulatedButton.None:
                     return "NONE";
+            }
+            return "\u2753";
+        }
+
+        internal static string MapEmulatedMouseButtonToFont(VirtualMouseKey e)
+        {
+            switch (e)
+            {
+                case VirtualMouseKey.NONE:
+                    return "NONE";
+                case VirtualMouseKey.LBUTTON:
+                    return "\u27F5";
+                case VirtualMouseKey.RBUTTON:
+                    return "\u27F6";
+                case VirtualMouseKey.MBUTTON:
+                    return "\u27F7";
             }
             return "\u2753";
         }
@@ -147,9 +163,9 @@ namespace SWICD.Services
                     return "\u21A0";
                 case HardwareButton.BtnDpadUp:
                     return "\u219F";
-                case HardwareButton.BtnMenu:
-                    return "\u21FB";
                 case HardwareButton.BtnOptions:
+                    return "\u21FB";
+                case HardwareButton.BtnMenu:
                     return "\u21FA";
                 case HardwareButton.BtnQuickAccess:
                     return "\u00b7\u00b7\u00b7";

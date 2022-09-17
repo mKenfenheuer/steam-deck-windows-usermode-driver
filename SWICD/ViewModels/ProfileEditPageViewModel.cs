@@ -18,6 +18,7 @@ namespace SWICD.ViewModels
         public string PageTitle => Executable != null ? $"Controller Profile: {Executable}" : "Default Controller Profile";
         private ControllerConfig ControllerConfig { get; set; }
         public ObservableCollection<KeyboardMappingModel> KeyboardMappings { get; set; } = new ObservableCollection<KeyboardMappingModel>();
+        public ObservableCollection<MouseMappingModel> MouseMappings { get; set; } = new ObservableCollection<MouseMappingModel>();
         public ObservableCollection<ButtonMappingModel> ButtonMappings { get; set; } = new ObservableCollection<ButtonMappingModel>();
         public ObservableCollection<AxisMappingModel> AxisMappings { get; set; } = new ObservableCollection<AxisMappingModel>();
 
@@ -38,16 +39,27 @@ namespace SWICD.ViewModels
             }
         }
 
-        public bool DisableLizardMode
+        public bool DisableLizardMouse
         {
-            get => ControllerConfig.ProfileSettings.DisableLizardMode;
+            get => ControllerConfig.ProfileSettings.DisableLizardMouse;
             set
             {
-                ControllerConfig.ProfileSettings.DisableLizardMode = value;
-                NotifyPropertyChanged(nameof(DisableLizardModeText));
+                ControllerConfig.ProfileSettings.DisableLizardMouse = value;
+                NotifyPropertyChanged(nameof(DisableLizardMouseText));
             }
         }
-        public string DisableLizardModeText => DisableLizardMode ? "Disabled" : "Enabled";
+        public string DisableLizardMouseText => DisableLizardMouse ? "Mouse Movement Disabled" : " Mouse Movement Enabled";
+
+        public bool DisableLizardButtons
+        {
+            get => ControllerConfig.ProfileSettings.DisableLizardButtons;
+            set
+            {
+                ControllerConfig.ProfileSettings.DisableLizardButtons = value;
+                NotifyPropertyChanged(nameof(DisableLizardButtonsText));
+            }
+        }
+        public string DisableLizardButtonsText => DisableLizardButtons ? "Buttons Disabled" : "Buttons Enabled";
 
         public ProfileEditPageViewModel()
         {
@@ -85,6 +97,15 @@ namespace SWICD.ViewModels
                         HardwareButton = button,
                         EmulatedKeyboardKey = ControllerConfig.KeyboardMapping[button],
                         SetAction = val => ControllerConfig.KeyboardMapping[button] = val,
+                    });
+
+            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
+                if (button != HardwareButton.None)
+                    MouseMappings.Add(new MouseMappingModel()
+                    {
+                        HardwareButton = button,
+                        EmulatedMouseButton = ControllerConfig.MouseMapping[button],
+                        SetAction = val => ControllerConfig.MouseMapping[button] = val,
                     });
 
             foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareAxis)))

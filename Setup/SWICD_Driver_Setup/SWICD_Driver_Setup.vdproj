@@ -166,12 +166,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A9A54723F831CA02F11DB0F10BE4F5A4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2D6957A5323238791435DCEEFC8BB5FE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -209,6 +203,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_897076FA96F7CF3252AF8E5229A4977B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A9A54723F831CA02F11DB0F10BE4F5A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -862,15 +862,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SWICD Driver"
-        "ProductCode" = "8:{4A0467D2-5678-4E72-BB4E-1FBAADA79D5B}"
-        "PackageCode" = "8:{5C27414E-21E5-4655-BD8C-3F3BD8AA021C}"
+        "ProductCode" = "8:{9DEC3264-B14E-4A12-92E7-1A1A69F99633}"
+        "PackageCode" = "8:{1201C4CC-B770-4627-9FAE-7EA7D3836962}"
         "UpgradeCode" = "8:{C2FD17B4-D53B-435F-8F09-10B4D2610684}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.2.5.2"
+        "ProductVersion" = "8:0.2.7"
         "Manufacturer" = "8:Maximilian Kenfenheuer"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/mKenfenheuer/steam-deck-windows-usermode-driver/issues"

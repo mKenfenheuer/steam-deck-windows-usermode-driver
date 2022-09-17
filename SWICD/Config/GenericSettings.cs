@@ -37,6 +37,7 @@ namespace SWICD.Config
             obj.WhitelistedProcesses = WhitelistedProcesses.ToList();
             obj.OperationMode = OperationMode;
             obj.StartWithWindows = StartWithWindows;
+            obj.StartMinimized = StartMinimized;
             return obj;
         }
 
@@ -46,7 +47,8 @@ namespace SWICD.Config
                    Enumerable.SequenceEqual(BlacklistedProcesses.OrderBy(a => a), settings.BlacklistedProcesses.OrderBy(a => a)) &&
                    Enumerable.SequenceEqual(WhitelistedProcesses.OrderBy(a => a), settings.WhitelistedProcesses.OrderBy(a => a)) &&
                    OperationMode == settings.OperationMode &&
-                   StartWithWindows == settings.StartWithWindows;
+                   StartWithWindows == settings.StartWithWindows &&
+                   StartMinimized == settings.StartMinimized;
         }
     }
 }
