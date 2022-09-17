@@ -127,6 +127,9 @@
     <Compile Include="Config\ProfileSettings.cs" />
     <Compile Include="Config\VirtualKeyboardKey.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="HVDK\Drivers.cs" />
+    <Compile Include="HVDK\HIDCtrl.cs" />
+    <Compile Include="HVDK\KeyboardUtils.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
     <Compile Include="Model\KeyboardMappingModel.cs" />
     <Compile Include="Model\ButtonMappingModel.cs" />
