@@ -11,11 +11,6 @@ namespace SWICD.Config
     {
         public ButtonActions()
         {
-            _actions[new HardwareButton[] { HardwareButton.BtnSteam }] = new ButtonAction()
-            {
-                Type = "keyboard-shortcut",
-                Data = "[LCTRL]+[LALT]+DELETE"
-            };
         }
 
         public ButtonActions(SerializationInfo info, StreamingContext context)
