@@ -36,15 +36,14 @@ namespace SWICD.ViewModels
         {
             if (Configuration.HasChanges())
             {
-                var result = MessageBox.Show(
-                    "Do you want to save the configuration now?",
-                    "Attention",
-                    MessageBoxButton.YesNoCancel,
-                    MessageBoxImage.Question);
+                QuestionWindow window = new QuestionWindow("Do you want to save the configuration now?");
+                window.ShowDialog();
 
-                if (result == MessageBoxResult.Cancel)
+                bool ShouldType = window.GetResult();
+
+                if (!ShouldType)
                     e.Cancel = true;
-                if (result == MessageBoxResult.Yes)
+                if (ShouldType)
                     SaveConfiguration();
             }
         }
@@ -120,16 +119,31 @@ namespace SWICD.ViewModels
 
         public async Task OnAddProfileClick()
         {
-            QuestionWindow window = new QuestionWindow("Would you like to add a profile by selecting an executable or by typing its name?", new string[] { "Select executable", "Type executable", "Abort" });
+            QuestionWindow window = new QuestionWindow("Would you like to add a profile by selecting an executable? Select no if you would like to type the executable name.");
             window.ShowDialog();
 
+            bool ShouldSelect = window.GetResult();
+            string executable = null;
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Executable | *.exe";
-            openFileDialog.Title = "Select the game executable";
-            if (openFileDialog.ShowDialog() == true)
+            if (ShouldSelect)
             {
-                string executable = Path.GetFileName(openFileDialog.FileName);
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Executable | *.exe";
+                openFileDialog.Title = "Select the game executable";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    executable = Path.GetFileName(openFileDialog.FileName);
+                    
+                }
+            } else
+            {
+                TextInputWindow inputWindow = new TextInputWindow("Please enter the executable name (e.g. GTAV.exe).");
+                inputWindow.ShowDialog();
+                executable = inputWindow.GetResult();
+            }
+
+            if(executable != null && executable != String.Empty)
+            {
                 ControllerConfig config = new ControllerConfig(executable);
                 Configuration.PerProcessControllerConfig.Add(executable, config);
                 NavigationItems.Add(new NavigationItemModel()
@@ -139,6 +153,8 @@ namespace SWICD.ViewModels
                     Page = new ProfileEditPage(config),
                 });
             }
+
+
         }
 
         public async Task OnNavigationItemSelected(NavigationItemModel item)

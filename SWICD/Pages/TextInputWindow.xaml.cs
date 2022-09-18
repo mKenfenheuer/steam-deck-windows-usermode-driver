@@ -18,13 +18,13 @@ namespace SWICD.Pages
     /// <summary>
     /// Interaktionslogik für QuestionWindow.xaml
     /// </summary>
-    public partial class QuestionWindow : Window
+    public partial class TextInputWindow : Window
     {
-        QuestionWindowViewModel ViewModel = null;
-        public QuestionWindow(string questionText)
+        TextInputWindowViewModel ViewModel = null;
+        public TextInputWindow(string questionText)
         {
             InitializeComponent();
-            ViewModel = new QuestionWindowViewModel()
+            ViewModel = new TextInputWindowViewModel()
             {
                 Window = this,
                 QuestionText = questionText
@@ -32,7 +32,7 @@ namespace SWICD.Pages
             DataContext = ViewModel;
         } 
 
-        public bool GetResult()
+        public string GetResult()
         {
             return ViewModel.Result;
         }

@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace SWICD.ViewModels
 {
-    internal class QuestionWindowViewModel
+    internal class TextInputWindowViewModel
     {
         public string QuestionText { get; set; }
 
@@ -18,16 +18,14 @@ namespace SWICD.ViewModels
 
         public CommandHandler OnNoClick => new CommandHandler((obj) => OnNoClicked());
 
-        public bool Result { get; internal set; }
+        public string Result { get; set; }
 
         private void OnYesClicked()
         {
-            Result = true;
             Window?.Close();
         }
         private void OnNoClicked()
         {
-            Result = false;
             Window?.Close();
         }
     }
