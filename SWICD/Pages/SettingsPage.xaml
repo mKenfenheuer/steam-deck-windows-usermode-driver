@@ -384,17 +384,17 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <Label Foreground="White">Amplitude Left</Label>
-                    <Slider Grid.Column="1" Value="{Binding AmplitudeLeft}" Minimum="0" Maximum="1024" />
+                    <Label Foreground="White" Content="{Binding AmplitudeLeft}" />
+                    <Slider Grid.Column="1" Value="{Binding AmplitudeLeft}" Minimum="0" Maximum="30" />
 
-                    <Label Grid.Row="1" Foreground="White">Period Left</Label>
-                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding PeriodLeft}" Minimum="0" Maximum="1024" />
+                    <Label Grid.Row="1" Foreground="White" Content="{Binding PeriodLeft}" />
+                    <Slider Grid.Row="1" Grid.Column="1" Value="{Binding PeriodLeft}" Minimum="0" Maximum="30" />
 
-                    <Label Grid.Column="2" Foreground="White">Amplitude Right</Label>
-                    <Slider Grid.Column="3" Value="{Binding AmplitudeRight}" Minimum="0" Maximum="1024" />
+                    <Label Grid.Column="2" Foreground="White" Content="{Binding AmplitudeRight}" />
+                    <Slider Grid.Column="3" Value="{Binding AmplitudeRight}" Minimum="0" Maximum="30" />
 
-                    <Label Grid.Column="2" Grid.Row="1" Foreground="White">Period Right</Label>
-                    <Slider Grid.Column="3" Grid.Row="1" Value="{Binding PeriodRight}" Minimum="0" Maximum="1024" />
+                    <Label Grid.Column="2" Grid.Row="1" Foreground="White" Content="{Binding PeriodRight}" />
+                    <Slider Grid.Column="3" Grid.Row="1" Value="{Binding PeriodRight}" Minimum="0" Maximum="30" />
                 </Grid>
             </TabItem>
         </TabControl>

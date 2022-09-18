@@ -46,10 +46,42 @@ namespace SWICD.ViewModels
             set => _settings.OperationMode = value;
         }
 
-        public static ushort AmplitudeLeft { get; set; }
-        public static ushort AmplitudeRight { get; set; }
-        public static ushort PeriodLeft { get; set; }
-        public static ushort PeriodRight { get; set; }
+        public ushort AmplitudeLeft
+        {
+            get => _AmplitudeLeft; set
+            {
+                _AmplitudeLeft = value;
+                NotifyPropertyChanged(nameof(AmplitudeLeft));
+            }
+        }
+        public ushort AmplitudeRight
+        {
+            get => _AmplitudeRight; set
+            {
+                _AmplitudeRight = value;
+                NotifyPropertyChanged(nameof(AmplitudeRight));
+            }
+        }
+        public ushort PeriodLeft
+        {
+            get => _PeriodLeft; set
+            {
+                _PeriodLeft = value;
+                NotifyPropertyChanged(nameof(PeriodLeft));
+            }
+        }
+        public ushort PeriodRight
+        {
+            get => _PeriodRight; set
+            {
+                _PeriodRight = value;
+                NotifyPropertyChanged(nameof(PeriodRight));
+            }
+        }
+        public static ushort _AmplitudeLeft { get; set; }
+        public static ushort _AmplitudeRight { get; set; }
+        public static ushort _PeriodLeft { get; set; }
+        public static ushort _PeriodRight { get; set; }
 
         public ObservableCollection<string> WhitelistedProcesses { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> BlacklistedProcesses { get; set; } = new ObservableCollection<string>();

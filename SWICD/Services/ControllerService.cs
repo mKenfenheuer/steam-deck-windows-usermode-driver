@@ -64,9 +64,22 @@ namespace SWICD.Services
                 InitEmuController();
         }
 
+        private bool lastLeftHapticOn = false;
+        private bool lastRightHapticOn = false;
         private void EmulatedController_FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)
         {
-            byte max = Math.Max(e.LargeMotor, e.SmallMotor);
+            bool leftHaptic = e.LargeMotor > 0;
+            bool rightHaptic = e.SmallMotor > 0;
+
+            if (leftHaptic != lastLeftHapticOn)
+                _ = _neptuneController.SetHaptic(1, (ushort)(leftHaptic ? 9 : 0), (ushort)(leftHaptic ? 9 : 0), 0);
+
+
+            if (rightHaptic != lastRightHapticOn)
+                _ = _neptuneController.SetHaptic(0, (ushort)(rightHaptic ? 9 : 0), (ushort)(rightHaptic ? 9 : 0), 0);
+
+            lastLeftHapticOn = leftHaptic;
+            lastRightHapticOn = rightHaptic;
         }
 
         public async Task SetHaptic(byte position, ushort amplitude, ushort period, ushort cunt)
@@ -210,7 +223,7 @@ namespace SWICD.Services
             LoggingService.LogInformation("Driver stopped.");
             OnServiceStartStop?.Invoke(this, false);
         }
-
+        DateTime lastHapticUpdate = DateTime.UtcNow;
         private void HandleInput(NeptuneControllerInputState state)
         {
             _emulatedController.ResetReport();
@@ -230,8 +243,6 @@ namespace SWICD.Services
 
             _emulatedController.SubmitReport();
 
-            _neptuneController.SetHaptic(1, SettingsViewModel.AmplitudeLeft, SettingsViewModel.PeriodLeft, 1);
-            _neptuneController.SetHaptic(0, SettingsViewModel.AmplitudeRight, SettingsViewModel.PeriodRight, 1);
         }
     }
 }
