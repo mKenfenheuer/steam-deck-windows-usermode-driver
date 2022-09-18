@@ -46,6 +46,11 @@ namespace SWICD.ViewModels
             set => _settings.OperationMode = value;
         }
 
+        public static ushort AmplitudeLeft { get; set; }
+        public static ushort AmplitudeRight { get; set; }
+        public static ushort PeriodLeft { get; set; }
+        public static ushort PeriodRight { get; set; }
+
         public ObservableCollection<string> WhitelistedProcesses { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<string> BlacklistedProcesses { get; set; } = new ObservableCollection<string>();
         public ObservableCollection<OperationMode> OperationModeItems { get; set; } = new ObservableCollection<OperationMode>(Enum.GetValues(typeof(OperationMode)).Cast<OperationMode>());

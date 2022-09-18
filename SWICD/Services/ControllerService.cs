@@ -10,6 +10,7 @@ using Nefarius.ViGEm.Client.Targets.Xbox360;
 using SWICD.Config;
 using System.IO;
 using System.Diagnostics;
+using SWICD.ViewModels;
 
 namespace SWICD.Services
 {
@@ -65,7 +66,12 @@ namespace SWICD.Services
 
         private void EmulatedController_FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)
         {
+            byte max = Math.Max(e.LargeMotor, e.SmallMotor);
+        }
 
+        public async Task SetHaptic(byte position, ushort amplitude, ushort period, ushort cunt)
+        {
+            await _neptuneController.SetHaptic(position, amplitude, period, cunt);
         }
 
         private async Task CheckProcessesLoop()
@@ -223,6 +229,9 @@ namespace SWICD.Services
             _buttonActionsProcessor.ProcessInput(Configuration.ButtonActions, _currentControllerConfig, state);
 
             _emulatedController.SubmitReport();
+
+            _neptuneController.SetHaptic(1, SettingsViewModel.AmplitudeLeft, SettingsViewModel.PeriodLeft, 1);
+            _neptuneController.SetHaptic(0, SettingsViewModel.AmplitudeRight, SettingsViewModel.PeriodRight, 1);
         }
     }
 }
