@@ -6,12 +6,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SWICD.Services
 {
     internal class LoggingService
     {
-        public static LoggingService Instance { get; private set; } = new LoggingService();
+        private static LoggingService _instance = new LoggingService();
+        public static LoggingService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new LoggingService();
+                return _instance;
+            }
+        }
         public List<LogEntryModel> LogEntries = new List<LogEntryModel>();
         private string file = $"driver_log_{DateTime.Now.Year}_{DateTime.Now.Month:0#}_{DateTime.Now.Day:0#}.log";
         private FileStream LogStream = null;
@@ -32,9 +42,6 @@ namespace SWICD.Services
 
             LogWriter = new StreamWriter(LogStream);
 
-            if (Instance == null)
-                Instance = this;
-
             string[] files = Directory.GetFiles(folder, "*.log");
             foreach(var filename in files)
             {
@@ -46,8 +53,6 @@ namespace SWICD.Services
                 }
             }
         }
-
-
 
         public event EventHandler<LogEntryModel> OnNewLogEntry;
 
@@ -67,7 +72,7 @@ namespace SWICD.Services
 
         public string GetLogString()
         {
-            return File.ReadAllText(file);
+            return String.Join("\r\n", LogEntries.Select(entry => $"[{entry.Time}][{entry.LogLevel}]: {entry.Message}"));
         }
 
         public static void LogInformation(string message) => Instance?.Log(LogLevel.Information, message);

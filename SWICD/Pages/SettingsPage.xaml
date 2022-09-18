@@ -26,11 +26,12 @@
             <RowDefinition Height="10"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label
-            FontSize="16"
-            FontWeight="Bold"
-            Grid.ColumnSpan="4"
-            Foreground="#fff">Settings</Label>
+        <Label Foreground="#fff"
+               FontSize="20" 
+               Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="4"
+               FontWeight="Bold">Settings</Label>
 
         <Label
             Foreground="#fff"

@@ -1,44 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace SWICD.Config
 {
-    public class KeyboardMapping : ICloneable
+    [Serializable]
+    public class KeyboardMapping : ICloneable, ISerializable
     {
-        private Dictionary<HardwareButton, VirtualKeyboardKey> _mappings = new Dictionary<HardwareButton, VirtualKeyboardKey>()
+        private Dictionary<HardwareButton, string> _mappings = new Dictionary<HardwareButton, string>()
         {
-            { HardwareButton.BtnX, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnY, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnA, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnB, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnMenu, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnOptions, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnSteam, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnQuickAccess, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnDpadUp, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnDpadLeft, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnDpadRight, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnDpadDown, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnL1, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnR1, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnL2, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnR2, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnL4, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnR4, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnL5, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnR5, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnRPadPress, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnLPadPress, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnRPadTouch, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnLPadTouch, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnRStickPress, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnLStickPress, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnRStickTouch, VirtualKeyboardKey.NONE },
-            { HardwareButton.BtnLStickTouch, VirtualKeyboardKey.NONE },
+            { HardwareButton.BtnX, "NONE" },
+            { HardwareButton.BtnY, "NONE" },
+            { HardwareButton.BtnA, "NONE" },
+            { HardwareButton.BtnB, "NONE" },
+            { HardwareButton.BtnMenu, "NONE" },
+            { HardwareButton.BtnOptions, "NONE" },
+            { HardwareButton.BtnSteam, "NONE" },
+            { HardwareButton.BtnQuickAccess, "NONE" },
+            { HardwareButton.BtnDpadUp, "NONE" },
+            { HardwareButton.BtnDpadLeft, "NONE" },
+            { HardwareButton.BtnDpadRight, "NONE" },
+            { HardwareButton.BtnDpadDown, "NONE" },
+            { HardwareButton.BtnL1, "NONE" },
+            { HardwareButton.BtnR1, "NONE" },
+            { HardwareButton.BtnL2, "NONE" },
+            { HardwareButton.BtnR2, "NONE" },
+            { HardwareButton.BtnL4, "NONE" },
+            { HardwareButton.BtnR4, "NONE" },
+            { HardwareButton.BtnL5, "NONE" },
+            { HardwareButton.BtnR5, "NONE" },
+            { HardwareButton.BtnRPadPress, "NONE" },
+            { HardwareButton.BtnLPadPress, "NONE" },
+            { HardwareButton.BtnRPadTouch, "NONE" },
+            { HardwareButton.BtnLPadTouch, "NONE" },
+            { HardwareButton.BtnRStickPress, "NONE" },
+            { HardwareButton.BtnLStickPress, "NONE" },
+            { HardwareButton.BtnRStickTouch, "NONE" },
+            { HardwareButton.BtnLStickTouch, "NONE" },
         };
 
-        public KeyboardMapping(Dictionary<HardwareButton, VirtualKeyboardKey> mappings)
+        public KeyboardMapping(Dictionary<HardwareButton, string> mappings)
         {
             _mappings = mappings;
         }
@@ -46,14 +48,22 @@ namespace SWICD.Config
         public KeyboardMapping()
         {
         }
+        public KeyboardMapping(SerializationInfo info, StreamingContext context)
+        {
+            var btns = _mappings.Keys.ToArray();
+            foreach (var btn in btns)
+            {
+                _mappings[btn] = info.GetString(btn.ToString());
+            }
+        }
 
-        public VirtualKeyboardKey this[HardwareButton button]
+        public string this[HardwareButton button]
         {
             get
             {
                 if (_mappings.ContainsKey(button))
                     return _mappings[button];
-                return VirtualKeyboardKey.NONE;
+                return "";
             }
             set
             {
@@ -67,29 +77,17 @@ namespace SWICD.Config
             return clone;
         }
 
-        internal string ToString(string executable = null)
-        {
-            string config = $"[keyboardkeys]\r\n";
-            if (executable != null)
-            {
-                config = $"[keyboardkeys,{executable}]\r\n";
-            }
-
-            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
-                if (button != HardwareButton.None)
-                {
-                    config += $"{GetHardwareButtonName(button)}={GetEmulatedKeyName(this[button])}\r\n";
-                }
-
-            return config;
-        }
-        internal string GetEmulatedKeyName(VirtualKeyboardKey value) => Enum.GetName(typeof(VirtualKeyboardKey), value);
-        internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
-
         public override bool Equals(object obj)
         {
             return obj is KeyboardMapping mapping &&
                    _mappings.EqualsWithValues(mapping._mappings);
+        }
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            foreach (var btn in _mappings.Keys)
+            {
+                info.AddValue(btn.ToString(), _mappings[btn].ToString());
+            }
         }
     }
 }

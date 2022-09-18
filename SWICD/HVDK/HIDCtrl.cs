@@ -4,6 +4,7 @@ using Microsoft.Win32.SafeHandles;
 using System.IO;
 using System.Threading;
 using System.Runtime.CompilerServices;
+using SWICD.Services;
 
 //this is the minimal amount of code to allow reading from and writing to the device driver.
 //you should consider using a thread for your reading (and maybe writing) code.
@@ -165,10 +166,10 @@ namespace SWICD.HVDK
         //connect to the driver.  We'll iterate through all present HID devices and find the one that matches our target VENDORID and PRODUCTID
         public void Connect()
         {
-            DoLog("Connecting...");
+            LoggingService.LogInformation($"Connecting to Tetherscript HID Virtual Driver (VID: {VendorID}, PID: {ProductID})");
             if (FConnected)
             {
-                DoLog("Already connected.");
+                LoggingService.LogInformation("Already connected.");
                 return;
             }
 
@@ -177,7 +178,7 @@ namespace SWICD.HVDK
             IntPtr PnPHandle = SetupDiGetClassDevs(ref HIDGuid, IntPtr.Zero, IntPtr.Zero, (int)(DiGetClassFlags.DIGCF_PRESENT | DiGetClassFlags.DIGCF_DEVICEINTERFACE));
             if (PnPHandle == (IntPtr)INVALID_HANDLE_VALUE)
             {
-                DoLog("Connect: SetupDiGetClassDevs failed.");
+                LoggingService.LogError("Connect: SetupDiGetClassDevs failed.");
                 return;
             }
 
@@ -233,7 +234,7 @@ namespace SWICD.HVDK
                                         //this is the device we are looking for
                                         bFoundMyDevice = true;
                                         FConnected = true;
-                                        DoLog("Connected.");
+                                        LoggingService.LogInformation("Connected successfully.");
                                         //normally you would start a read thread here, but we aren't doing that in this example. We'll just call .ReadData instead.
                                         //we won't close our file handle here as it will be need in .SendData.
                                     }
@@ -253,6 +254,10 @@ namespace SWICD.HVDK
                 }
                 i++;
             } while ((bFoundADevice) & (!bFoundMyDevice));
+            if(!Connected)
+            {
+                LoggingService.LogError("Could not connect to the Tetherscript HID Virtual Driver. Make sure its installed! Check the GitHub Wiki for details on how to install it.");
+            }
         }
 
         //disconnect

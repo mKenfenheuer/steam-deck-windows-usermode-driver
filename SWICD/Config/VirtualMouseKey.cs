@@ -17,9 +17,5 @@ namespace SWICD.Config
         // Zusammenfassung:
         //     Right mouse button
         RBUTTON = 2,
-        //
-        // Zusammenfassung:
-        //     Middle mouse button (three-button mouse) - NOT contiguous with LBUTTON and RBUTTON
-        MBUTTON = 4,
     }
 }

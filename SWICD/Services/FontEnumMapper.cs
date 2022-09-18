@@ -59,15 +59,15 @@ namespace SWICD.Services
                     return "\u27F5";
                 case VirtualMouseKey.RBUTTON:
                     return "\u27F6";
-                case VirtualMouseKey.MBUTTON:
-                    return "\u27F7";
             }
             return "\u2753";
         }
 
-        internal static string MapEmulatedKeyboardKeyToFont(VirtualKeyboardKey e)
+        internal static string MapEmulatedKeyboardKeyToFont(string e)
         {
-            return e.ToString();
+            if (e == String.Empty)
+                return "NONE";
+            return e;
         }
 
         public static string MapEmulatedAxisToFont(EmulatedAxis emulated)

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace SWICD.Config
 {
-    public class MouseMapping : ICloneable
+    [Serializable]
+    public class MouseMapping : ICloneable,ISerializable
     {
         private Dictionary<HardwareButton, VirtualMouseKey> _mappings = new Dictionary<HardwareButton, VirtualMouseKey>()
         {
@@ -43,6 +45,17 @@ namespace SWICD.Config
             _mappings = mappings;
         }
 
+        public MouseMapping(SerializationInfo info, StreamingContext context)
+        {
+            var btns = _mappings.Keys.ToArray();
+            foreach (var btn in btns)
+            {
+                VirtualMouseKey button = VirtualMouseKey.NONE;
+                Enum.TryParse(info.GetString(btn.ToString()), out button);
+                _mappings[btn] = button;
+            }
+        }
+
         public MouseMapping()
         {
         }
@@ -66,30 +79,18 @@ namespace SWICD.Config
                                                entry => entry.Value));
             return clone;
         }
-
-        internal string ToString(string executable = null)
-        {
-            string config = $"[mousebuttons]\r\n";
-            if (executable != null)
-            {
-                config = $"[mousebuttons,{executable}]\r\n";
-            }
-
-            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
-                if (button != HardwareButton.None)
-                {
-                    config += $"{GetHardwareButtonName(button)}={GetEmulatedKeyName(this[button])}\r\n";
-                }
-
-            return config;
-        }
-        internal string GetEmulatedKeyName(VirtualMouseKey value) => Enum.GetName(typeof(VirtualMouseKey), value);
-        internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
-
         public override bool Equals(object obj)
         {
             return obj is MouseMapping mapping &&
                    _mappings.EqualsWithValues(mapping._mappings);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            foreach (var btn in _mappings.Keys)
+            {
+                info.AddValue(btn.ToString(), _mappings[btn].ToString());
+            }
         }
     }
 }

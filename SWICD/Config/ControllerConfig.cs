@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace SWICD.Config
 {
+    [Serializable]
     public class ControllerConfig : ICloneable
     {
         public string Executable { get; set; } = null;
@@ -24,11 +25,6 @@ namespace SWICD.Config
         {
             ButtonMapping = buttonMapping;
             AxisMapping = axisMapping;
-        }
-
-        public override string ToString()
-        {
-            return ProfileSettings.ToString(Executable) + "\r\n" + ButtonMapping.ToString(Executable) + "\r\n" + MouseMapping.ToString(Executable) +"\r\n" + KeyboardMapping.ToString(Executable) + "\r\n" + AxisMapping.ToString(Executable);
         }
 
         public object Clone()

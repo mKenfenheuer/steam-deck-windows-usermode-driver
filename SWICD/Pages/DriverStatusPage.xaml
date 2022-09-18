@@ -18,6 +18,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
@@ -25,17 +26,26 @@
             <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
+        <Label Foreground="#fff"
+               FontSize="20" 
+               Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="5"
+               FontWeight="Bold"> Driver Status</Label>
 
         <Label Content="Driver Version"
+               Grid.Row="1"
                FontWeight="SemiBold"
                Foreground="#fff" />
         <Label Grid.Column="1"
+               Grid.Row="1"
                Grid.ColumnSpan ="1"
                Content="{Binding DriverVersionText}"
                Foreground="#fff" />
 
         <Label Grid.Column="1"
-               Grid.Row="1"
+               Grid.Row="2"
                Grid.ColumnSpan ="1"
                Foreground="{Binding LatestDriverVersionColor}"
                Content="{Binding LatestDriverVersionText}">
@@ -43,7 +53,7 @@
 
         <Button
             Grid.Column="2"
-            Grid.Row="1"
+            Grid.Row="2"
             HorizontalContentAlignment="Left"
             Foreground="#fff"
             Command="{Binding OpenGitHubReleaseClickCommand}">
@@ -77,6 +87,7 @@
 
 
         <Button
+            Grid.Row="1"
             Grid.Column="2"
             HorizontalContentAlignment="Left"
             Foreground="#fff"
@@ -111,32 +122,32 @@
 
         <Label Content="Driver Status"
                FontWeight="SemiBold"
-               Grid.Row="2"
+               Grid.Row="3"
                Foreground="#fff" />
         <Label Grid.Column="1"
                Grid.ColumnSpan ="2"
-               Grid.Row="2"
+               Grid.Row="3"
                Content="{Binding DriverStatusText}"
                Foreground="{Binding DriverStatusColor}" />
 
         <Label Content="Emulation Status"
                FontWeight="SemiBold"
-               Grid.Row="3"
+               Grid.Row="4"
                Foreground="#fff" />
         <Label Grid.Column="1"
                Grid.ColumnSpan ="2"
-               Grid.Row="3"
+               Grid.Row="4"
                Content="{Binding EmulationStatusText}"
                Foreground="{Binding EmulationStatusColor}" />
 
-        <Label Grid.Row="4"
+        <Label Grid.Row="5"
                Content="Driver Log"
                FontWeight="SemiBold"
                Foreground="#fff" />
         
         <ListView
             Background="Transparent"
-            Grid.Row="5"
+            Grid.Row="6"
             Grid.ColumnSpan="3"
             ItemsSource="{Binding LogEntries}"
             HorizontalContentAlignment="Stretch">

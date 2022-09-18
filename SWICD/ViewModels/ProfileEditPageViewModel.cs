@@ -22,7 +22,7 @@ namespace SWICD.ViewModels
         public ObservableCollection<ButtonMappingModel> ButtonMappings { get; set; } = new ObservableCollection<ButtonMappingModel>();
         public ObservableCollection<AxisMappingModel> AxisMappings { get; set; } = new ObservableCollection<AxisMappingModel>();
 
-        public bool DeleteButtonVisible => Executable != null;
+        public Visibility DeleteButtonVisible => Executable != null ? Visibility.Visible : Visibility.Hidden;
         public CommandHandler DeleteButtonClickCommand => new CommandHandler((obj) => OnDeleteButtonClick());
 
         private void OnDeleteButtonClick()

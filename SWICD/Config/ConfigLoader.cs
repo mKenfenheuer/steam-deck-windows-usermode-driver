@@ -1,14 +1,50 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SWICD.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Environment;
 
 namespace SWICD.Config
 {
     public class ConfigLoader
     {
+
+        internal static bool TryMigrateConfiguration(Environment.SpecialFolder specialFolder, string subfolder, string file)
+        {
+            try
+            {
+                string folder = Environment.GetFolderPath(specialFolder);
+                if (subfolder != null)
+                {
+                    folder = Path.Combine(folder, subfolder);
+                }
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
+
+                string fileOld = Path.Combine(folder, file);
+                string fileNew = Path.Combine(folder, Path.GetFileNameWithoutExtension(file) + ".json");
+
+
+                if (File.Exists(fileOld) && !File.Exists(fileNew))
+                {
+                    Configuration config = GetConfiguration(fileOld);
+                    SaveConfiguration(config, fileNew);
+
+                    File.Move(fileOld, fileOld + ".bak");
+                    LoggingService.LogWarning($"Configuration has been migrated to new format. Check if everything works as expected. The old config has been moved to \"{fileOld}.bak\"");
+                    return true;
+                }
+            }catch(Exception ex)
+            {
+                LoggingService.LogError($"Could not migrate config: {ex}");
+            }
+
+            return false;
+        }
         public static Configuration GetConfiguration(Environment.SpecialFolder specialFolder, string subfolder, string file)
         {
             string folder = Environment.GetFolderPath(specialFolder);
@@ -27,7 +63,10 @@ namespace SWICD.Config
                 return config;
             }
 
-            return GetConfiguration(file);
+            string json = File.ReadAllText(file);
+
+
+            return JsonConvert.DeserializeObject<Configuration>(json);
         }
 
         public static Configuration GetConfiguration(string file)
@@ -67,10 +106,6 @@ namespace SWICD.Config
                     if (section == "general")
                     {
                         ProcessGeneralLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
-                    }
-                    if (section == "keyboard-actions")
-                    {
-                        ProcessKeyboardActionsLine(parts[0].Trim(), parts[1].Trim(), ref configuration);
                     }
 
                     if (section == "buttons")
@@ -173,7 +208,7 @@ namespace SWICD.Config
 
         public static void SaveConfiguration(Configuration config, string file)
         {
-            File.WriteAllText(file, config.ToString().Trim());
+            File.WriteAllText(file, JsonConvert.SerializeObject(config, Formatting.Indented));
         }
 
         private static ControllerConfig ProcessAxesLine(string v1, string v2, ControllerConfig configuration)
@@ -201,15 +236,6 @@ namespace SWICD.Config
             return configuration;
         }
 
-        private static void ProcessKeyboardActionsLine(string v1, string v2, ref Configuration configuration)
-        {
-            HardwareButton[] buttons = v1.Split(new char[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
-                                .Select(s => (HardwareButton)Enum.Parse(typeof(HardwareButton), s))
-                                .ToArray();
-
-            configuration.KeyboardButtonActions[buttons] = v2;
-        }
-
         private static ControllerConfig ProcessButtonsLine(string v1, string v2, ControllerConfig configuration)
         {
             HardwareButton hardwareButton = HardwareButton.None;
@@ -226,12 +252,10 @@ namespace SWICD.Config
         private static ControllerConfig ProcessKeyboardLine(string v1, string v2, ControllerConfig configuration)
         {
             HardwareButton hardwareButton = HardwareButton.None;
-            VirtualKeyboardKey keyboardKey = VirtualKeyboardKey.NONE;
 
             Enum.TryParse(v1, out hardwareButton);
-            Enum.TryParse(v2, out keyboardKey);
 
-            configuration.KeyboardMapping[hardwareButton] = keyboardKey;
+            configuration.KeyboardMapping[hardwareButton] = v2;
 
             return configuration;
         }

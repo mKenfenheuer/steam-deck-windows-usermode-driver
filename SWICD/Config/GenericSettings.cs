@@ -12,24 +12,6 @@ namespace SWICD.Config
         public bool StartWithWindows { get; set; } = true;
         public bool StartMinimized { get; set; } = true;
 
-        public override string ToString()
-        {
-            string configText = "[general]\r\n";
-            foreach (string executable in BlacklistedProcesses)
-            {
-                configText += $"Blacklist={executable}\r\n";
-            }
-            foreach (string executable in WhitelistedProcesses)
-            {
-                configText += $"Whitelist={executable}\r\n";
-            }
-            configText += $"Mode={OperationMode}\r\n";
-            configText += $"StartWithWindows={StartWithWindows}\r\n";
-            configText += $"StartMinimized={StartMinimized}\r\n";
-
-            return configText;
-        }
-
         public object Clone()
         {
             var obj = new GenericSettings();

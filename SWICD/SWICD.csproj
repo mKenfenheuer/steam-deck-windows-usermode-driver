@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>SWICD</RootNamespace>
     <AssemblyName>SWICD</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -16,6 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,9 +61,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GregsStack.InputSimulatorStandard, Version=1.3.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\GregsStack.InputSimulatorStandard.1.3.4\lib\net40\GregsStack.InputSimulatorStandard.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=6.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.1\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
@@ -111,6 +109,7 @@
     </ApplicationDefinition>
     <Compile Include="BuildVersionInfo.cs" />
     <Compile Include="Config\AxisMapping.cs" />
+    <Compile Include="Config\ButtonAction.cs" />
     <Compile Include="Config\MouseMapping.cs" />
     <Compile Include="Config\KeyboardMapping.cs" />
     <Compile Include="Config\ButtonMapping.cs" />
@@ -123,15 +122,15 @@
     <Compile Include="Config\GenericSettings.cs" />
     <Compile Include="Config\HardwareAxis.cs" />
     <Compile Include="Config\HardwareButton.cs" />
-    <Compile Include="Config\KeyboardButtonActions.cs" />
+    <Compile Include="Config\ButtonActions.cs" />
     <Compile Include="Config\OperationMode.cs" />
     <Compile Include="Config\ProfileSettings.cs" />
     <Compile Include="Config\VirtualMouseKey.cs" />
-    <Compile Include="Config\VirtualKeyboardKey.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="HVDK\Drivers.cs" />
     <Compile Include="HVDK\HIDCtrl.cs" />
     <Compile Include="HVDK\KeyboardUtils.cs" />
+    <Compile Include="Model\ButtonActionModel.cs" />
     <Compile Include="Model\AxisMappingModel.cs" />
     <Compile Include="Model\MouseMappingModel.cs" />
     <Compile Include="Model\KeyboardMappingModel.cs" />
@@ -146,6 +145,9 @@
     <Compile Include="Pages\ProfileEditPage.xaml.cs">
       <DependentUpon>ProfileEditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ButtonActions.xaml.cs">
+      <DependentUpon>ButtonActions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TextInputWindow.xaml.cs">
       <DependentUpon>TextInputWindow.xaml</DependentUpon>
     </Compile>
@@ -156,16 +158,17 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Services\ButtonActionsProcessor.cs" />
     <Compile Include="Services\ControllerService.cs" />
     <Compile Include="Services\FontEnumMapper.cs" />
     <Compile Include="Services\GitHubApi.cs" />
-    <Compile Include="Services\MouseInputMapper.cs" />
-    <Compile Include="Services\KeyboardInputMapper.cs" />
+    <Compile Include="Services\KeyboardMouseInputMapper.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProfileEditPageViewModel.cs" />
+    <Compile Include="ViewModels\ButtonActionsViewModel.cs" />
     <Compile Include="ViewModels\TextInputWindowViewModel.cs" />
     <Compile Include="ViewModels\QuestionWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -188,6 +191,10 @@
     <Page Include="Pages\ProfileEditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ButtonActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\TextInputWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,3 +10,5 @@ Debug/
 *.msi
 driver_log.log
 BuildVersionInfo.cs
+/Setup/SWICD_Driver_Setup/SWICD_Setup.exe
+/UpgradeLog.htm

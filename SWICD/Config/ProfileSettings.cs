@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace SWICD.Config
 {
@@ -7,18 +8,18 @@ namespace SWICD.Config
         public bool DisableLizardMouse { get; set; }
         public bool DisableLizardButtons { get; set; }
 
-        public string ToString(string executable)
-        {
-            string config = $"[profile]\r\n";
-            if (executable != null)
-            {
-                config = $"[profile,{executable}]\r\n";
-            }
-            config += $"DisableLizardMouse={DisableLizardMouse}\r\n"; ;
-            config += $"DisableLizardButtons={DisableLizardButtons}\r\n"; ;
+        [JsonIgnore]
+        public bool ToggleInvertLizardMode { get; set; }
 
-            return config;
-        }
+        [JsonIgnore]
+        public bool ToggleInvertEmulationActive { get; set; }
+
+        [JsonIgnore]
+        public bool ToggledDisableLizardMouse => ToggleInvertLizardMode && !DisableLizardMouse ? !DisableLizardMouse : DisableLizardMouse;
+        [JsonIgnore]
+        public bool ToggledDisableLizardButtons => ToggleInvertLizardMode && !DisableLizardButtons ? !DisableLizardButtons : DisableLizardButtons;
+
+        public bool GetInvertedEmulationEnabled(bool enabled) => ToggleInvertEmulationActive ? !enabled : enabled;
 
         public object Clone()
         {

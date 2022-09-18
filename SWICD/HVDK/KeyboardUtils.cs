@@ -2,10 +2,11 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace SWICD.HVDK
 {
-    class KbUtils
+    class KeyboardUtils
     {
 
         [DllImport("user32.dll")]
@@ -23,7 +24,10 @@ namespace SWICD.HVDK
         protected List<string> FKeys = new List<string>();
         protected List<string> FModifiers = new List<string>();
 
-        public KbUtils()
+        public string[] GetAvailableKeys => FKeys.Where(k => !k.Contains("dummy")).ToArray();
+        public string[] GetAvailableKeysWithModifiers => FModifiers.Concat(FKeys.ToArray()).Where(k => !k.Contains("dummy")).ToArray();
+
+        public KeyboardUtils()
         {
             AddModifierKeyCodes();
             AddKeyKeyCodes();

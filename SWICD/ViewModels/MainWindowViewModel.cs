@@ -50,7 +50,7 @@ namespace SWICD.ViewModels
 
         private void SaveConfiguration()
         {
-            ConfigLoader.SaveConfiguration(Configuration, Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+            ConfigLoader.SaveConfiguration(Configuration, Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.json");
             Configuration.CreateSnapshot();
         }
 
@@ -74,13 +74,17 @@ namespace SWICD.ViewModels
         public MainWindowViewModel()
         {
             Instance = this;
-            ControllerService.Instance.Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
 
             NavigationItems = new ObservableCollection<NavigationItemModel>();
             NavigationItems.Add(new NavigationItemModel()
             {
                 Title = "Driver Status",
                 Page = new DriverStatusPage(),
+            });
+            NavigationItems.Add(new NavigationItemModel()
+            {
+                Title = "Button Actions",
+                Page = new ButtonActionsPage(Configuration.ButtonActions),
             });
             NavigationItems.Add(new NavigationItemModel()
             {

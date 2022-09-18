@@ -23,6 +23,9 @@ namespace SWICD.Services
         public bool Started { get; private set; }
         public Configuration Configuration { get; internal set; }
 
+        private KeyboardMouseInputMapper _keyboardMouseInputMapper = new KeyboardMouseInputMapper();
+        internal KeyboardMouseInputMapper KeyboardMouseInputMapper => _keyboardMouseInputMapper;
+        private ButtonActionsProcessor _buttonActionsProcessor = new ButtonActionsProcessor();
         private NeptuneController _neptuneController = new NeptuneController();
         private ViGEmClient _viGEmClient;
         private ControllerConfig _currentControllerConfig = new ControllerConfig();
@@ -36,7 +39,8 @@ namespace SWICD.Services
         {
             LoggingService.LogInformation($"Driver Version: {BuildVersionInfo.Version}");
             LoggingService.LogInformation($"Driver Build Time (UTC): {BuildVersionInfo.BuildTime}");
-            Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+            ConfigLoader.TryMigrateConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
+            Configuration = ConfigLoader.GetConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.json");
             LoggingService.LogInformation("Config Loaded.");
             LoggingService.LogInformation($"Executable specific profiles: {Configuration.PerProcessControllerConfig.Count}");
             LoggingService.LogInformation($"Mode: {Configuration.GenericSettings.OperationMode}");
@@ -127,6 +131,8 @@ namespace SWICD.Services
                     }
                 }
 
+                emulate = profile.ProfileSettings.GetInvertedEmulationEnabled(emulate);
+
                 if (EmulationEnabled != emulate)
                 {
                     EmulationEnabled = emulate;
@@ -138,14 +144,14 @@ namespace SWICD.Services
                     var profileDisplay = profile.Executable ?? "Default Profile";
                     LoggingService.LogDebug($"Active profile changed to: {profileDisplay}");
                 }
-                if (LizardMouseEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardMouse)
+                if (LizardMouseEnabled != !_currentControllerConfig.ProfileSettings.ToggledDisableLizardMouse)
                 {
-                    LizardMouseEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardMouse;
+                    LizardMouseEnabled = !_currentControllerConfig.ProfileSettings.ToggledDisableLizardMouse;
                     LoggingService.LogDebug($"LizardMouseEnabled changed to: {LizardMouseEnabled}");
                 }
-                if (LizardButtonsEnabled != !_currentControllerConfig.ProfileSettings.DisableLizardButtons)
+                if (LizardButtonsEnabled != !_currentControllerConfig.ProfileSettings.ToggledDisableLizardButtons)
                 {
-                    LizardButtonsEnabled = !_currentControllerConfig.ProfileSettings.DisableLizardButtons;
+                    LizardButtonsEnabled = !_currentControllerConfig.ProfileSettings.ToggledDisableLizardButtons;
                     LoggingService.LogDebug($"LizardButtonsEnabled changed to: {LizardButtonsEnabled}");
                 }
             }
@@ -206,13 +212,15 @@ namespace SWICD.Services
             if (EmulationEnabled)
             {
                 InputMapper.MapInput(_currentControllerConfig, state, _emulatedController);
-                KeyboardInputMapper.MapInput(_currentControllerConfig, state);
+                _keyboardMouseInputMapper.MapKeyboardInput(_currentControllerConfig, state);
             }
 
             if(!LizardButtonsEnabled)
             {
-                MouseInputMapper.MapInput(_currentControllerConfig, state);
+                _keyboardMouseInputMapper.MapMouseInput(_currentControllerConfig, state);
             }
+
+            _buttonActionsProcessor.ProcessInput(Configuration.ButtonActions, _currentControllerConfig, state);
 
             _emulatedController.SubmitReport();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SWICD.Model
 {
-    internal class EnumComboBoxItem<T> where T : Enum
+    internal class EnumComboBoxItem<T>
     {
         public T Value { get; set; }
         public string Display { get; set; }
