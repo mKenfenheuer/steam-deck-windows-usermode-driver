@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using SWICD.Commands;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,6 +26,20 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(StartWithWindowsText));
             }
         }
+
+        public string StartWithWindowsText => StartWithWindows ? "Enabled" : "Disabled";
+        public bool StartMinimized
+        {
+            get => _settings.StartMinimized;
+            set
+            {
+                _settings.StartMinimized = value;
+                NotifyPropertyChanged(nameof(StartMinimized));
+                NotifyPropertyChanged(nameof(StartMinimizedText));
+            }
+        }
+
+        public string StartMinimizedText => StartMinimized ? "Enabled" : "Disabled";
         public OperationMode OperationMode
         {
             get => _settings.OperationMode;
@@ -73,13 +87,13 @@ namespace SWICD.ViewModels
 
         private void OnRemoveWhitelistedProcessClick()
         {
-            WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
             _settings.WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
+            WhitelistedProcesses.Remove(SelectedWhitelistedProcess);
         }
         private void OnRemoveBlacklistedProcessClick()
         {
-            BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
             _settings.BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
+            BlacklistedProcesses.Remove(SelectedBlacklistedProcess);
         }
 
         public SettingsViewModel(GenericSettings settings)
@@ -101,8 +115,6 @@ namespace SWICD.ViewModels
         public SettingsViewModel()
         {
         }
-
-        public string StartWithWindowsText => StartWithWindows ? "Enabled" : "Disabled";
 
         public event PropertyChangedEventHandler PropertyChanged;
 

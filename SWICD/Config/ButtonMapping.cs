@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
-    public class ButtonMapping : ICloneable
+    [Serializable]
+    public class ButtonMapping : ICloneable, ISerializable
     {
         private Dictionary<HardwareButton, EmulatedButton> _mappings = new Dictionary<HardwareButton, EmulatedButton>()
         {
@@ -12,12 +14,12 @@ namespace SWICD_Lib.Config
             { HardwareButton.BtnY, EmulatedButton.BtnY },
             { HardwareButton.BtnA, EmulatedButton.BtnA },
             { HardwareButton.BtnB, EmulatedButton.BtnB },
-            { HardwareButton.BtnMenu, EmulatedButton.BtnStart },
-            { HardwareButton.BtnOptions, EmulatedButton.BtnBack },
+            { HardwareButton.BtnMenu, EmulatedButton.BtnBack },
+            { HardwareButton.BtnOptions, EmulatedButton.BtnStart },
             { HardwareButton.BtnSteam, EmulatedButton.BtnGuide },
             { HardwareButton.BtnQuickAccess, EmulatedButton.BtnGuide },
             { HardwareButton.BtnDpadUp, EmulatedButton.BtnDpadUp },
-            { HardwareButton.BtnDpadLeft, EmulatedButton.BtnDpadUp },
+            { HardwareButton.BtnDpadLeft, EmulatedButton.BtnDpadLeft },
             { HardwareButton.BtnDpadRight, EmulatedButton.BtnDpadRight },
             { HardwareButton.BtnDpadDown, EmulatedButton.BtnDpadDown },
             { HardwareButton.BtnL1, EmulatedButton.BtnLB },
@@ -41,6 +43,17 @@ namespace SWICD_Lib.Config
         public ButtonMapping(Dictionary<HardwareButton, EmulatedButton> mappings)
         {
             _mappings = mappings;
+        }
+
+        public ButtonMapping(SerializationInfo info, StreamingContext context)
+        {
+            var btns = _mappings.Keys.ToArray();
+            foreach (var btn in btns)
+            {
+                EmulatedButton button = EmulatedButton.None;
+                Enum.TryParse(info.GetString(btn.ToString()), out button);
+                _mappings[btn] = button;
+            }
         }
 
         public ButtonMapping()
@@ -67,29 +80,18 @@ namespace SWICD_Lib.Config
             return clone;
         }
 
-        internal string ToString(string executable = null)
-        {
-            string config = $"[buttons]\r\n";
-            if (executable != null)
-            {
-                config = $"[buttons,{executable}]\r\n";
-            }
-
-            foreach (HardwareButton button in Enum.GetValues(typeof(HardwareButton)))
-                if (button != HardwareButton.None)
-                {
-                    config += $"{GetHardwareButtonName(button)}={GetEmulatedButtonName(this[button])}\r\n";
-                }
-
-            return config;
-        }
-        internal string GetEmulatedButtonName(EmulatedButton value) => Enum.GetName(typeof(EmulatedButton), value);
-        internal string GetHardwareButtonName(HardwareButton value) => Enum.GetName(typeof(HardwareButton), value);
-
         public override bool Equals(object obj)
         {
             return obj is ButtonMapping mapping &&
                    _mappings.EqualsWithValues(mapping._mappings);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            foreach(var btn in _mappings.Keys)
+            {
+                info.AddValue(btn.ToString(), _mappings[btn].ToString());
+            }
         }
     }
 }

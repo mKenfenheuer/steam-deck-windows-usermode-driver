@@ -20,13 +20,47 @@ namespace SWICD.ViewModels
 {
     internal class DriverStatusViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<LogEntryModel> LogEntries { get; set; } = new ObservableCollection<LogEntryModel>();
+        public ObservableCollection<LogEntryModel> LogEntries => new ObservableCollection<LogEntryModel>(LoggingService.Instance.LogEntries);
         public string DriverStatusText { get; set; }
+        public string EmulationStatusText
+        {
+            get
+            {
+                var executable = ControllerService.Instance.DecisionExecutable;
+
+                if (ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Whitelist)
+                    return $"Active (Whitelist: {executable})";
+
+                if (!ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Whitelist)
+                    return $"Inactive (No whitelisted process running)";
+
+                if (ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Combined)
+                    return $"Active (Whitelist: {executable})";
+
+                if (!ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Combined)
+                    return $"Inactive (Blacklist: {executable})";
+
+                if (!ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Blacklist)
+                    return $"Inactive (Blacklist: {executable})";
+
+                if (ControllerService.Instance.EmulationEnabled &&
+                    ControllerService.Instance.Configuration.GenericSettings.OperationMode == Config.OperationMode.Blacklist)
+                    return $"Active (No blacklisted process running)";
+
+                return ControllerService.Instance.EmulationEnabled ? "Active" : "Inactive";
+            }
+        }
         public string DriverVersionText => BuildVersionInfo.Version;
         public string LatestDriverVersionText { get; set; } = "Checking ...";
         public string LatestDriverVersionLink { get; set; }
         public SolidColorBrush LatestDriverVersionColor { get; set; } = new SolidColorBrush(Colors.LightGray);
         public SolidColorBrush DriverStatusColor { get; set; }
+        public SolidColorBrush EmulationStatusColor => ControllerService.Instance.EmulationEnabled ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Orange);
         private readonly Dispatcher _dispatcher;
         public CommandHandler CreateSupportPackageClickCommand => new CommandHandler(obj => CreateSupportPackage());
         public CommandHandler OpenGitHubReleaseClickCommand => new CommandHandler(obj => OpenGitHubRelease());
@@ -99,7 +133,10 @@ namespace SWICD.ViewModels
 
         private void OnServiceStartStop(object sender, bool e)
         {
-            DriverStatusText = e ? "Running" : "Stopped";
+            if (ControllerService.Instance.FailedInit)
+                DriverStatusText = "Failed to initialize. Check Log.";
+            else
+                DriverStatusText = e ? "Running" : "Stopped";
             DriverStatusColor = new SolidColorBrush(e ? Colors.Green : Colors.Red);
             NotifyPropertyChanged(nameof(DriverStatusText));
             NotifyPropertyChanged(nameof(DriverStatusColor));
@@ -114,7 +151,9 @@ namespace SWICD.ViewModels
         {
             _dispatcher.Invoke(() =>
             {
-                LogEntries.Add(e);
+                NotifyPropertyChanged(nameof(LogEntries));
+                NotifyPropertyChanged(nameof(EmulationStatusText));
+                NotifyPropertyChanged(nameof(EmulationStatusColor));
             });
         }
     }

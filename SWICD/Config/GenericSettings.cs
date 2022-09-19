@@ -2,31 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class GenericSettings : ICloneable
     {
         public List<string> BlacklistedProcesses { get; set; } = new List<string>();
         public List<string> WhitelistedProcesses { get; set; } = new List<string>();
-        public OperationMode OperationMode { get; set; } = OperationMode.Combined;
+        public OperationMode OperationMode { get; set; } = OperationMode.Blacklist;
         public bool StartWithWindows { get; set; } = true;
-
-        public override string ToString()
-        {
-            string configText = "[general]\r\n";
-            foreach (string executable in BlacklistedProcesses)
-            {
-                configText += $"Blacklist={executable}\r\n";
-            }
-            foreach (string executable in WhitelistedProcesses)
-            {
-                configText += $"Whitelist={executable}\r\n";
-            }
-            configText += $"Mode={OperationMode}\r\n";
-            configText += $"StartWithWindows={StartWithWindows}\r\n";
-
-            return configText;
-        }
+        public bool StartMinimized { get; set; } = true;
 
         public object Clone()
         {
@@ -35,6 +19,7 @@ namespace SWICD_Lib.Config
             obj.WhitelistedProcesses = WhitelistedProcesses.ToList();
             obj.OperationMode = OperationMode;
             obj.StartWithWindows = StartWithWindows;
+            obj.StartMinimized = StartMinimized;
             return obj;
         }
 
@@ -44,7 +29,8 @@ namespace SWICD_Lib.Config
                    Enumerable.SequenceEqual(BlacklistedProcesses.OrderBy(a => a), settings.BlacklistedProcesses.OrderBy(a => a)) &&
                    Enumerable.SequenceEqual(WhitelistedProcesses.OrderBy(a => a), settings.WhitelistedProcesses.OrderBy(a => a)) &&
                    OperationMode == settings.OperationMode &&
-                   StartWithWindows == settings.StartWithWindows;
+                   StartWithWindows == settings.StartWithWindows &&
+                   StartMinimized == settings.StartMinimized;
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace SWICD.Commands
 {
-    internal class CommandHandler : ICommand
+    public class CommandHandler : ICommand
     {
         public event EventHandler CanExecuteChanged;
         public Action<object> Action { get; set; }

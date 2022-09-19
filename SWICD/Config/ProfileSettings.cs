@@ -1,35 +1,49 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
     public class ProfileSettings: ICloneable
     {
-        public bool DisableLizardMode { get; set; }
+        public bool DisableLizardMouse { get; set; }
+        public bool DisableLizardButtons { get; set; }
+        public bool HapticFeedbackEnabled { get; set; }
+        public byte HapticFeedbackAmplitude { get; set; }
+        public byte HapticFeedbackPeriod { get; set; }
 
-        public string ToString(string executable)
-        {
-            string config = $"[profile]\r\n";
-            if (executable != null)
-            {
-                config = $"[profile,{executable}]\r\n";
-            }
-            config += $"DisableLizardMode={DisableLizardMode}\r\n"; ;
+        [JsonIgnore]
+        public bool ToggleInvertLizardMode { get; set; }
 
-            return config;
-        }
+        [JsonIgnore]
+        public bool ToggleInvertEmulationActive { get; set; }
+
+        [JsonIgnore]
+        public bool ToggledDisableLizardMouse => ToggleInvertLizardMode && !DisableLizardMouse ? !DisableLizardMouse : DisableLizardMouse;
+        [JsonIgnore]
+        public bool ToggledDisableLizardButtons => ToggleInvertLizardMode && !DisableLizardButtons ? !DisableLizardButtons : DisableLizardButtons;
+
+        public bool GetInvertedEmulationEnabled(bool enabled) => ToggleInvertEmulationActive ? !enabled : enabled;
 
         public object Clone()
         {
             return new ProfileSettings()
             {
-                DisableLizardMode = DisableLizardMode,  
+                DisableLizardMouse = DisableLizardMouse,
+                DisableLizardButtons = DisableLizardButtons,
+                HapticFeedbackEnabled = HapticFeedbackEnabled,
+                HapticFeedbackAmplitude = HapticFeedbackAmplitude,
+                HapticFeedbackPeriod = HapticFeedbackPeriod,
             };
         }
 
         public override bool Equals(object obj)
         {
             return obj is ProfileSettings settings &&
-                   DisableLizardMode == settings.DisableLizardMode;
+                   DisableLizardMouse == settings.DisableLizardMouse &&
+                   DisableLizardButtons == settings.DisableLizardButtons &&
+                   HapticFeedbackEnabled == settings.HapticFeedbackEnabled &&
+                   HapticFeedbackAmplitude == settings.HapticFeedbackAmplitude &&
+                   HapticFeedbackPeriod == settings.HapticFeedbackPeriod;
         }
     }
 }

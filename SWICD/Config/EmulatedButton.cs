@@ -1,4 +1,4 @@
-﻿namespace SWICD_Lib.Config
+﻿namespace SWICD.Config
 {
     public enum EmulatedButton
     {

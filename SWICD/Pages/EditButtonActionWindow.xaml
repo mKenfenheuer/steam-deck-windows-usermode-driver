@@ -1,0 +1,271 @@
+﻿<Window x:Class="SWICD.Pages.EditButtonActionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWICD.ViewModels"
+        mc:Ignorable="d"
+        Title="Edit Button Action" Height="600" Width="1000"
+        Background="#1B1B1B">
+
+    <Window.Resources>
+        <FontFamily x:Key="PromptFont" >/Resources/#PromptFont</FontFamily>
+        <FontFamily x:Key="PromptFont_orig" >/Resources/#PromptFont_orig</FontFamily>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <local:EditButtonActionWindowViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Label Foreground="#fff"
+               FontSize="20" 
+               Grid.Row="0" 
+               Grid.Column="0" 
+               Grid.ColumnSpan="5"
+               FontWeight="Bold">Edit Button Action</Label>
+
+        <Label Foreground="#fff"
+               FontWeight="SemiBold"
+               Grid.Row="1" 
+               VerticalAlignment="Center"
+               Grid.Column="0">Trigger Buttons</Label>
+
+        <ComboBox
+                Grid.Column="2"
+                Grid.Row="1"
+                Grid.ColumnSpan="1"
+                FontFamily="{DynamicResource PromptFont}"
+                FontSize="30"
+                VerticalContentAlignment="Center"
+                SelectedIndex="{Binding SelectedTriggerButton, Mode=TwoWay}"
+                ItemsSource="{Binding ButtonItems}"/>
+
+        <Button
+            Grid.Row="1"
+            Grid.Column="3"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding AddTriggerButtonClickedCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#303030"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Add" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Row="1"
+            Grid.Column="4"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding ClearTriggerButtonsClickedCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#303030"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Clear" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+            </Button.Content>
+        </Button>
+
+
+        <Label Foreground="#fff"
+               FontWeight="SemiBold"
+               Grid.Row="1" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="1"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               Content="{Binding ButtonsPreview}"
+               FontFamily="{DynamicResource PromptFont}"
+               FontSize="30"/>
+
+        <Label Foreground="#fff"
+               FontWeight="SemiBold"
+               Grid.Row="2" 
+               VerticalAlignment="Center"
+               Grid.Column="0">Action</Label>
+
+        <RadioButton GroupName="action"
+                     Foreground="#fff"
+                     VerticalAlignment="Center"
+                     IsChecked="{Binding IsEmulationToggle, Mode=TwoWay}"
+                     Content="Toggle Emulation on/off"
+                     Grid.Row="2"
+                     Grid.Column="1" />
+
+        <RadioButton GroupName="action"
+                     Foreground="#fff"
+                     VerticalAlignment="Center"
+                     IsChecked="{Binding IsLizardToggle, Mode=TwoWay}"
+                     Content="Toggle Lizard Mode on/off"
+                     Grid.Row="3"
+                     Grid.Column="1" />
+
+        <RadioButton GroupName="action"
+                     Foreground="#fff"
+                     VerticalAlignment="Center"
+                     IsChecked="{Binding IsLizardEmulationToggle, Mode=TwoWay}"
+                     Content="Toggle Lizard Mode and Emulation on/off"
+                     Grid.Row="4"
+                     Grid.Column="1" />
+
+        <RadioButton GroupName="action"
+                     Foreground="#fff"
+                     VerticalAlignment="Center"
+                     IsChecked="{Binding IsKeyboardAction, Mode=TwoWay}"
+                     Content="Keyboard Shortcut"
+                     Grid.Row="5"
+                     Grid.Column="1" />
+
+        <Label Foreground="#fff"
+               FontWeight="SemiBold"
+               Grid.Row="6" 
+               Grid.Column="1" 
+               Grid.ColumnSpan="1"
+               VerticalAlignment="Center"
+               VerticalContentAlignment="Center"
+               Content="{Binding KeyboardButtonsPreview}"
+               FontSize="15"/>
+
+        <ComboBox
+                Grid.Column="2"
+                Grid.Row="6"
+                Grid.ColumnSpan="1"
+                FontFamily="{DynamicResource PromptFont}"
+                FontSize="30"
+                VerticalContentAlignment="Center"
+                SelectedIndex="{Binding SelectedKeyboardButton, Mode=TwoWay}"
+                ItemsSource="{Binding KeyboardItems}"/>
+
+        <Button
+            Grid.Row="6"
+            Grid.Column="3"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding AddKeyboardButtonClickedCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#303030"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Add" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Row="6"
+            Grid.Column="4"
+            HorizontalContentAlignment="Left"
+            Foreground="#fff"
+            Command="{Binding ClearKeyboardButtonsClickedCommand}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="#303030"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#353535"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <Label Content="Clear" 
+                                 FontSize="16"
+                                 Foreground="#fff"
+                                 Margin="5,0,0,0"
+                                 Padding="0"/>
+            </Button.Content>
+        </Button>
+
+
+
+
+
+    </Grid>
+</Window>

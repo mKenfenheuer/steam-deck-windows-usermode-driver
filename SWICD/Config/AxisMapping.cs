@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
-    public class AxisMapping : ICloneable
+    [Serializable]
+    public class AxisMapping : ICloneable, ISerializable
     {
         private Dictionary<HardwareAxis, EmulatedAxisConfig> _mappings = new Dictionary<HardwareAxis, EmulatedAxisConfig>()
         {
@@ -33,6 +35,15 @@ namespace SWICD_Lib.Config
             _mappings = dictionary;
         }
 
+        public AxisMapping(SerializationInfo info, StreamingContext context)
+        {
+            var btns = _mappings.Keys.ToArray();
+            foreach (var btn in btns)
+            {
+                _mappings[btn] = (EmulatedAxisConfig)info.GetValue(btn.ToString(), typeof(EmulatedAxisConfig));
+            }
+        }
+
         public AxisMapping()
         {
         }
@@ -50,23 +61,6 @@ namespace SWICD_Lib.Config
                 _mappings[axis] = value;
             }
         }
-        internal string ToString(string executable = null)
-        {
-            string config = $"[axes]\r\n";
-            if (executable != null)
-            {
-                config = $"[axes,{executable}]\r\n";
-            }
-
-            foreach (HardwareAxis axis in Enum.GetValues(typeof(HardwareAxis)))
-                if (axis != HardwareAxis.None)
-                {
-                    config += $"{GetHardwareAxisName(axis)}={this[axis]}\r\n";
-                }
-
-            return config;
-        }
-        internal string GetHardwareAxisName(HardwareAxis value) => Enum.GetName(typeof(HardwareAxis), value);
 
         public object Clone()
         {
@@ -79,6 +73,14 @@ namespace SWICD_Lib.Config
         {
             return obj is AxisMapping mapping &&
                    _mappings.EqualsWithValues(mapping._mappings);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            foreach (var btn in _mappings.Keys)
+            {
+                info.AddValue(btn.ToString(), _mappings[btn]);
+            }
         }
     }
 }

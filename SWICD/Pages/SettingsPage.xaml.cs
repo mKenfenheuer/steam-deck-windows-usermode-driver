@@ -1,5 +1,5 @@
 ﻿using SWICD.ViewModels;
-using SWICD_Lib.Config;
+using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;

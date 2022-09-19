@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-namespace SWICD_Lib.Config
+namespace SWICD.Config
 {
-    public class EmulatedAxisConfig : ICloneable
+    [Serializable]
+    public class EmulatedAxisConfig : ICloneable, ISerializable
     {
         private EmulatedAxis _emulatedAxis;
         public EmulatedAxis EmulatedAxis { get => _emulatedAxis; set => _emulatedAxis = value; }
@@ -41,20 +43,27 @@ namespace SWICD_Lib.Config
             Inverted = false;
         }
 
+        public EmulatedAxisConfig(SerializationInfo info, StreamingContext context)
+        {
+            Enum.TryParse(info.GetString("EmulatedAxis"), out _emulatedAxis);        
+            Enum.TryParse(info.GetString("ActivationButton"), out _activationButton);
+            Inverted = info.GetBoolean("Inverted");
+        }
+
         public EmulatedAxisConfig(string config)
         {
             string[] configs = config.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             Enum.TryParse(configs[0], out _emulatedAxis);
 
-            for(int i = 1; i < configs.Length; i++)
+            for (int i = 1; i < configs.Length; i++)
             {
                 string conf = configs[i];
-                if(conf.StartsWith("activate"))
+                if (conf.StartsWith("activate"))
                 {
                     Enum.TryParse(conf.Replace("activate=", ""), out _activationButton);
                 }
 
-                if(conf.StartsWith("invert"))
+                if (conf.StartsWith("invert"))
                 {
                     bool.TryParse(conf.Replace("inverted=", ""), out _inverted);
                 }
@@ -85,7 +94,14 @@ namespace SWICD_Lib.Config
 
         public object Clone()
         {
-           return new EmulatedAxisConfig(_emulatedAxis, _activationButton, _inverted);
+            return new EmulatedAxisConfig(_emulatedAxis, _activationButton, _inverted);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("EmulatedAxis", _emulatedAxis.ToString());
+            info.AddValue("ActivationButton", _activationButton.ToString());
+            info.AddValue("Inverted", _inverted);
         }
     }
 }
