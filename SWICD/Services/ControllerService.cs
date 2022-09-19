@@ -92,7 +92,7 @@ namespace SWICD.Services
 
             byte amplitude = 0, period = 0;
 
-            if(!profile.ProfileSettings.HapticFeedbackEnabled)
+            if(profile.ProfileSettings.HapticFeedbackEnabled)
             {
                 amplitude = profile.ProfileSettings.HapticFeedbackAmplitude;
                 period = profile.ProfileSettings.HapticFeedbackPeriod;
