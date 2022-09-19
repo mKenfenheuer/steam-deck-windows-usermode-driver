@@ -133,7 +133,10 @@ namespace SWICD.ViewModels
 
         private void OnServiceStartStop(object sender, bool e)
         {
-            DriverStatusText = e ? "Running" : "Stopped";
+            if (ControllerService.Instance.FailedInit)
+                DriverStatusText = "Failed to initialize. Check Log.";
+            else
+                DriverStatusText = e ? "Running" : "Stopped";
             DriverStatusColor = new SolidColorBrush(e ? Colors.Green : Colors.Red);
             NotifyPropertyChanged(nameof(DriverStatusText));
             NotifyPropertyChanged(nameof(DriverStatusColor));

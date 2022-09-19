@@ -2,6 +2,7 @@
 using SWICD.Commands;
 using SWICD.Config;
 using SWICD.Model;
+using SWICD.Pages;
 using SWICD.Services;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace SWICD.ViewModels
                 {
                     HardwareButtons = btns,
                     ButtonAction = action,
+                    OnDelete = OnDeleteButtonAction,
                     OnUpdate = OnUpdateButtonAction,
                 });
             };
@@ -40,11 +42,34 @@ namespace SWICD.ViewModels
 
         private void OnAddButtonAction()
         {
+            EditButtonActionWindow window = new EditButtonActionWindow(new ButtonActionModel()
+            {
+                HardwareButtons = new HardwareButton[] { HardwareButton.BtnSteam, HardwareButton.BtnQuickAccess},
+                ButtonAction = new ButtonAction()
+                {
+                    Type= "keyboard-shortcut",
+                    Data = "[LCTRL]+[LALT]+DELETE"
+                },
+                OnDelete = OnDeleteButtonAction,
+                OnUpdate = OnUpdateButtonAction,
 
+            });
+            window.ShowDialog();
+            ButtonActions.Add(window.GetResult());
         }
-        private void OnUpdateButtonAction(ButtonActionModel model)
-        {
 
+        private void OnDeleteButtonAction(ButtonActionModel obj)
+        {
+            ButtonActions.Remove(obj);
+        }
+
+        private void OnUpdateButtonAction(ButtonActionModel action)
+        {
+            _buttonActions.Clear();
+            foreach(var model in ButtonActions)
+            {
+                _buttonActions[model.HardwareButtons] = model.ButtonAction;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

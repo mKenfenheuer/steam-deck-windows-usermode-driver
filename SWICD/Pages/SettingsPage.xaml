@@ -363,6 +363,8 @@
                     </Button>
                 </Grid>
             </TabItem>
+            
+            <!--
             <TabItem
                     Header="HID Hiding"
                     FontSize="12"
@@ -396,7 +398,7 @@
                     <Label Grid.Column="2" Grid.Row="1" Foreground="White" Content="{Binding PeriodRight}" />
                     <Slider Grid.Column="3" Grid.Row="1" Value="{Binding PeriodRight}" Minimum="0" Maximum="30" />
                 </Grid>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
     </Grid>
 </Page>

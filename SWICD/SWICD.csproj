@@ -148,6 +148,9 @@
     <Compile Include="Pages\ButtonActions.xaml.cs">
       <DependentUpon>ButtonActions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\EditButtonActionWindow.xaml.cs">
+      <DependentUpon>EditButtonActionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TextInputWindow.xaml.cs">
       <DependentUpon>TextInputWindow.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\EditButtonActionWindowViewModel.cs" />
     <Compile Include="ViewModels\ProfileEditPageViewModel.cs" />
     <Compile Include="ViewModels\ButtonActionsViewModel.cs" />
     <Compile Include="ViewModels\TextInputWindowViewModel.cs" />
@@ -193,6 +197,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ButtonActions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\EditButtonActionWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

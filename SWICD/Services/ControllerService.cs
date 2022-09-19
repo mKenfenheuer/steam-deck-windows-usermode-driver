@@ -26,18 +26,30 @@ namespace SWICD.Services
 
         private KeyboardMouseInputMapper _keyboardMouseInputMapper = new KeyboardMouseInputMapper();
         internal KeyboardMouseInputMapper KeyboardMouseInputMapper => _keyboardMouseInputMapper;
+
+        public bool FailedInit { get; private set; }
+
         private ButtonActionsProcessor _buttonActionsProcessor = new ButtonActionsProcessor();
-        private NeptuneController _neptuneController = new NeptuneController();
+        private NeptuneController _neptuneController;
         private ViGEmClient _viGEmClient;
         private ControllerConfig _currentControllerConfig = new ControllerConfig();
         private IXbox360Controller _emulatedController;
         private Task _checkProcessesTask;
         private bool _running = true;
+        private ControllerConfig profile;
 
         public event EventHandler<bool> OnServiceStartStop;
 
         public ControllerService()
         {
+            try
+            {
+                _neptuneController = new NeptuneController();
+            } catch (Exception ex)
+            {
+                LoggingService.LogError($"Could not connect to Neptune controller.\r\n{ex}");
+                FailedInit = true;
+            }
             LoggingService.LogInformation($"Driver Version: {BuildVersionInfo.Version}");
             LoggingService.LogInformation($"Driver Build Time (UTC): {BuildVersionInfo.BuildTime}");
             ConfigLoader.TryMigrateConfiguration(Environment.SpecialFolder.MyDocuments, "SWICD", "app_config.conf");
@@ -52,15 +64,22 @@ namespace SWICD.Services
 
         private void InitEmuController()
         {
-            _viGEmClient = new ViGEmClient();
-            _emulatedController = _viGEmClient.CreateXbox360Controller();
-            _emulatedController.AutoSubmitReport = false;
-            _emulatedController.FeedbackReceived += EmulatedController_FeedbackReceived;
+            try
+            {
+                _viGEmClient = new ViGEmClient();
+                _emulatedController = _viGEmClient.CreateXbox360Controller();
+                _emulatedController.AutoSubmitReport = false;
+                _emulatedController.FeedbackReceived += EmulatedController_FeedbackReceived;
+            } catch(Exception ex)
+            {
+                LoggingService.LogError($"Could not connect to ViGEm Bus. Make sure its installed!\r\n{ex}");
+                FailedInit = true;
+            }
         }
 
         private void EnsureInitEmuController()
         {
-            if (_viGEmClient == null)
+            if (_viGEmClient == null && !FailedInit)
                 InitEmuController();
         }
 
@@ -68,15 +87,26 @@ namespace SWICD.Services
         private bool lastRightHapticOn = false;
         private void EmulatedController_FeedbackReceived(object sender, Xbox360FeedbackReceivedEventArgs e)
         {
+            if (profile == null)
+                return;
+
+            byte amplitude = 0, period = 0;
+
+            if(!profile.ProfileSettings.HapticFeedbackEnabled)
+            {
+                amplitude = profile.ProfileSettings.HapticFeedbackAmplitude;
+                period = profile.ProfileSettings.HapticFeedbackPeriod;
+            }
+            
             bool leftHaptic = e.LargeMotor > 0;
             bool rightHaptic = e.SmallMotor > 0;
 
             if (leftHaptic != lastLeftHapticOn)
-                _ = _neptuneController.SetHaptic(1, (ushort)(leftHaptic ? 9 : 0), (ushort)(leftHaptic ? 9 : 0), 0);
+                _ = _neptuneController.SetHaptic(1, (ushort)(leftHaptic ? amplitude : 0), (ushort)(leftHaptic ? period : 0), 0);
 
 
             if (rightHaptic != lastRightHapticOn)
-                _ = _neptuneController.SetHaptic(0, (ushort)(rightHaptic ? 9 : 0), (ushort)(rightHaptic ? 9 : 0), 0);
+                _ = _neptuneController.SetHaptic(0, (ushort)(rightHaptic ? amplitude : 0), (ushort)(rightHaptic ? period : 0), 0);
 
             lastLeftHapticOn = leftHaptic;
             lastRightHapticOn = rightHaptic;
@@ -89,7 +119,7 @@ namespace SWICD.Services
 
         private async Task CheckProcessesLoop()
         {
-            while (_running)
+            while (_running && !FailedInit)
             {
                 await CheckProcesses();
                 await Task.Delay(1000);
@@ -139,16 +169,18 @@ namespace SWICD.Services
                 }
 
 
-                var profile = Configuration.DefaultControllerConfig;
+                var _profile = Configuration.DefaultControllerConfig;
 
                 foreach (var process in list.OrderBy(p => p.ProcessName))
                 {
                     if (Configuration.PerProcessControllerConfig.ContainsKey($"{process.ProcessName}.exe"))
                     {
-                        profile = Configuration.PerProcessControllerConfig[$"{process.ProcessName}.exe"];
+                        _profile = Configuration.PerProcessControllerConfig[$"{process.ProcessName}.exe"];
                         break;
                     }
                 }
+
+                profile = _profile;
 
                 emulate = profile.ProfileSettings.GetInvertedEmulationEnabled(emulate);
 
@@ -189,6 +221,11 @@ namespace SWICD.Services
         public void Start()
         {
             EnsureInitEmuController();
+            if (FailedInit)
+            {
+                OnServiceStartStop?.Invoke(this, false);
+                return;
+            }
             _running = true;
             _checkProcessesTask = Task.Run(async () => await CheckProcessesLoop());
             _emulatedController.Connect();
@@ -202,8 +239,8 @@ namespace SWICD.Services
                 LoggingService.LogError($"Could not open neptune controller: {ex}");
             }
             Started = true;
-            LoggingService.LogInformation("Driver started.");
             OnServiceStartStop?.Invoke(this, true);
+            LoggingService.LogInformation("Driver started.");
         }
 
         public void Stop()
@@ -226,6 +263,9 @@ namespace SWICD.Services
         DateTime lastHapticUpdate = DateTime.UtcNow;
         private void HandleInput(NeptuneControllerInputState state)
         {
+            if (FailedInit)
+                return;
+
             _emulatedController.ResetReport();
 
             if (EmulationEnabled)

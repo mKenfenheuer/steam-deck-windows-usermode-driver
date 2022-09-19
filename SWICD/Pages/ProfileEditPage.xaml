@@ -21,10 +21,12 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition  Width="200"/>
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -87,10 +89,17 @@
                Grid.Column="0"
                Content="Disable Lizard Mode" />
 
+
+        <Label Foreground="#fff" 
+               FontSize="12" 
+               Grid.Row="3" 
+               Grid.Column="0"
+               Content="Haptic Feedback" />
+
         <Label Foreground="#fff" 
                FontSize="14" 
                FontWeight="Bold"
-               Grid.Row="3" 
+               Grid.Row="4" 
                Grid.Column="0" 
                Grid.ColumnSpan="3"
                Content="Mappings" />
@@ -98,7 +107,7 @@
 
         <CheckBox 
             Grid.Column="1" 
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="1"
             Grid.Row="2" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
@@ -106,10 +115,29 @@
             Foreground="#fff"
             Content="{Binding DisableLizardMouseText}"
             IsChecked="{Binding DisableLizardMouse, Mode=TwoWay}" />
-        
+
         <CheckBox 
-            Grid.Column="3" 
-            Grid.ColumnSpan="2"
+            Grid.Column="1" 
+            Grid.ColumnSpan="1"
+            Grid.Row="3" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Margin="10,0,0,0"
+            Foreground="#fff"
+            Content="{Binding HapticfeedbackEnabledText}"
+            IsChecked="{Binding HapticFeedbackEnabled, Mode=TwoWay}" />
+
+
+
+        <Label Grid.Row="3" Grid.Column="2" Foreground="White" Content="{Binding HapticFeedbackAmplitudeText}" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+        <Slider Grid.Row="3" Grid.Column="3" Value="{Binding HapticFeedbackAmplitude}" Minimum="0" Maximum="30" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+
+        <Label Grid.Row="3" Grid.Column="4" Foreground="White" Content="{Binding HapticFeedbackPeriodText}" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+        <Slider Grid.Row="3" Grid.Column="5" Value="{Binding HapticFeedbackPeriod}" Minimum="0" Maximum="30" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+
+        <CheckBox 
+            Grid.Column="2" 
+            Grid.ColumnSpan="3"
             Grid.Row="2" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
@@ -120,8 +148,8 @@
 
 
         <TabControl            
-                Grid.Row="4"
-                Grid.ColumnSpan="5"
+                Grid.Row="5"
+                Grid.ColumnSpan="6"
                 BorderThickness="0"
                 BorderBrush="#1B1B1B"
                 Background="#1B1B1B"
@@ -172,7 +200,7 @@
                            Foreground="#fff"
                            FontSize="14"
                            Grid.Column="0"
-                           Grid.ColumnSpan="2"
+                           Grid.ColumnSpan="3"
                            FontWeight="SemiBold"/>
 
                     <Label Content="Emulated Axis"
@@ -183,8 +211,7 @@
 
 
                     <Label Content="Activation Button"
-                           Grid.Column="3"
-                           Grid.ColumnSpan="2"
+                           Grid.Column="4"
                            Foreground="#fff"
                            FontSize="14"
                            FontWeight="SemiBold"/>

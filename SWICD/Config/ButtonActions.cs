@@ -61,5 +61,10 @@ namespace SWICD.Config
                 { }
             }
         }
+
+        internal void Clear()
+        {
+            _actions.Clear();
+        }
     }
 }

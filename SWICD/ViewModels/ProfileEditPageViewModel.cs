@@ -48,6 +48,39 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(DisableLizardMouseText));
             }
         }
+
+        public bool HapticFeedbackEnabled
+        {
+            get => ControllerConfig.ProfileSettings.HapticFeedbackEnabled;
+            set
+            {
+                ControllerConfig.ProfileSettings.HapticFeedbackEnabled = value;
+                NotifyPropertyChanged(nameof(HapticfeedbackEnabledText));
+            }
+        }
+
+        public byte HapticFeedbackPeriod
+        {
+            get => ControllerConfig.ProfileSettings.HapticFeedbackPeriod;
+            set
+            {
+                ControllerConfig.ProfileSettings.HapticFeedbackPeriod = value;
+                NotifyPropertyChanged(nameof(HapticFeedbackPeriodText));
+            }
+        }
+
+        public byte HapticFeedbackAmplitude
+        {
+            get => ControllerConfig.ProfileSettings.HapticFeedbackAmplitude;
+            set
+            {
+                ControllerConfig.ProfileSettings.HapticFeedbackAmplitude = value;
+                NotifyPropertyChanged(nameof(HapticFeedbackAmplitudeText));
+            }
+        }
+        public string HapticFeedbackPeriodText => $"Period ({HapticFeedbackPeriod})";
+        public string HapticFeedbackAmplitudeText => $"Amplitude ({HapticFeedbackAmplitude})";
+        public string HapticfeedbackEnabledText => !HapticFeedbackEnabled ? "Haptic Feedback Disabled" : "Haptic Feedback Enabled";
         public string DisableLizardMouseText => DisableLizardMouse ? "Mouse Movement Disabled" : " Mouse Movement Enabled";
 
         public bool DisableLizardButtons

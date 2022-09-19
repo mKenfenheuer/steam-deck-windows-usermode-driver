@@ -137,6 +137,7 @@
                                 <ColumnDefinition Width="1"/>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="60"/>
                             </Grid.ColumnDefinitions>
 
                             <Label Content="{Binding TriggerText}" 
@@ -158,7 +159,7 @@
                                 HorizontalContentAlignment="Left"
                                 Foreground="#fff"
                                 Command="{Binding EditButtonActionClickedCommand}"
-                                CommandParameter="{Binding .}">          
+                                CommandParameter="{Binding .}">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="Background" Value="#303030"/>
@@ -180,6 +181,40 @@
                                 </Button.Style>
                                 <Button.Content>
                                     <Label Content="Edit" 
+                                         FontSize="16"
+                                         Foreground="#fff"
+                                         Margin="5,0,0,0"
+                                         Padding="0"/>
+                                </Button.Content>
+                            </Button>
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                HorizontalContentAlignment="Left"
+                                Foreground="#fff"
+                                Command="{Binding DeleteButtonActionClickedCommand}"
+                                CommandParameter="{Binding .}">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Background" Value="#902c2c"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="{TemplateBinding Background}">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#c02c2c"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Content>
+                                    <Label Content="Delete" 
                                          FontSize="16"
                                          Foreground="#fff"
                                          Margin="5,0,0,0"

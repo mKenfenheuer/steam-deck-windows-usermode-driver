@@ -7,6 +7,9 @@ namespace SWICD.Config
     {
         public bool DisableLizardMouse { get; set; }
         public bool DisableLizardButtons { get; set; }
+        public bool HapticFeedbackEnabled { get; set; }
+        public byte HapticFeedbackAmplitude { get; set; }
+        public byte HapticFeedbackPeriod { get; set; }
 
         [JsonIgnore]
         public bool ToggleInvertLizardMode { get; set; }
@@ -26,7 +29,10 @@ namespace SWICD.Config
             return new ProfileSettings()
             {
                 DisableLizardMouse = DisableLizardMouse,
-                DisableLizardButtons = DisableLizardButtons
+                DisableLizardButtons = DisableLizardButtons,
+                HapticFeedbackEnabled = HapticFeedbackEnabled,
+                HapticFeedbackAmplitude = HapticFeedbackAmplitude,
+                HapticFeedbackPeriod = HapticFeedbackPeriod,
             };
         }
 
@@ -34,8 +40,10 @@ namespace SWICD.Config
         {
             return obj is ProfileSettings settings &&
                    DisableLizardMouse == settings.DisableLizardMouse &&
-                   DisableLizardButtons == settings.DisableLizardButtons;
-                
+                   DisableLizardButtons == settings.DisableLizardButtons &&
+                   HapticFeedbackEnabled == settings.HapticFeedbackEnabled &&
+                   HapticFeedbackAmplitude == settings.HapticFeedbackAmplitude &&
+                   HapticFeedbackPeriod == settings.HapticFeedbackPeriod;
         }
     }
 }
