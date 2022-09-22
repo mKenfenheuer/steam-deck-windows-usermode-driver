@@ -115,6 +115,8 @@ namespace SWICD.ViewModels
 
             SelectedNavigationItem = NavigationItems.First();
             NotifyPropertyChanged(nameof(SelectedNavigationItem));
+
+            ApiServer.Instance.StartServer();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

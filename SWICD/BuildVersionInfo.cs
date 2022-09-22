@@ -8,7 +8,7 @@ namespace SWICD
 {
     internal class BuildVersionInfo
     {
-        public static string Version => "v0.2.8-189d923-debug";
-        public static DateTime BuildTime => new DateTime(637992097717826429);
+        public static string Version => "v0.3.0-0dc3c0b-release";
+        public static DateTime BuildTime => new DateTime(637994719237296526);
     }
 }

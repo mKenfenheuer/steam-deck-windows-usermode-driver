@@ -29,8 +29,11 @@ namespace SWICD.Pages
     {
         NotifyIcon _nIcon = new NotifyIcon(new Container());
         bool _canClose = false;
+
+        public static MainWindow Instance { get; private set; }
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
             _nIcon.Icon = AppResources.app_icon;
             _nIcon.Text = "SWICD Driver";
