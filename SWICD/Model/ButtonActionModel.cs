@@ -25,7 +25,11 @@ namespace SWICD.Model
                     case "keyboard-shortcut":
                         return ButtonAction.Data;
                     case "toggle-lizardmode":
-                        return "Toggle Lizardmode";
+                        return "Toggle Mouse Lizardmode";
+                    case "toggle-lizardbuttons":
+                        return "Toggle Buttons Lizardmode";
+                    case "toggle-lizardbuttons+mouse":
+                        return "Toggle Buttons & Mouse Lizardmode";
                     case "toggle-emulation":
                         return "Toggle Emulation";
                     case "toggle-lizardmode+emulation":

@@ -28,8 +28,16 @@ namespace SWICD.Services
                             case "toggle-lizardmode":
                                 currentConfig.ProfileSettings.ToggleInvertLizardMode = !currentConfig.ProfileSettings.ToggleInvertLizardMode;
                                 break;
+                            case "toggle-lizardbuttons":
+                                currentConfig.ProfileSettings.ToggleInvertLizardButtons = !currentConfig.ProfileSettings.ToggleInvertLizardButtons;
+                                break;
+                            case "toggle-lizardbuttons+mouse":
+                                currentConfig.ProfileSettings.ToggleInvertLizardMode = !currentConfig.ProfileSettings.ToggleInvertLizardMode;
+                                currentConfig.ProfileSettings.ToggleInvertLizardButtons = !currentConfig.ProfileSettings.ToggleInvertLizardButtons;
+                                break;
                             case "toggle-lizardmode+emulation":
                                 currentConfig.ProfileSettings.ToggleInvertLizardMode = !currentConfig.ProfileSettings.ToggleInvertLizardMode;
+                                currentConfig.ProfileSettings.ToggleInvertLizardButtons = !currentConfig.ProfileSettings.ToggleInvertLizardButtons;
                                 currentConfig.ProfileSettings.ToggleInvertEmulationActive = !currentConfig.ProfileSettings.ToggleInvertEmulationActive;
                                 break;
                             case "toggle-emulation":
