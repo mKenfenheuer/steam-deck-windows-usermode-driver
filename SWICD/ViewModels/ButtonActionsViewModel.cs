@@ -44,10 +44,10 @@ namespace SWICD.ViewModels
         {
             EditButtonActionWindow window = new EditButtonActionWindow(new ButtonActionModel()
             {
-                HardwareButtons = new HardwareButton[] { HardwareButton.BtnSteam, HardwareButton.BtnQuickAccess},
+                HardwareButtons = new HardwareButton[] { HardwareButton.BtnSteam, HardwareButton.BtnQuickAccess },
                 ButtonAction = new ButtonAction()
                 {
-                    Type= "keyboard-shortcut",
+                    Type = "keyboard-shortcut",
                     Data = "[LCTRL]+[LALT]+DELETE"
                 },
                 OnDelete = OnDeleteButtonAction,
@@ -55,18 +55,25 @@ namespace SWICD.ViewModels
 
             });
             window.ShowDialog();
-            ButtonActions.Add(window.GetResult());
+            var action = window.GetResult();
+            ButtonActions.Add(action);
+            OnUpdateButtonAction(action);
         }
 
         private void OnDeleteButtonAction(ButtonActionModel obj)
         {
             ButtonActions.Remove(obj);
+            _buttonActions.Clear();
+            foreach (var model in ButtonActions)
+            {
+                _buttonActions[model.HardwareButtons] = model.ButtonAction;
+            }
         }
 
         private void OnUpdateButtonAction(ButtonActionModel action)
         {
             _buttonActions.Clear();
-            foreach(var model in ButtonActions)
+            foreach (var model in ButtonActions)
             {
                 _buttonActions[model.HardwareButtons] = model.ButtonAction;
             }
