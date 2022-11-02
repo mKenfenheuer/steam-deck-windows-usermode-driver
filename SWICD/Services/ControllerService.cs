@@ -21,6 +21,7 @@ namespace SWICD.Services
         public string DecisionExecutable { get; private set; }
         public bool LizardMouseEnabled { get => _neptuneController.LizardMouseEnabled; private set => _neptuneController.LizardMouseEnabled = value; }
         public bool LizardButtonsEnabled { get => _neptuneController.LizardButtonsEnabled; private set => _neptuneController.LizardButtonsEnabled = value; }
+        public bool HapticsEnabled { get; private set; }
         public bool Started { get; private set; }
         public Configuration Configuration { get; internal set; }
 
@@ -92,7 +93,7 @@ namespace SWICD.Services
 
             byte amplitude = 0, period = 0;
 
-            if(profile.ProfileSettings.HapticFeedbackEnabled)
+            if(profile.ProfileSettings.HapticFeedbackEnabled && HapticsEnabled)
             {
                 amplitude = profile.ProfileSettings.HapticFeedbackAmplitude;
                 period = profile.ProfileSettings.HapticFeedbackPeriod;
@@ -204,6 +205,11 @@ namespace SWICD.Services
                 {
                     LizardButtonsEnabled = !_currentControllerConfig.ProfileSettings.ToggledDisableLizardButtons;
                     LoggingService.LogDebug($"LizardButtonsEnabled changed to: {LizardButtonsEnabled}");
+                }
+                if (HapticsEnabled != !_currentControllerConfig.ProfileSettings.ToggledDisableHaptics)
+                {
+                    HapticsEnabled = !_currentControllerConfig.ProfileSettings.ToggledDisableHaptics;
+                    LoggingService.LogDebug($"Controller Rumble changed to: {HapticsEnabled}");
                 }
             }
             catch (Exception ex)

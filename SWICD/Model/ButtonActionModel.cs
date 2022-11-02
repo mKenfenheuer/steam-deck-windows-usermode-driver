@@ -24,6 +24,8 @@ namespace SWICD.Model
                 {
                     case "keyboard-shortcut":
                         return ButtonAction.Data;
+                    case "toggle-haptics":
+                        return "Toggle Controller Rumble";
                     case "toggle-lizardmode":
                         return "Toggle Mouse Lizardmode";
                     case "toggle-lizardbuttons":

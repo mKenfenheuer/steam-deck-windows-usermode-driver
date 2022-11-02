@@ -54,6 +54,24 @@ namespace SWICD.ViewModels
                     Type = "keyboard-shortcut";
                 NotifyPropertyChanged(nameof(Type));
                 NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
+                NotifyPropertyChanged(nameof(IsLizardToggle));
+                NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
+                NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
+                NotifyPropertyChanged(nameof(IsEmulationToggle));
+                NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+            }
+        }
+        public bool IsHapticsToggle
+        {
+            get => Type == "toggle-haptics";
+            set
+            {
+                if (value)
+                    Type = "toggle-haptics";
+                NotifyPropertyChanged(nameof(Type));
+                NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
@@ -70,6 +88,7 @@ namespace SWICD.ViewModels
                     Type = "toggle-lizardmode";
                 NotifyPropertyChanged(nameof(Type));
                 NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
@@ -86,6 +105,7 @@ namespace SWICD.ViewModels
                     Type = "toggle-lizardbuttons";
                 NotifyPropertyChanged(nameof(Type));
                 NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
@@ -102,6 +122,7 @@ namespace SWICD.ViewModels
                     Type = "toggle-lizardbuttons+mouse";
                 NotifyPropertyChanged(nameof(Type));
                 NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
@@ -118,6 +139,7 @@ namespace SWICD.ViewModels
                     Type = "toggle-emulation";
                 NotifyPropertyChanged(nameof(Type));
                 NotifyPropertyChanged(nameof(IsKeyboardAction));
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
@@ -132,6 +154,7 @@ namespace SWICD.ViewModels
             {
                 if (value)
                     Type = "toggle-lizardmode+emulation";
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
                 NotifyPropertyChanged(nameof(IsLizardToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));

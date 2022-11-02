@@ -25,6 +25,9 @@ namespace SWICD.Services
                             case "keyboard-shortcut":
                                 ControllerService.Instance.KeyboardMouseInputMapper.ExecuteKeyboardAction(buttonAction.Data);
                                 break;
+                            case "toggle-haptics":
+                                currentConfig.ProfileSettings.ToggleInvertHaptics = !currentConfig.ProfileSettings.ToggleInvertHaptics;
+                                break;
                             case "toggle-lizardmode":
                                 currentConfig.ProfileSettings.ToggleInvertLizardMode = !currentConfig.ProfileSettings.ToggleInvertLizardMode;
                                 break;
