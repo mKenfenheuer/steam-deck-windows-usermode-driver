@@ -1,5 +1,7 @@
 # Steamdeck Windows Controller Driver
+This forks adds new features to original SWICD and also fixes some bugs. Once tested, I will create a pull request to the main repos and hope the author to accept the new features.
 **S**teamdeck **WI**ndows **C**ontroller **D**river (SWICD)
+
 
 This work-in-progress driver maps the Steam deck's built-in controller to a virtual ViGEm XBox 360 Controller. The layout is customizeable using the gui.
 
