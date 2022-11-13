@@ -21,9 +21,15 @@ namespace SWICD.Config
         public bool ToggleInvertLizardButtons { get; set; }
 
         [JsonIgnore]
+        public bool ToggleInvertHaptics { get; set; }
+
+        [JsonIgnore]
         public bool ToggledDisableLizardMouse => ToggleInvertLizardMode && !DisableLizardMouse ? !DisableLizardMouse : DisableLizardMouse;
         [JsonIgnore]
         public bool ToggledDisableLizardButtons => ToggleInvertLizardButtons && !DisableLizardButtons ? !DisableLizardButtons : DisableLizardButtons;
+
+        [JsonIgnore]
+        public bool ToggledDisableHaptics => ToggleInvertHaptics && HapticFeedbackEnabled ? HapticFeedbackEnabled : !HapticFeedbackEnabled;
 
         public bool GetInvertedEmulationEnabled(bool enabled) => ToggleInvertEmulationActive ? !enabled : enabled;
 
