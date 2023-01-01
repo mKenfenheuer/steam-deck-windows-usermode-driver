@@ -773,7 +773,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)..\..\MSBuild\Current\Bin\msbuild.exe" $(SolutionDir)Setup\SetupBuildVersionInfo\SetupBuildVersionInfo.csproj /p:configuration=$(ConfigurationName)
-</PreBuildEvent>
+"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-assembly-info $(SolutionDir)SWICD\Properties\AssemblyInfo.cs
+"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-build-info $(SolutionDir)SWICD\BuildVersionInfo.cs</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
