@@ -36,6 +36,8 @@ namespace SWICD.Model
                         return "Toggle Emulation";
                     case "toggle-lizardmode+emulation":
                         return "Toggle Lizardmode & Emulation";
+                    case "toggle-onscreenkeyboard":
+                        return "Toggle OnScreenKeyboard";
                     default:
                         return "Unknown?!";
                 }

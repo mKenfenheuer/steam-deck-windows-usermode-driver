@@ -48,6 +48,15 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(DisableLizardMouseText));
             }
         }
+        public bool OnScreenKeyboardEnabled
+        {
+            get => ControllerConfig.ProfileSettings.OnScreenKeyboardEnabled;
+            set
+            {
+                ControllerConfig.ProfileSettings.OnScreenKeyboardEnabled = value;
+                NotifyPropertyChanged(nameof(OnScreenKeyboardEnabledText));
+            }
+        }
 
         public bool HapticFeedbackEnabled
         {
@@ -82,6 +91,7 @@ namespace SWICD.ViewModels
         public string HapticFeedbackAmplitudeText => $"Amplitude ({HapticFeedbackAmplitude})";
         public string HapticfeedbackEnabledText => !HapticFeedbackEnabled ? "Haptic Feedback Disabled" : "Haptic Feedback Enabled";
         public string DisableLizardMouseText => DisableLizardMouse ? "Mouse Movement Disabled" : " Mouse Movement Enabled";
+        public string OnScreenKeyboardEnabledText => !OnScreenKeyboardEnabled ? "On Screen Keyboard Disabled" : " On Screen Keyboard Enabled";
 
         public bool DisableLizardButtons
         {

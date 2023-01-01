@@ -22,6 +22,7 @@
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -99,7 +100,7 @@
         <Label Foreground="#fff" 
                FontSize="14" 
                FontWeight="Bold"
-               Grid.Row="4" 
+               Grid.Row="5" 
                Grid.Column="0" 
                Grid.ColumnSpan="3"
                Content="Mappings" />
@@ -148,7 +149,7 @@
 
 
         <TabControl            
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.ColumnSpan="6"
                 BorderThickness="0"
                 BorderBrush="#1B1B1B"
@@ -577,6 +578,21 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Label Foreground="#fff" 
+            FontSize="12" 
+            Grid.Row="4" 
+            Grid.Column="0"
+            Content="On Screen Keyboard" />
+        <CheckBox 
+            Grid.Column="1" 
+            Grid.ColumnSpan="1"
+            Grid.Row="4"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" 
+            Margin="10,0,0,0"
+            Foreground="#fff"
+            Content="{Binding OnScreenKeyboardEnabledText}"
+            IsChecked="{Binding OnScreenKeyboardEnabled, Mode=TwoWay}" />
 
     </Grid>
 </Page>

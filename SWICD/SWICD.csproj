@@ -68,6 +68,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GameOverlay, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GameOverlay.Net.4.3.1\lib\net48\GameOverlay.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.dll</HintPath>
     </Reference>
@@ -356,6 +359,15 @@
     <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.1\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Direct2D1.4.2.0\lib\net45\SharpDX.Direct2D1.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DXGI.4.2.0\lib\net45\SharpDX.DXGI.dll</HintPath>
+    </Reference>
     <Reference Include="Swashbuckle.AspNetCore.Swagger, Version=6.4.0.0, Culture=neutral, PublicKeyToken=62657d7474907593, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.AspNetCore.Swagger.6.4.0\lib\netstandard2.0\Swashbuckle.AspNetCore.Swagger.dll</HintPath>
     </Reference>
@@ -616,6 +628,8 @@
     <Compile Include="Model\GitHubTag.cs" />
     <Compile Include="Model\LogEntryModel.cs" />
     <Compile Include="Model\NavigationItemModel.cs" />
+    <Compile Include="OSK\Overlay.cs" />
+    <Compile Include="OSK\TouchInjector.cs" />
     <Compile Include="Pages\DriverStatusPage.xaml.cs">
       <DependentUpon>DriverStatusPage.xaml</DependentUpon>
     </Compile>
@@ -646,6 +660,7 @@
     <Compile Include="Services\KeyboardMouseInputMapper.cs" />
     <Compile Include="Services\InputMapper.cs" />
     <Compile Include="Services\LoggingService.cs" />
+    <Compile Include="Services\OnScreenKeyboardProcessor.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\EditButtonActionWindowViewModel.cs" />
@@ -730,6 +745,10 @@
       <Project>{f7283783-81ef-4cd2-bd86-598fe193c11f}</Project>
       <Name>neptune-hidapi.net</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libraries\osklib\Osklib\Osklib.csproj">
+      <Project>{7a21fc44-fe37-49f8-bcaf-1d1bbbff874b}</Project>
+      <Name>Osklib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\app_icon_off.ico" />
@@ -754,8 +773,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(DevEnvDir)..\..\MSBuild\Current\Bin\msbuild.exe" $(SolutionDir)Setup\SetupBuildVersionInfo\SetupBuildVersionInfo.csproj /p:configuration=$(ConfigurationName)
-"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-assembly-info $(SolutionDir)SWICD\Properties\AssemblyInfo.cs
-"$(SolutionDir)Setup\SetupBuildVersionInfo\bin\$(ConfigurationName)\SetupBuildVersionInfo.exe" write-build-info $(SolutionDir)SWICD\BuildVersionInfo.cs</PreBuildEvent>
+</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

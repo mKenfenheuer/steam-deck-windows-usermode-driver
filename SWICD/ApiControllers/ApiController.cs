@@ -30,6 +30,7 @@ namespace SWICD.ApiControllers
                 ControllerService.Instance.DecisionExecutable,
                 ControllerService.Instance.LizardMouseEnabled,
                 ControllerService.Instance.LizardButtonsEnabled,
+                ControllerService.Instance.OnScreenKeyboardEnabled,
                 ControllerService.Instance.Started
             }), "text/json");
         }

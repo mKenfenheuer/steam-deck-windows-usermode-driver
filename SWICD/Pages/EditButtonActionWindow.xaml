@@ -202,10 +202,18 @@
                      Content="Keyboard Shortcut"
                      Grid.Row="8"
                      Grid.Column="1" />
+        
+        <RadioButton GroupName="action"
+                     Foreground="#fff"
+                     VerticalAlignment="Center"
+                     IsChecked="{Binding IsOnScreenKeyboardToggle, Mode=TwoWay}"
+                     Content="Toggle OnScreenKeyboard on/off"
+                     Grid.Row="9"
+                     Grid.Column="1" />
 
         <Label Foreground="#fff"
                FontWeight="SemiBold"
-               Grid.Row="9" 
+               Grid.Row="10" 
                Grid.Column="1" 
                Grid.ColumnSpan="1"
                VerticalAlignment="Center"
@@ -215,7 +223,7 @@
 
         <ComboBox
                 Grid.Column="2"
-                Grid.Row="9"
+                Grid.Row="10"
                 Grid.ColumnSpan="1"
                 FontFamily="{DynamicResource PromptFont}"
                 FontSize="30"
@@ -224,7 +232,7 @@
                 ItemsSource="{Binding KeyboardItems}"/>
 
         <Button
-            Grid.Row="9"
+            Grid.Row="10"
             Grid.Column="3"
             HorizontalContentAlignment="Left"
             Foreground="#fff"
@@ -257,7 +265,7 @@
             </Button.Content>
         </Button>
         <Button
-            Grid.Row="9"
+            Grid.Row="10"
             Grid.Column="4"
             HorizontalContentAlignment="Left"
             Foreground="#fff"

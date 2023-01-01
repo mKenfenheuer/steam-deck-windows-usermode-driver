@@ -46,6 +46,9 @@ namespace SWICD.Services
                             case "toggle-emulation":
                                 currentConfig.ProfileSettings.ToggleInvertEmulationActive = !currentConfig.ProfileSettings.ToggleInvertEmulationActive;
                                 break;
+                            case "toggle-onscreenkeyboard":
+                                ControllerService.Instance.OnScreenKeyboardProcessor.ToggleOnScreenKeyboard();
+                                break;
                         }
                     }
                 }

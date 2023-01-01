@@ -60,6 +60,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsHapticsToggle
@@ -77,6 +78,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsLizardToggle
@@ -94,6 +96,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsLizardButtonsToggle
@@ -111,6 +114,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsLizardButtonsMouseToggle
@@ -128,6 +132,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsEmulationToggle
@@ -145,6 +150,7 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
         public bool IsLizardEmulationToggle
@@ -160,6 +166,23 @@ namespace SWICD.ViewModels
                 NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
                 NotifyPropertyChanged(nameof(IsEmulationToggle));
                 NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
+            }
+        }
+        public bool IsOnScreenKeyboardToggle
+        {
+            get => Type == "toggle-onscreenkeyboard";
+            set
+            {
+                if (value)
+                    Type = "toggle-onscreenkeyboard";
+                NotifyPropertyChanged(nameof(IsHapticsToggle));
+                NotifyPropertyChanged(nameof(IsLizardToggle));
+                NotifyPropertyChanged(nameof(IsLizardButtonsToggle));
+                NotifyPropertyChanged(nameof(IsLizardButtonsMouseToggle));
+                NotifyPropertyChanged(nameof(IsEmulationToggle));
+                NotifyPropertyChanged(nameof(IsLizardEmulationToggle));
+                NotifyPropertyChanged(nameof(IsOnScreenKeyboardToggle));
             }
         }
 

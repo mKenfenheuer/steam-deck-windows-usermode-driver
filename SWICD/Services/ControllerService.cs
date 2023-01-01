@@ -22,11 +22,14 @@ namespace SWICD.Services
         public bool LizardMouseEnabled { get => _neptuneController.LizardMouseEnabled; private set => _neptuneController.LizardMouseEnabled = value; }
         public bool LizardButtonsEnabled { get => _neptuneController.LizardButtonsEnabled; private set => _neptuneController.LizardButtonsEnabled = value; }
         public bool HapticsEnabled { get; private set; }
+        public bool OnScreenKeyboardEnabled { get; private set; }
         public bool Started { get; private set; }
         public Configuration Configuration { get; internal set; }
 
         private KeyboardMouseInputMapper _keyboardMouseInputMapper = new KeyboardMouseInputMapper();
         internal KeyboardMouseInputMapper KeyboardMouseInputMapper => _keyboardMouseInputMapper;
+        private OnScreenKeyboardProcessor _onScreenKeyboardProcessor = new OnScreenKeyboardProcessor();
+        internal OnScreenKeyboardProcessor OnScreenKeyboardProcessor => _onScreenKeyboardProcessor;
 
         public bool FailedInit { get; private set; }
 
@@ -211,6 +214,12 @@ namespace SWICD.Services
                     HapticsEnabled = !_currentControllerConfig.ProfileSettings.ToggledDisableHaptics;
                     LoggingService.LogDebug($"Controller Rumble changed to: {HapticsEnabled}");
                 }
+                if (OnScreenKeyboardEnabled != _currentControllerConfig.ProfileSettings.OnScreenKeyboardEnabled)
+                {
+                    OnScreenKeyboardEnabled = _currentControllerConfig.ProfileSettings.OnScreenKeyboardEnabled;
+                    OnScreenKeyboardProcessor.SetOnScreenState(OnScreenKeyboardEnabled);
+                    LoggingService.LogDebug($"OnScreenKeyboard changed to: {OnScreenKeyboardEnabled}");
+                }
             }
             catch (Exception ex)
             {
@@ -244,6 +253,7 @@ namespace SWICD.Services
             {
                 LoggingService.LogError($"Could not open neptune controller: {ex}");
             }
+
             Started = true;
             OnServiceStartStop?.Invoke(this, true);
             LoggingService.LogInformation("Driver started.");
@@ -286,6 +296,11 @@ namespace SWICD.Services
             }
 
             _buttonActionsProcessor.ProcessInput(Configuration.ButtonActions, _currentControllerConfig, state);
+
+            if(OnScreenKeyboardEnabled)
+            {
+                OnScreenKeyboardProcessor.MapTouchPadInput(_currentControllerConfig, state);
+            }
 
             _emulatedController.SubmitReport();
 

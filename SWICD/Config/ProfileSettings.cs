@@ -10,6 +10,7 @@ namespace SWICD.Config
         public bool HapticFeedbackEnabled { get; set; }
         public byte HapticFeedbackAmplitude { get; set; }
         public byte HapticFeedbackPeriod { get; set; }
+        public bool OnScreenKeyboardEnabled { get; set; }
 
         [JsonIgnore]
         public bool ToggleInvertLizardMode { get; set; }
@@ -24,12 +25,17 @@ namespace SWICD.Config
         public bool ToggleInvertHaptics { get; set; }
 
         [JsonIgnore]
+        public bool ToggleInvertOnScreenKeyboard { get; set; }
+
+        [JsonIgnore]
         public bool ToggledDisableLizardMouse => ToggleInvertLizardMode && !DisableLizardMouse ? !DisableLizardMouse : DisableLizardMouse;
         [JsonIgnore]
         public bool ToggledDisableLizardButtons => ToggleInvertLizardButtons && !DisableLizardButtons ? !DisableLizardButtons : DisableLizardButtons;
 
         [JsonIgnore]
         public bool ToggledDisableHaptics => ToggleInvertHaptics && HapticFeedbackEnabled ? HapticFeedbackEnabled : !HapticFeedbackEnabled;
+        [JsonIgnore]
+        public bool ToggledDisableOnScreenKeyboard => ToggleInvertOnScreenKeyboard && OnScreenKeyboardEnabled ? OnScreenKeyboardEnabled : !OnScreenKeyboardEnabled;
 
         public bool GetInvertedEmulationEnabled(bool enabled) => ToggleInvertEmulationActive ? !enabled : enabled;
 
@@ -42,6 +48,7 @@ namespace SWICD.Config
                 HapticFeedbackEnabled = HapticFeedbackEnabled,
                 HapticFeedbackAmplitude = HapticFeedbackAmplitude,
                 HapticFeedbackPeriod = HapticFeedbackPeriod,
+                OnScreenKeyboardEnabled = OnScreenKeyboardEnabled,
             };
         }
 
@@ -52,7 +59,8 @@ namespace SWICD.Config
                    DisableLizardButtons == settings.DisableLizardButtons &&
                    HapticFeedbackEnabled == settings.HapticFeedbackEnabled &&
                    HapticFeedbackAmplitude == settings.HapticFeedbackAmplitude &&
-                   HapticFeedbackPeriod == settings.HapticFeedbackPeriod;
+                   HapticFeedbackPeriod == settings.HapticFeedbackPeriod &&
+                   OnScreenKeyboardEnabled == settings.OnScreenKeyboardEnabled;
         }
     }
 }
