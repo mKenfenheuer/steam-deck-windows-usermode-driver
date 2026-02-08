@@ -1,0 +1,267 @@
+<Window x:Class="SWICD.Pages.KeyboardPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Select Key" Height="500" Width="1050"
+        Background="#1B1B1B"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style x:Key="KeyButton" TargetType="Button">
+            <Setter Property="Background" Value="#3c3c3c"/>
+            <Setter Property="Foreground" Value="#fff"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="MinWidth" Value="44"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="4,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="4"
+                                BorderThickness="1"
+                                BorderBrush="#555">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#5a5a5a"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NoneButton" TargetType="Button" BasedOn="{StaticResource KeyButton}">
+            <Setter Property="Background" Value="#902c2c"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#b03c3c"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ModifierButton" TargetType="Button" BasedOn="{StaticResource KeyButton}">
+            <Setter Property="Background" Value="#2a4a6b"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3a6a9b"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Row 0: Function keys -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource KeyButton}" Content="Esc" Tag="ESCAPE" Click="KeyButton_Click"/>
+            <Rectangle Width="20"/>
+            <Button Style="{StaticResource KeyButton}" Content="F1" Tag="F1" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F2" Tag="F2" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F3" Tag="F3" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F4" Tag="F4" Click="KeyButton_Click"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="F5" Tag="F5" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F6" Tag="F6" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F7" Tag="F7" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F8" Tag="F8" Click="KeyButton_Click"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="F9" Tag="F9" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F10" Tag="F10" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F11" Tag="F11" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F12" Tag="F12" Click="KeyButton_Click"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="PrtSc" Tag="PRINTSCREEN" Click="KeyButton_Click" FontSize="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="ScrLk" Tag="SCROLLLOCK" Click="KeyButton_Click" FontSize="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="Pause" Tag="PAUSE" Click="KeyButton_Click" FontSize="10"/>
+        </StackPanel>
+
+        <!-- Row 1: Number row -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource KeyButton}" Content="`" Tag="`" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="1" Tag="1" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="2" Tag="2" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="3" Tag="3" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="4" Tag="4" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="5" Tag="5" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="6" Tag="6" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="7" Tag="7" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="8" Tag="8" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="9" Tag="9" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="0" Tag="0" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="-" Tag="-" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="=" Tag="=" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Backspace" Tag="BACKSPACE" Click="KeyButton_Click" MinWidth="88"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="Ins" Tag="INSERT" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Home" Tag="HOME" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="PgUp" Tag="PAGEUP" Click="KeyButton_Click"/>
+        </StackPanel>
+
+        <!-- Row 2: QWERTY row -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource KeyButton}" Content="Tab" Tag="TAB" Click="KeyButton_Click" MinWidth="66"/>
+            <Button Style="{StaticResource KeyButton}" Content="Q" Tag="q" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="W" Tag="w" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="E" Tag="e" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="R" Tag="r" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="T" Tag="t" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Y" Tag="y" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="U" Tag="u" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="I" Tag="i" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="O" Tag="o" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="P" Tag="p" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="[" Tag="[" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="]" Tag="]" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="\" Tag="\" Click="KeyButton_Click" MinWidth="66"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="Del" Tag="DELETE" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="End" Tag="END" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="PgDn" Tag="PAGEDOWN" Click="KeyButton_Click"/>
+        </StackPanel>
+
+        <!-- Row 3: Home row -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource KeyButton}" Content="Caps" Tag="CAPSLOCK" Click="KeyButton_Click" MinWidth="78"/>
+            <Button Style="{StaticResource KeyButton}" Content="A" Tag="a" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="S" Tag="s" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="D" Tag="d" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="F" Tag="f" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="G" Tag="g" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="H" Tag="h" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="J" Tag="j" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="K" Tag="k" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="L" Tag="l" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content=";" Tag=";" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Enter" Tag="ENTER" Click="KeyButton_Click" MinWidth="110"/>
+            <Rectangle Width="10"/>
+            <Rectangle Width="144"/>
+        </StackPanel>
+
+        <!-- Row 4: Bottom row -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Rectangle Width="110"/>
+            <Button Style="{StaticResource KeyButton}" Content="Z" Tag="z" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="X" Tag="x" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="C" Tag="c" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="V" Tag="v" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="B" Tag="b" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="N" Tag="n" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="M" Tag="m" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="," Tag="," Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="." Tag="." Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="/" Tag="/" Click="KeyButton_Click"/>
+            <Rectangle Width="110"/>
+            <Rectangle Width="10"/>
+            <Rectangle Width="48"/>
+            <Button Style="{StaticResource KeyButton}" Content="Up" Tag="UPARROW" Click="KeyButton_Click"/>
+            <Rectangle Width="48"/>
+        </StackPanel>
+
+        <!-- Row 5: Spacebar / modifier row -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Style="{StaticResource ModifierButton}" Content="LCtrl" Tag="[LCTRL]" Click="KeyButton_Click" MinWidth="56"/>
+            <Button Style="{StaticResource ModifierButton}" Content="LWin" Tag="[LWIN]" Click="KeyButton_Click" MinWidth="50"/>
+            <Button Style="{StaticResource ModifierButton}" Content="LAlt" Tag="[LALT]" Click="KeyButton_Click" MinWidth="50"/>
+            <Button Style="{StaticResource ModifierButton}" Content="LShift" Tag="[LSHIFT]" Click="KeyButton_Click" MinWidth="56"/>
+            <Button Style="{StaticResource KeyButton}" Content="Space" Tag="SPACEBAR" Click="KeyButton_Click" MinWidth="220"/>
+            <Button Style="{StaticResource ModifierButton}" Content="RShift" Tag="[RSHIFT]" Click="KeyButton_Click" MinWidth="56"/>
+            <Button Style="{StaticResource ModifierButton}" Content="RAlt" Tag="[RALT]" Click="KeyButton_Click" MinWidth="50"/>
+            <Button Style="{StaticResource ModifierButton}" Content="RWin" Tag="[RWIN]" Click="KeyButton_Click" MinWidth="50"/>
+            <Button Style="{StaticResource ModifierButton}" Content="RCtrl" Tag="[RCTRL]" Click="KeyButton_Click" MinWidth="56"/>
+            <Rectangle Width="10"/>
+            <Button Style="{StaticResource KeyButton}" Content="Left" Tag="LEFTARROW" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Down" Tag="DOWNARROW" Click="KeyButton_Click"/>
+            <Button Style="{StaticResource KeyButton}" Content="Right" Tag="RIGHTARROW" Click="KeyButton_Click"/>
+        </StackPanel>
+
+        <!-- Separator -->
+
+        <!-- Row 7: Numpad + F13-F24 -->
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+            <!-- Numpad -->
+            <Border BorderBrush="#555" BorderThickness="1" CornerRadius="4" Padding="4" Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="Numpad" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="Num" Tag="NUMLOCK" Click="KeyButton_Click" FontSize="10"/>
+                        <Button Style="{StaticResource KeyButton}" Content="/" Tag="K/" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="*" Tag="K*" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="-" Tag="K-" Click="KeyButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="7" Tag="K7" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="8" Tag="K8" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="9" Tag="K9" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="+" Tag="K+" Click="KeyButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="4" Tag="K4" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="5" Tag="K5" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="6" Tag="K6" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="Ent" Tag="KENTER" Click="KeyButton_Click" FontSize="10"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="1" Tag="K1" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="2" Tag="K2" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="3" Tag="K3" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="." Tag="K." Click="KeyButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="0" Tag="K0" Click="KeyButton_Click" MinWidth="92"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- F13-F24 -->
+            <Border BorderBrush="#555" BorderThickness="1" CornerRadius="4" Padding="4" Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="Extended Function Keys" Foreground="#aaa" FontSize="11" HorizontalAlignment="Center" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="F13" Tag="F13" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F14" Tag="F14" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F15" Tag="F15" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F16" Tag="F16" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F17" Tag="F17" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F18" Tag="F18" Click="KeyButton_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Style="{StaticResource KeyButton}" Content="F19" Tag="F19" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F20" Tag="F20" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F21" Tag="F21" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F22" Tag="F22" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F23" Tag="F23" Click="KeyButton_Click"/>
+                        <Button Style="{StaticResource KeyButton}" Content="F24" Tag="F24" Click="KeyButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- NONE button -->
+            <Button Style="{StaticResource NoneButton}" Content="Clear (NONE)" Tag="NONE" Click="KeyButton_Click" MinWidth="120" Height="60" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <!-- Current selection label -->
+        <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,0">
+            <TextBlock Text="Current: " Foreground="#aaa" FontSize="14" VerticalAlignment="Center"/>
+            <TextBlock x:Name="CurrentKeyText" Text="NONE" Foreground="#fff" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

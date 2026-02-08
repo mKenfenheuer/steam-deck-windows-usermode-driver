@@ -619,6 +619,9 @@
     <Compile Include="Pages\DriverStatusPage.xaml.cs">
       <DependentUpon>DriverStatusPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\KeyboardPickerWindow.xaml.cs">
+      <DependentUpon>KeyboardPickerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ProfileEditPage.xaml.cs">
       <DependentUpon>ProfileEditPage.xaml</DependentUpon>
     </Compile>
@@ -670,6 +673,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\KeyboardPickerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ProfileEditPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

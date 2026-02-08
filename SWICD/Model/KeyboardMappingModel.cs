@@ -3,6 +3,7 @@ using SWICD.Config;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,39 +12,26 @@ using SWICD.HVDK;
 
 namespace SWICD.Model
 {
-    internal class KeyboardMappingModel
+    internal class KeyboardMappingModel : INotifyPropertyChanged
     {
-        private EnumComboBoxItem<string> _selectedEmulatedButton;
+        private string _emulatedKeyboardKey = "NONE";
 
-        public ObservableCollection<EnumComboBoxItem<string>> KeyboardItems { get; set; } = new ObservableCollection<EnumComboBoxItem<string>>(new string[] { "NONE" }.Concat(new KeyboardUtils().GetAvailableKeysWithModifiers).Select(e => new EnumComboBoxItem<string>()
-        {
-            Value = e,
-            Display = FontEnumMapper.MapEmulatedKeyboardKeyToFont(e),
-        }));
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public string ButtonText => FontEnumMapper.MapHardwareButtonToFont(HardwareButton); // Regex.Replace(HardwareButton.ToString().Replace("Btn", ""), "([^A-Z])([A-Z])", "$1 $2");
+        public string ButtonText => FontEnumMapper.MapHardwareButtonToFont(HardwareButton);
         public HardwareButton HardwareButton { get; set; }
-        public EnumComboBoxItem<string> SelectedKeyboardKey
-        {
-            get => _selectedEmulatedButton;
-            set
-            {
-                _selectedEmulatedButton = value;
-                if (SetAction != null)
-                    SetAction(value.Value);
-            }
-        }
+        public string SelectedKeyboardKeyDisplay => _emulatedKeyboardKey;
         public Action<string> SetAction { get; set; }
         public string EmulatedKeyboardKey
         {
-            get => SelectedKeyboardKey.Value;
+            get => _emulatedKeyboardKey;
             set
             {
-                SelectedKeyboardKey = new EnumComboBoxItem<string>()
-                {
-                    Value = value,
-                    Display = FontEnumMapper.MapEmulatedKeyboardKeyToFont(value),
-                };
+                _emulatedKeyboardKey = value;
+                if (SetAction != null)
+                    SetAction(value);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedKeyboardKeyDisplay)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EmulatedKeyboardKey)));
             }
         }
     }

@@ -472,13 +472,39 @@
                                             VerticalAlignment="Center" 
                                             FontSize="30" />
 
-                                    <ComboBox
+                                    <Button
                                         Grid.Column="1"
-                                        FontSize="30"
-                                        FontFamily="{DynamicResource PromptFont}"
+                                        FontSize="14"
+                                        Foreground="#fff"
+                                        HorizontalContentAlignment="Left"
                                         VerticalContentAlignment="Center"
-                                        SelectedItem="{Binding SelectedKeyboardKey}"
-                                        ItemsSource="{Binding KeyboardItems}" />
+                                        Tag="{Binding}"
+                                        Click="KeyboardPickerButton_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#3c3c3c"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}"
+                                                                    CornerRadius="3"
+                                                                    Padding="8,4">
+                                                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#555"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.Content>
+                                            <TextBlock Text="{Binding SelectedKeyboardKeyDisplay}" />
+                                        </Button.Content>
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

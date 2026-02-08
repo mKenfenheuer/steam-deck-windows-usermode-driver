@@ -1,5 +1,6 @@
 ﻿using SWICD.ViewModels;
 using SWICD.Config;
+using SWICD.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,20 @@ namespace SWICD.Pages
         {
             InitializeComponent();
             this.DataContext = new ProfileEditPageViewModel(controllerConfig);
+        }
+
+        private void KeyboardPickerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var model = button?.Tag as KeyboardMappingModel;
+            if (model == null) return;
+
+            var picker = new KeyboardPickerWindow(model.EmulatedKeyboardKey);
+            picker.Owner = Window.GetWindow(this);
+            if (picker.ShowDialog() == true)
+            {
+                model.EmulatedKeyboardKey = picker.SelectedKey;
+            }
         }
     }
 }
