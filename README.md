@@ -1,3 +1,8 @@
+# DEPRECATION NOTICE
+Superseeded by kernel driver development:
+https://github.com/mKenfenheuer/steamdeck-kernel-driver
+
+
 # Steamdeck Windows Controller Driver
 **S**teamdeck **WI**ndows **C**ontroller **D**river (SWICD)
 
